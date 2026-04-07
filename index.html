@@ -739,10 +739,10 @@
     .overview-band.band-cream {
       background: #FAF8F5;
     }
-    /* Stats band: floating white cards overlapping hero */
+    /* Stats band: floating cards on seamless navy */
     .stats-band {
-      width: 100%; background: transparent;
-      padding: 0 0 48px 0; margin-bottom: 0;
+      width: 100%; background: var(--navy);
+      padding: 0 0 40px 0; margin-bottom: 0;
       position: relative; z-index: 5;
       margin-top: -52px;
     }
@@ -751,15 +751,16 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
     .stats-band .overview-stat {
-      background: rgba(37,39,58,0.68);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.6);
       border-radius: 10px;
       padding: 22px 24px; text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
-    .stats-band .overview-stat-value { color: #fff; }
-    .stats-band .overview-stat-label { color: rgba(255,255,255,0.55); }
+    .stats-band .overview-stat-value { color: var(--navy); }
+    .stats-band .overview-stat-label { color: #666; }
     .overview-stat-icon {
       color: #D4AF37;
       margin-bottom: 10px;
@@ -834,7 +835,11 @@
       color: rgba(255,255,255,0.45);
       z-index: 3; font-style: italic;
     }
-    .hero-eyebrow { color: rgba(255,255,255,0.6) !important; justify-content: center; }
+    .hero-eyebrow {
+      font-size: 13px !important; font-weight: 600 !important;
+      letter-spacing: 2px !important; color: rgba(255,255,255,0.6) !important;
+      justify-content: center;
+    }
     .hero-eyebrow::before { display: none; }
     .hero-divider { width: 40px; height: 2px; background: var(--yellow); margin: 24px auto; }
     .hero-copy-centred {
