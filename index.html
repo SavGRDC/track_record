@@ -847,8 +847,14 @@
       z-index: 3; font-style: italic;
     }
     .hero-eyebrow {
-      font-size: 16px !important; font-weight: 600 !important;
-      letter-spacing: 2px !important; color: rgba(255,255,255,0.82) !important;
+      display: inline-block !important;
+      font-size: 10px !important; font-weight: 700 !important;
+      letter-spacing: 2px !important; text-transform: uppercase !important;
+      color: var(--navy) !important;
+      background: var(--yellow) !important;
+      padding: 6px 16px !important;
+      border-radius: 2px !important;
+      margin-bottom: 22px !important;
       justify-content: center;
     }
     .hero-eyebrow::before { display: none; }
@@ -862,11 +868,15 @@
     .tagline-white { color: #fff !important; font-style: normal; }
     .hero-copy-white { color: rgba(255,255,255,0.82) !important; }
     .hero-cta-gold {
-      background: var(--yellow) !important;
-      color: var(--navy) !important;
-      font-weight: 700;
+      background: rgba(255,255,255,0.12) !important;
+      border: 1px solid rgba(255,255,255,0.22) !important;
+      color: rgba(255,255,255,0.82) !important;
+      font-weight: 600 !important;
     }
-    .hero-cta-gold:hover { background: #e0c060 !important; }
+    .hero-cta-gold:hover {
+      background: rgba(255,255,255,0.22) !important;
+      color: #fff !important;
+    }
 
     /* What We Do - service rows */
     .what-intro {
@@ -1194,11 +1204,11 @@
       <div class="hero-grad"></div>
       <div class="hero-caption">Raffles Old War Office, London</div>
       <div class="overview-band-inner hero-content" style="text-align:center;">
-        <div class="page-eyebrow hero-eyebrow" style="text-align:center;">Savills Global Residential Development Consultancy</div>
+        <div class="hero-eyebrow">Savills Global Residential Development Consultancy</div>
         <p class="overview-hero-tagline"><span class="tagline-white">The World's Leading Advisors in Branded Residences.</span></p>
         <div class="hero-divider"></div>
         <p class="hero-copy-centred">Strategic advisory for branded residential developments, from concept through to commercialisation.</p>
-        <button class="overview-hero-cta hero-cta-gold" onclick="showPage('map')">Explore Our Global Track Record &rarr;</button>
+        <button class="overview-hero-cta hero-cta-gold" onclick="showPage('map')">View our global track record &rarr;</button>
       </div>
     </div>
 
