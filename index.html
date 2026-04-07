@@ -671,7 +671,7 @@
     .overview-hero-left {}
     .overview-hero-tagline {
       font-family: var(--font-serif); font-size: 56px; font-weight: 500;
-      color: var(--navy); line-height: 1.05; letter-spacing: -1px;
+      color: var(--navy); line-height: 1.22; letter-spacing: -1px;
       margin: 0;
     }
     .overview-hero-tagline em.tagline-red {
@@ -737,11 +737,11 @@
     }
     .overview-band.band-navy .overview-cta:hover { background: #e6c84a; }
     .overview-band.band-cream {
-      background: #FAF8F5;
+      background: #fff;
     }
     /* Stats band: floating white cards overlapping hero */
     .stats-band {
-      width: 100%; background: transparent;
+      width: 100%; background: #fff;
       padding: 0 0 48px 0; margin-bottom: 0;
       position: relative; z-index: 5;
       margin-top: -52px;
@@ -751,16 +751,18 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
     .stats-band .overview-stat {
-      background: #fff;
+      background: rgba(37,39,58,0.68);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 22px 24px;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(37,39,58,0.16);
     }
-    .stats-band .overview-stat-value { color: var(--navy); }
-    .stats-band .overview-stat-label { color: #888; }
+    .stats-band .overview-stat-value { color: #fff; }
+    .stats-band .overview-stat-label { color: rgba(255,255,255,0.55); }
     .overview-stat-icon {
-      color: var(--yellow);
+      color: #5BA3E8;
       margin-bottom: 10px;
       display: flex;
       justify-content: center;
@@ -1140,16 +1142,9 @@
       <div class="hero-grad"></div>
       <div class="hero-caption">Raffles Old War Office, London</div>
       <div class="overview-band-inner hero-content">
-        <div class="overview-hero" style="margin-bottom:0;">
-          <div class="overview-hero-left">
-            <div class="page-eyebrow hero-eyebrow">Savills Global Residential Development Consultancy</div>
-            <p class="overview-hero-tagline"><em class="tagline-red">Trusted</em> <span class="tagline-white">Branded Residential Advisory.</span></p>
-          </div>
-          <div class="overview-hero-right">
-            <p class="overview-hero-copy hero-copy-white">The world's most trusted advisors in branded residences. Advising from concept to commercialisation across 51 countries and £38.5bn of GDV.</p>
-            <button class="overview-hero-cta hero-cta-gold" onclick="showPage('map')">Explore Our Track Record &rarr;</button>
-          </div>
-        </div>
+        <div class="page-eyebrow hero-eyebrow">Savills Global Residential Development Consultancy</div>
+        <p class="overview-hero-tagline"><em class="tagline-red">Trusted</em> <span class="tagline-white">Branded Residential Advisory.</span></p>
+        <button class="overview-hero-cta hero-cta-gold" style="margin-top:28px;" onclick="showPage('map')">Explore Our Track Record &rarr;</button>
       </div>
     </div>
 
@@ -1159,7 +1154,7 @@
         <div class="overview-stat">
           <div class="overview-stat-icon">
             <!-- GDV: currency/chart icon -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="13" width="4" height="9" rx="1" fill="currentColor" opacity="0.5"/>
               <rect x="9" y="8" width="4" height="14" rx="1" fill="currentColor" opacity="0.75"/>
               <rect x="16" y="3" width="4" height="19" rx="1" fill="currentColor"/>
@@ -1171,7 +1166,7 @@
         <div class="overview-stat">
           <div class="overview-stat-icon">
             <!-- Projects: building icon -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="3" y="6" width="10" height="16" rx="1" fill="currentColor" opacity="0.6"/>
               <rect x="13" y="10" width="8" height="12" rx="1" fill="currentColor"/>
               <rect x="6" y="9" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
@@ -1188,7 +1183,7 @@
         <div class="overview-stat">
           <div class="overview-stat-icon">
             <!-- Countries: globe icon -->
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
               <ellipse cx="12" cy="12" rx="4" ry="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
               <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="1.5"/>
