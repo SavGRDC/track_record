@@ -325,7 +325,7 @@
       font-size: 9px; flex-shrink: 0;
     }
 
-    /* Global projects drawer — slides in from left */
+    /* Global projects drawer - slides in from left */
     .global-panel {
       position: fixed;
       top: calc(var(--header-h) + var(--nav-h) + var(--filter-h));
@@ -403,6 +403,22 @@
       z-index: 1;
     }
     #map.panel-open { right: var(--panel-w); }
+    .map-hint {
+      position: fixed;
+      top: calc(var(--header-h) + var(--nav-h) + var(--filter-h) + 12px);
+      left: 50%; transform: translateX(-50%);
+      background: rgba(37,39,58,0.82);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px; letter-spacing: 0.4px;
+      padding: 7px 16px 7px 12px;
+      border-radius: 20px;
+      display: flex; align-items: center; gap: 7px;
+      pointer-events: none;
+      z-index: 10;
+      transition: opacity 0.6s ease;
+      white-space: nowrap;
+    }
+    .map-hint.hidden { opacity: 0; }
 
     /* Legend */
     .legend {
@@ -669,7 +685,7 @@
       .site-footer-inner { grid-template-columns: 1fr; gap: 32px; }
     }
 
-    /* Option D — alternating full-bleed overview sections */
+    /* Option D - alternating full-bleed overview sections */
     .overview-band {
       width: 100%;
       padding: 72px 0;
@@ -712,6 +728,11 @@
     .stats-band .overview-stat { background: transparent; padding: 20px 28px; }
     .stats-band .overview-stat-value { color: #FFFFFF; }
     .stats-band .overview-stat-label { color: rgba(255,255,255,0.5); }
+    .overview-stat-icon {
+      color: var(--yellow);
+      margin-bottom: 10px;
+      display: flex;
+    }
     /* Divider lines between stat cols */
     .stats-band-inner .overview-stat + .overview-stat {
       border-left: 1px solid rgba(255,255,255,0.12);
@@ -721,7 +742,41 @@
     .band-white .overview-hero-copy { color: var(--text-body); }
     .band-white .overview-hero-cta { background: var(--navy); color: #fff; }
 
-    /* What We Do — service rows */
+    /* Hero band */
+    .band-hero {
+      position: relative; overflow: hidden;
+      min-height: 480px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 40%;
+    }
+    .hero-tint {
+      position: absolute; inset: 0;
+      background: rgba(37,39,58,0.55);
+    }
+    .hero-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(37,39,58,0.92) 0%, rgba(37,39,58,0.2) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding-top: 80px; padding-bottom: 64px;
+    }
+    .hero-eyebrow { color: rgba(255,255,255,0.6) !important; }
+    .tagline-white { color: #fff !important; font-style: normal; }
+    .hero-copy-white { color: rgba(255,255,255,0.82) !important; }
+    .hero-cta-gold {
+      background: var(--yellow) !important;
+      color: var(--navy) !important;
+      font-weight: 700;
+    }
+    .hero-cta-gold:hover { background: #e0c060 !important; }
+
+    /* What We Do - service rows */
     .what-intro {
       font-size: 16px; line-height: 1.85; color: var(--text-body);
       max-width: 720px; border-left: 3px solid var(--yellow);
@@ -964,6 +1019,12 @@
   
 </div>
 
+<!-- ── MAP HINT ──────────────────────────────────────────────────────────── -->
+<div class="map-hint">
+  <svg width="13" height="15" viewBox="0 0 10 12" fill="none" style="flex-shrink:0;opacity:0.7"><path d="M5 0C2.8 0 1 1.8 1 4c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" fill="currentColor"/></svg>
+  Click a pin to view project details
+</div>
+
 <!-- ── MAP ──────────────────────────────────────────────────────────────── -->
 <div id="map"></div>
 
@@ -1027,76 +1088,109 @@
 <div class="content-page" id="page-overview">
   <div class="page-inner" style="padding:0; max-width:none;">
 
-    <!-- BAND 1: Hero — white -->
-    <div class="overview-band band-white">
-      <div class="overview-band-inner">
+    <!-- BAND 1: Hero - full bleed image -->
+    <div class="overview-band band-hero">
+      <img class="hero-bg" src="https://savgrdc.github.io/track_record/images/porto-montenegro.jpg" alt="Porto Montenegro">
+      <div class="hero-tint"></div>
+      <div class="hero-grad"></div>
+      <div class="overview-band-inner hero-content">
         <div class="overview-hero" style="margin-bottom:0;">
           <div class="overview-hero-left">
-            <div class="page-eyebrow">Savills Global Residential Development Consultancy</div>
-            <p class="overview-hero-tagline"><em class="tagline-red">Trusted</em><span class="tagline-blue">Branded Residential Advisory.</span></p>
+            <div class="page-eyebrow hero-eyebrow">Savills Global Residential Development Consultancy</div>
+            <p class="overview-hero-tagline"><em class="tagline-red">Trusted</em><span class="tagline-white">Branded Residential Advisory.</span></p>
           </div>
           <div class="overview-hero-right">
-            <p class="overview-hero-copy">The first and leading branded residential advisors since 2009. Savills GRDC delivers end-to-end advisory from project conception through to commercialisation &mdash; across 51 countries and £38.5bn of GDV advised.</p>
-            <button class="overview-hero-cta" onclick="showPage('map')">Explore Our Track Record &rarr;</button>
+            <p class="overview-hero-copy hero-copy-white">The first and leading branded residential advisors since 2009. Savills GRDC delivers end-to-end advisory from project conception through to commercialisation, across 51 countries and £38.5bn of GDV advised.</p>
+            <button class="overview-hero-cta hero-cta-gold" onclick="showPage('map')">Explore Our Track Record &rarr;</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- BAND 2: Stats — navy -->
+    <!-- BAND 2: Stats - navy -->
     <div class="stats-band" id="overviewStats">
       <div class="stats-band-inner">
         <div class="overview-stat">
+          <div class="overview-stat-icon">
+            <!-- GDV: currency/chart icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="13" width="4" height="9" rx="1" fill="currentColor" opacity="0.5"/>
+              <rect x="9" y="8" width="4" height="14" rx="1" fill="currentColor" opacity="0.75"/>
+              <rect x="16" y="3" width="4" height="19" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
           <div class="overview-stat-value" id="ostat-gdv">£38.5bn</div>
           <div class="overview-stat-label">GDV Advised</div>
         </div>
         <div class="overview-stat">
+          <div class="overview-stat-icon">
+            <!-- Projects: building icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="6" width="10" height="16" rx="1" fill="currentColor" opacity="0.6"/>
+              <rect x="13" y="10" width="8" height="12" rx="1" fill="currentColor"/>
+              <rect x="6" y="9" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
+              <rect x="10" y="9" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
+              <rect x="6" y="13" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
+              <rect x="10" y="13" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
+              <rect x="16" y="14" width="2" height="2" rx="0.3" fill="white" opacity="0.7"/>
+              <rect x="7" y="18" width="4" height="4" rx="0.3" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
           <div class="overview-stat-value" id="ostat-projects">265</div>
           <div class="overview-stat-label">Projects</div>
         </div>
         <div class="overview-stat">
+          <div class="overview-stat-icon">
+            <!-- Countries: globe icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <ellipse cx="12" cy="12" rx="4" ry="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="3" y1="15" x2="21" y2="15" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
           <div class="overview-stat-value" id="ostat-countries">51</div>
           <div class="overview-stat-label">Countries</div>
         </div>
       </div>
     </div>
 
-    <!-- BAND 3: About — cream -->
+    <!-- BAND 3: About - cream -->
     <div class="overview-band band-cream">
       <div class="overview-band-inner">
         <div class="overview-section" style="margin-bottom:0;">
           <h2 class="overview-section-title">About Savills GRDC</h2>
           <div class="overview-body">
-            <p>The first and leading branded residential advisors, Savills GRDC has been at the forefront of this sector since 2009. The team comprises two core divisions &mdash; Consultancy and Sales &amp; Marketing &mdash; working in tandem to deliver a seamless end-to-end service from project conception to successful commercialisation.</p>
+            <p>The first and leading branded residential advisors, Savills GRDC has been at the forefront of this sector since 2009. The team comprises two core divisions - Consultancy and Sales &amp; Marketing - working in tandem to deliver a seamless end-to-end service from project conception to successful commercialisation.</p>
             <p>Based in London and Dubai, our experts bring unrivalled experience across luxury large-scale mixed-use destination resorts and specialist standalone residential developments in urban and resort locations worldwide. Working closely with Savills&rsquo; international network of offices, we provide advisory grounded in a deep understanding of global property demand dynamics.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- BAND 4: Market — navy -->
+    <!-- BAND 4: Market - navy -->
     <div class="overview-band band-navy">
       <div class="overview-band-inner">
         <div class="overview-section" style="margin-bottom:0;">
           <h2 class="overview-section-title">The Branded Residences Market</h2>
           <div class="overview-body">
             <p>The branded residences sector has proven its resilience through periods of significant global uncertainty, growing over 180% in the past decade. The development pipeline continues to expand, with upcoming projects set to double current supply by the end of the forecast period.</p>
-            <p>In 2024, branded residences commanded a global average premium of 33% over non-branded equivalents &mdash; rising to 47% in emerging cities where luxury brands attract growing high-net-worth populations.</p>
-            <p>The sector is no longer the exclusive domain of luxury hotel brands. Non-hotel brands are entering in increasing numbers, catering to the evolving preferences of younger buyers who are reshaping amenity and service expectations globally &mdash; prioritising wellness facilities, flexible workspaces and larger living areas.</p>
+            <p>In 2024, branded residences commanded a global average premium of 33% over non-branded equivalents, rising to 47% in emerging cities where luxury brands attract growing high-net-worth populations.</p>
+            <p>The sector is no longer the exclusive domain of luxury hotel brands. Non-hotel brands are entering in increasing numbers, catering to the evolving preferences of younger buyers who are reshaping amenity and service expectations globally, prioritising wellness facilities, flexible workspaces and larger living areas.</p>
             <p>Dubai, South Florida, and New York remain the top destinations for branded residences, while emerging cities and resort locations are rapidly climbing the rankings.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- BAND 5: Network — white -->
+    <!-- BAND 5: Network - white -->
     <div class="overview-band band-white">
       <div class="overview-band-inner">
         <div class="overview-section" style="margin-bottom:0;">
           <h2 class="overview-section-title">Our Global Network</h2>
           <div class="overview-body">
             <p>With over 170 years in residential property, Savills has built enduring relationships and a network of 700+ offices worldwide. Savills GRDC works closely with this network to ensure clients receive the most current market intelligence, buyer insight and transactional data available.</p>
-            <p>From market research and financial viability through to sales, marketing and capital markets, Savills advises across the full development lifecycle &mdash; de-risking and optimising projects from inception to completion.</p>
+            <p>From market research and financial viability through to sales, marketing and capital markets, Savills advises across the full development lifecycle, de-risking and optimising projects from inception to completion.</p>
           </div>
           <button class="overview-cta" onclick="showPage('map')" style="margin-top:32px;">Explore Track Record &rarr;</button>
         </div>
@@ -1149,7 +1243,7 @@
           <div class="service-row-title">Brand Search</div>
           <span class="service-row-tag">Developers</span>
         </div>
-        <div class="service-row-desc">Identifying the right brand partner is one of the most critical decisions in a branded residences project. Savills GRDC manages the full brand search and selection process &mdash; from defining the brand brief and longlisting candidates to negotiating term sheets and finalising brand agreements on behalf of the developer.</div>
+        <div class="service-row-desc">Identifying the right brand partner is one of the most critical decisions in a branded residences project. Savills GRDC manages the full brand search and selection process: from defining the brand brief and longlisting candidates to negotiating term sheets and finalising brand agreements on behalf of the developer.</div>
       </div>
 
       <div class="service-row" style="--accent-col:#4A6FA5">
@@ -1167,7 +1261,7 @@
           <div class="service-row-title">Operator Advisory</div>
           <span class="service-row-tag">Developers &amp; operators</span>
         </div>
-        <div class="service-row-desc">Structuring branded residences &mdash; whether standalone or integrated developments &mdash; requires thoughtful consideration to ensure seamless operations and maximum synergistic impact. Savills GRDC offers guidance on rental programmes, HOA integration, residential agreements and budgeting, protecting stakeholders and delivering successful projects.</div>
+        <div class="service-row-desc">Structuring branded residences, whether standalone or integrated developments, requires thoughtful consideration to ensure seamless operations and maximum synergistic impact. Savills GRDC offers guidance on rental programmes, HOA integration, residential agreements and budgeting, protecting stakeholders and delivering successful projects.</div>
       </div>
 
       <div class="service-row" style="--accent-col:#B8621A">
@@ -1310,7 +1404,7 @@
           <div class="case-cs-grid">
             <div class="case-cs-box challenges">
               <div class="case-cs-label">The Challenge</div>
-              <div class="case-cs-text">Europe&rsquo;s largest urban regeneration project &mdash; 3 million sq m GBA, GDV exceeding $9.6bn &mdash; requiring comprehensive financial appraisal of 10,000+ residential units across two luxury branded schemes, 3,000 hotel keys, major retail and office components, a marina, casino and a 2 million sq m metropolitan park.</div>
+              <div class="case-cs-text">Europe&rsquo;s largest urban regeneration project: 3 million sq m GBA, GDV exceeding $9.6bn - requiring comprehensive financial appraisal of 10,000+ residential units across two luxury branded schemes, 3,000 hotel keys, major retail and office components, a marina, casino and a 2 million sq m metropolitan park.</div>
             </div>
             <div class="case-cs-box successes">
               <div class="case-cs-label">Our Approach</div>
@@ -1338,7 +1432,7 @@
                 <div class="timeline-heading">Development Consultancy &amp; Capital Markets</div>
                 <ul class="timeline-bullets">
                   <li>Branded vs non-branded quantum recommendations</li>
-                  <li>Residential offering review &mdash; unit sizes, plot sizes, amenities</li>
+                  <li>Residential offering review: unit sizes, plot sizes, amenities</li>
                   <li>Inventory pricing, absorption rates and growth rate modelling</li>
                   <li>Capital Markets Agency advisory</li>
                   <li>Strategic phasing and sales strategy</li>
@@ -1387,11 +1481,11 @@
           <div class="case-cs-grid">
             <div class="case-cs-box challenges">
               <div class="case-cs-label">The Challenge</div>
-              <div class="case-cs-text">Dragon Palace Estate sits in a location with no history of high-value residential transactions &mdash; no pricing benchmark, no absorption data, and no precedent for branded residences at this scale in non-urban China. The client&rsquo;s ambition was to price at global trophy-asset levels. Our research confirmed this as a credible end-state, but not a viable launch strategy.</div>
+              <div class="case-cs-text">Dragon Palace Estate sits in a location with no history of high-value residential transactions: no pricing benchmark, no absorption data, and no precedent for branded residences at this scale in non-urban China. The client&rsquo;s ambition was to price at global trophy-asset levels. Our research confirmed this as a credible end-state, but not a viable launch strategy.</div>
             </div>
             <div class="case-cs-box successes">
               <div class="case-cs-label">The Outcome</div>
-              <div class="case-cs-text">A credible pricing framework projecting total GDV in excess of US$3 billion across a 7&ndash;8 year sell-out &mdash; combining market evidence, a four-phase pricing escalation strategy, full DCF model, and a stated opinion of value. A strategy that treats the project&rsquo;s lack of comparables not as a weakness, but as the foundation of its pricing power.</div>
+              <div class="case-cs-text">A credible pricing framework projecting total GDV in excess of US$3 billion across a 7&ndash;8 year sell-out, combining market evidence, a four-phase pricing escalation strategy, full DCF model, and a stated opinion of value. A strategy that treats the project&rsquo;s lack of comparables not as a weakness, but as the foundation of its pricing power.</div>
             </div>
           </div>
           <div class="case-timeline">
@@ -1401,7 +1495,7 @@
                 <span class="tl-dot"></span>
                 <div class="timeline-heading">Market Research &amp; Benchmarking</div>
                 <ul class="timeline-bullets">
-                  <li>No local pricing precedent &mdash; nearest comparables 130km away in Shanghai and Hangzhou</li>
+                  <li>No local pricing precedent: nearest comparables 130km away in Shanghai and Hangzhou</li>
                   <li>International UHNW buyer profiling and demand segmentation</li>
                   <li>Entry price point analysis: unit mix redesigned to bring threshold pricing to market-driven levels</li>
                 </ul>
@@ -1459,7 +1553,7 @@
           <div class="case-cs-grid">
             <div class="case-cs-box challenges">
               <div class="case-cs-label">The Brief</div>
-              <div class="case-cs-text">Maybourne Hotel Group — owner of Claridge's, The Connaught and The Berkeley — engaged Savills GRDC to provide development consultancy across a growing international portfolio of new-build and conversion projects, spanning London, Hampshire, Marrakesh, Miami, Paris and New York.</div>
+              <div class="case-cs-text">Maybourne Hotel Group - owner of Claridge's, The Connaught and The Berkeley - engaged Savills GRDC to provide development consultancy across a growing international portfolio of new-build and conversion projects, spanning London, Hampshire, Marrakesh, Miami, Paris and New York.</div>
             </div>
             <div class="case-cs-box successes">
               <div class="case-cs-label">The Outcome</div>
@@ -1542,7 +1636,7 @@
           <div class="case-cs-grid">
             <div class="case-cs-box challenges">
               <div class="case-cs-label">The Brief</div>
-              <div class="case-cs-text">Accor engaged Savills GRDC as a preferred research partner to support its branded residential expansion, commissioning both market intelligence reports and brand premium studies across key global markets — including the Middle East, Australia, the UAE and the USA.</div>
+              <div class="case-cs-text">Accor engaged Savills GRDC as a preferred research partner to support its branded residential expansion, commissioning both market intelligence reports and brand premium studies across key global markets, including the Middle East, Australia, the UAE and the USA.</div>
             </div>
             <div class="case-cs-box successes">
               <div class="case-cs-label">The Outcome</div>
@@ -1551,27 +1645,60 @@
           </div>
           <div class="case-timeline">
             <div class="timeline-item">
-              <div class="timeline-year">01</div>
+              <div class="timeline-year">2024</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Market Intelligence — Middle East & Africa</div>
+                <div class="timeline-heading">Market Intelligence: Middle East &amp; Africa</div>
                 <ul class="timeline-bullets"><li>Regional demand and pipeline analysis across MEA branded residential markets</li></ul>
               </div>
             </div>
             <div class="timeline-item">
-              <div class="timeline-year">02</div>
+              <div class="timeline-year">2024</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Market Intelligence — Australia, London, UAE, USA</div>
+                <div class="timeline-heading">Market Intelligence: Australia, London, UAE, USA</div>
                 <ul class="timeline-bullets"><li>Multi-market study covering four key Accor expansion markets</li></ul>
               </div>
             </div>
             <div class="timeline-item">
-              <div class="timeline-year">03</div>
+              <div class="timeline-year">2024</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Brand Premium Studies — Global</div>
-                <ul class="timeline-bullets"><li>Quantifying the Accor branded residential premium across target development markets</li></ul>
+                <div class="timeline-heading">Brand Premiums 2024: Report Case Studies</div>
+                <ul class="timeline-bullets">
+                  <li>Mondrian Gold Coast Residences</li>
+                  <li>Raffles Boston</li>
+                  <li>Raffles OWO</li>
+                  <li>Rixos Dubai Islands</li>
+                  <li>SLS Palm Jumeirah</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2025</div>
+              <div class="timeline-track">
+                <span class="tl-dot"></span>
+                <div class="timeline-heading">Brand Premiums 2025: Report Case Studies</div>
+                <ul class="timeline-bullets">
+                  <li>25h Heimat Residences Downtown Dubai</li>
+                  <li>Faena Sao Paulo</li>
+                  <li>Fairmont Heritage Place Telluride</li>
+                  <li>SLS Residences Madrid Infantas</li>
+                  <li>SO Residences Uptown Dubai</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2026</div>
+              <div class="timeline-track">
+                <span class="tl-dot"></span>
+                <div class="timeline-heading">Brand Premiums 2026: Proposal Sent</div>
+                <ul class="timeline-bullets">
+                  <li>Raffles OWO</li>
+                  <li>Raffles Boston</li>
+                  <li>Mama Shelter Cape Town</li>
+                  <li>Fairmont Al Marjan</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -2102,7 +2229,7 @@ function updateStats() {
   if (el) el.textContent = total;
   const headerCountries = document.getElementById('stat-countries');
   if (headerCountries) headerCountries.textContent = uniqueCountries;
-  // Overview stats band — always in sync
+  // Overview stats band - always in sync
   const oProjects = document.getElementById('ostat-projects');
   if (oProjects) oProjects.textContent = total;
   const oCountries = document.getElementById('ostat-countries');
@@ -2227,6 +2354,8 @@ function openPanel(dev) {
   panel.classList.add('open');
   if (map) document.getElementById('map').classList.add('panel-open');
   setTimeout(() => map && map.invalidateSize(), 380);
+  const hintEl = document.querySelector('.map-hint');
+  if (hintEl) hintEl.classList.add('hidden');
 }
 
 function closePanel(shrinkMap) {
@@ -2363,6 +2492,12 @@ window.addEventListener('DOMContentLoaded', () => {
   renderMarkers();
   map.invalidateSize();
   showPage('overview'); runOverviewCounters();
+  // Fade hint after 5s; also hide on first pin click
+  const hintEl = document.querySelector('.map-hint');
+  if (hintEl) {
+    setTimeout(() => hintEl.classList.add('hidden'), 5000);
+    map.on('click', () => hintEl.classList.add('hidden'));
+  }
 });
 </script>
 </body>
