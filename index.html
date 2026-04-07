@@ -770,6 +770,35 @@
     .stats-band-inner .overview-stat + .overview-stat {
       border-left: none;
     }
+
+    /* Brand logo band */
+    .logo-band {
+      background: var(--navy);
+      padding: 28px 0 20px;
+    }
+    .logo-band-label {
+      text-align: center;
+      font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 4px;
+    }
+    .logo-band-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      max-width: 1100px; margin: 0 auto; padding: 0 40px;
+    }
+    .logo-band-cell {
+      display: flex; align-items: center; justify-content: center;
+      padding: 18px 16px;
+    }
+    .logo-band-cell img {
+      max-height: 34px; max-width: 110px;
+      width: auto; height: auto; object-fit: contain; display: block;
+      filter: brightness(0) invert(1) opacity(0.5);
+      transition: filter 0.25s;
+    }
+    .logo-band-cell:hover img {
+      filter: brightness(0) invert(1) opacity(1);
+    }
     /* Hero on white */
     .band-white .overview-hero-tagline { color: var(--navy); }
     .band-white .overview-hero-copy { color: var(--text-body); }
@@ -1205,7 +1234,24 @@
       </div>
     </div>
 
-    <!-- BAND 3: About - cream -->
+    <!-- BAND 3: Brand logos -->
+    <div class="logo-band">
+      <div class="logo-band-label">Brands We Work With</div>
+      <div class="logo-band-grid">
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Four-Seasons.png" alt="Four Seasons"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Rosewood.png" alt="Rosewood"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Mandarin-oriental.png" alt="Mandarin Oriental"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Six-senses.png" alt="Six Senses"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/W-hotels.png" alt="W Hotels"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Accor-hotels.png" alt="Accor"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Marriott-international.png" alt="Marriott"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Maybourne-hotel-group.svg.png" alt="Maybourne"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/One&amp;Only.webp" alt="One&amp;Only"></div>
+        <div class="logo-band-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Ritz-carlton.png" alt="Ritz-Carlton"></div>
+      </div>
+    </div>
+
+    <!-- BAND 4: About - cream -->
     <div class="overview-band band-cream">
       <div class="overview-band-inner">
         <div class="overview-section" style="margin-bottom:0;">
