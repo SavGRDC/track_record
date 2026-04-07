@@ -432,7 +432,7 @@
     /* Image placeholder */
     .panel-img {
       position: relative; flex-shrink: 0;
-      height: 200px;
+      height: 210px;
       background: linear-gradient(135deg, var(--navy) 0%, #3d4065 60%, #9a1e22 100%);
       overflow: hidden;
     }
@@ -443,46 +443,50 @@
     }
     .panel-img-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+      background: rgba(37,39,58,0.62);
+    }
+    .panel-img-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(37,39,58,0.88) 0%, transparent 55%);
     }
     .panel-img-pattern {
       position: absolute; inset: 0; opacity: 0.07;
       background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
       background-size: 12px 12px;
     }
-    .panel-img-brand {
-      position: absolute; bottom: 16px; left: 20px; right: 52px;
-      color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 2.5px;
-      text-transform: uppercase; font-weight: 600;
+    .panel-img-text {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px 20px 14px; z-index: 2;
     }
-    .panel-img-location {
-      position: absolute; top: 16px; left: 20px;
-      color: rgba(255,255,255,0.55); font-size: 11px; display: flex; align-items: center; gap: 5px;
+    .panel-img-title {
+      font-family: var(--font-serif); font-size: 19px; font-weight: 500;
+      color: #fff; line-height: 1.25; margin-bottom: 4px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.35);
     }
+    .panel-img-sub {
+      font-size: 11px; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .panel-img-brand { display: none; }
+    .panel-img-location { display: none; }
     .panel-close {
       position: absolute; top: 12px; right: 12px;
       background: rgba(0,0,0,0.3); border: none; border-radius: 50%;
       color: rgba(255,255,255,0.8); font-size: 13px; cursor: pointer;
       width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s; z-index: 2;
+      transition: background 0.15s; z-index: 3;
     }
     .panel-close:hover { background: rgba(0,0,0,0.55); color: #fff; }
 
     /* Panel body */
     .panel-body { padding: 20px 22px 32px; flex: 1; }
-    .panel-title {
-      font-family: var(--font-serif); font-size: 20px; font-weight: 500;
-      color: var(--navy); line-height: 1.25; margin-bottom: 4px;
-    }
-    .panel-location-sub {
-      font-size: 12px; color: #7a8099; margin-bottom: 14px;
-      display: flex; align-items: center; gap: 5px;
-    }
+    .panel-title { display: none; }
+    .panel-location-sub { display: none; }
 
     /* Stats grid */
     .panel-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1px; background: #e8e3db;
       border: 1px solid #e8e3db; border-radius: 6px;
       overflow: hidden; margin-bottom: 20px;
@@ -979,9 +983,14 @@
   <div class="panel-img" id="panelImg">
     <img class="panel-photo" id="panelPhoto" src="" alt="" style="display:none;">
     <div class="panel-img-overlay" id="panelOverlay" style="display:none;"></div>
+    <div class="panel-img-grad" id="panelGrad" style="display:none;"></div>
     <div class="panel-img-pattern" id="panelPattern"></div>
     <div class="panel-img-location" id="panelLocation"></div>
     <div class="panel-img-brand" id="panelBrand"></div>
+    <div class="panel-img-text" id="panelImgText">
+      <div class="panel-img-title" id="panelImgTitle"></div>
+      <div class="panel-img-sub" id="panelImgSub"></div>
+    </div>
     <button class="panel-close" onclick="closePanel(true)">&#10005;</button>
   </div>
   <!-- Body -->
@@ -2144,25 +2153,22 @@ function renderMarkers() {
 function openPanel(dev) {
   const panel = document.getElementById('sidePanel');
 
-  // Header / image area
-  document.getElementById('panelBrand').textContent    = dev.brand || '';
-  document.getElementById('panelTitle').textContent    = dev.name  || '';
+  // Image overlay: title + location
   const loc = [dev.city, dev.country].filter(Boolean).join(', ');
-  document.getElementById('panelLocation').innerHTML   = loc
-    ? `<svg width="10" height="12" viewBox="0 0 10 12" fill="none" style="flex-shrink:0"><path d="M5 0C2.8 0 1 1.8 1 4c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" fill="rgba(255,255,255,0.7)"/></svg>${loc}`
-    : '';
-  const locSubEl = document.getElementById('panelLocationSub');
+  document.getElementById('panelImgTitle').textContent = dev.name || '';
+  const subEl = document.getElementById('panelImgSub');
   if (loc) {
-    locSubEl.innerHTML = `<svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M5 0C2.8 0 1 1.8 1 4c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" fill="#7a8099"/></svg>${loc}`;
-    locSubEl.style.display = 'flex';
+    subEl.innerHTML = `<svg width="10" height="12" viewBox="0 0 10 12" fill="none" style="flex-shrink:0"><path d="M5 0C2.8 0 1 1.8 1 4c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z" fill="rgba(255,255,255,0.65)"/></svg>${loc}`;
+    subEl.style.display = 'flex';
   } else {
-    locSubEl.style.display = 'none';
+    subEl.style.display = 'none';
   }
 
-  // Show photo if available, otherwise gradient
+  // Show photo if available, otherwise gradient fallback
   const statusColor = makeMarkerColor(dev);
   const photoEl   = document.getElementById('panelPhoto');
   const overlayEl = document.getElementById('panelOverlay');
+  const gradEl    = document.getElementById('panelGrad');
   const patternEl = document.getElementById('panelPattern');
   const baseUrl   = 'https://savgrdc.github.io/track_record/images/';
   if (dev.image_file) {
@@ -2170,21 +2176,23 @@ function openPanel(dev) {
     photoEl.alt = dev.name;
     photoEl.style.display = 'block';
     overlayEl.style.display = 'block';
+    gradEl.style.display = 'block';
     patternEl.style.display = 'none';
     document.getElementById('panelImg').style.background = 'var(--navy)';
   } else {
     photoEl.style.display = 'none';
     overlayEl.style.display = 'none';
+    gradEl.style.display = 'none';
     patternEl.style.display = 'block';
     document.getElementById('panelImg').style.background =
       `linear-gradient(135deg, var(--navy) 0%, #3d4065 55%, ${statusColor}99 100%)`;
   }
 
-  // Stats: Brand / GDV / Year (3-col), then Client (full-width)
+  // Stats: Brand (full-width), GDV + Year (2-col), Client (full-width)
   const statsEl = document.getElementById('panelStats');
   let statsHtml = '';
   const brandVal = (dev.brand && dev.brand.trim()) ? dev.brand : 'N/A';
-  statsHtml += `<div class="panel-stat"><div class="panel-stat-lbl">Brand</div><div class="panel-stat-val">${brandVal}</div></div>`;
+  statsHtml += `<div class="panel-stat wide"><div class="panel-stat-lbl">Brand</div><div class="panel-stat-val">${brandVal}</div></div>`;
   const gdvVal = (dev.gdv && dev.gdv.trim() && dev.gdv !== 'Not Disclosed') ? dev.gdv : 'N/A';
   statsHtml += `<div class="panel-stat"><div class="panel-stat-lbl">GDV</div><div class="panel-stat-val">${gdvVal}</div></div>`;
   const yearVal = (dev.year && dev.year.trim()) ? dev.year : 'N/A';
