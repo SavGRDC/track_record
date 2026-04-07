@@ -306,18 +306,34 @@
     .dd-option.selected .filter-count { background: var(--yellow); color: var(--navy); }
 
     /* Global button */
-    .global-btn {
-      flex-shrink: 0;
-      height: 34px;
-      background: var(--navy); color: var(--white);
-      border: none; padding: 0 16px;
-      font-family: var(--font-sans); font-size: 11px; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.18s;
-      display: flex; align-items: center; gap: 7px;
+    .global-float-btn {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 20;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      padding: 12px 22px;
+      font-family: var(--font-sans); font-size: 12px; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      cursor: pointer;
+      display: none; align-items: center; gap: 9px;
+      box-shadow: 0 4px 20px rgba(37,39,58,0.35);
+      transition: background 0.18s, transform 0.15s, box-shadow 0.15s;
     }
-    .global-btn:hover { background: #363954; }
-    .global-btn.active { background: #363954; outline: 2px solid var(--yellow); outline-offset: -2px; }
+    .global-float-btn:hover {
+      background: #363954;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37,39,58,0.45);
+    }
+    .global-float-btn.active {
+      background: #363954;
+      outline: 2px solid var(--yellow);
+      outline-offset: -2px;
+    }
+    .global-btn { display: none; }
+    .global-btn.active { display: none; }
     .global-btn-dot {
       width: 18px; height: 18px; border-radius: 50%;
       border: 1.5px solid rgba(255,255,255,0.5);
@@ -725,13 +741,14 @@
       max-width: 1100px; margin: 0 auto; padding: 0 40px;
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
     }
-    .stats-band .overview-stat { background: transparent; padding: 20px 28px; }
+    .stats-band .overview-stat { background: transparent; padding: 20px 28px; text-align: center; }
     .stats-band .overview-stat-value { color: #FFFFFF; }
     .stats-band .overview-stat-label { color: rgba(255,255,255,0.5); }
     .overview-stat-icon {
       color: var(--yellow);
       margin-bottom: 10px;
       display: flex;
+      justify-content: center;
     }
     /* Divider lines between stat cols */
     .stats-band-inner .overview-stat + .overview-stat {
@@ -765,6 +782,12 @@
     .hero-content {
       position: relative; z-index: 2;
       padding-top: 80px; padding-bottom: 64px;
+    }
+    .hero-caption {
+      position: absolute; bottom: 12px; right: 18px;
+      font-size: 10px; letter-spacing: 0.8px;
+      color: rgba(255,255,255,0.45);
+      z-index: 3; font-style: italic;
     }
     .hero-eyebrow { color: rgba(255,255,255,0.6) !important; }
     .tagline-white { color: #fff !important; font-style: normal; }
@@ -954,12 +977,19 @@
   <button class="nav-item"        id="nav-reports"  onclick="showPage('reports')">Research Reports</button>
 </nav>
 
+<!-- ── GLOBAL PROJECTS BANNER ────────────────────────────────────────────── -->
+<button class="global-float-btn" id="globalBtn" onclick="toggleGlobalPanel()">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/>
+    <ellipse cx="12" cy="12" rx="4" ry="9" stroke="currentColor" stroke-width="1.8" fill="none"/>
+    <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="1.8"/>
+    <line x1="3" y1="15" x2="21" y2="15" stroke="currentColor" stroke-width="1.8"/>
+  </svg>
+  View our global projects
+</button>
+
 <!-- ── FILTER BAR (map only) ────────────────────────────────────────────── -->
 <div class="filter-bar" id="filterBar">
-  <button class="global-btn" id="globalBtn" onclick="toggleGlobalPanel()">
-    <div class="global-btn-dot">&#127758;</div>
-    Global Projects
-  </button>
   <div class="filter-sep"></div>
   <div class="dd-wrap">
     <div class="dd-label">Work Type</div>
@@ -1090,9 +1120,10 @@
 
     <!-- BAND 1: Hero - full bleed image -->
     <div class="overview-band band-hero">
-      <img class="hero-bg" src="https://savgrdc.github.io/track_record/images/porto-montenegro.jpg" alt="Porto Montenegro">
+      <img class="hero-bg" src="https://savgrdc.github.io/track_record/images/porto-montenegro.jpg" alt="Raffles Old War Office, London">
       <div class="hero-tint"></div>
       <div class="hero-grad"></div>
+      <div class="hero-caption">Raffles Old War Office, London</div>
       <div class="overview-band-inner hero-content">
         <div class="overview-hero" style="margin-bottom:0;">
           <div class="overview-hero-left">
@@ -1664,7 +1695,7 @@
               <div class="timeline-year">2024</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Brand Premiums 2024: Report Case Studies</div>
+                <div class="timeline-heading">Brand Premium Studies 2024</div>
                 <ul class="timeline-bullets">
                   <li>Mondrian Gold Coast Residences</li>
                   <li>Raffles Boston</li>
@@ -1678,7 +1709,7 @@
               <div class="timeline-year">2025</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Brand Premiums 2025: Report Case Studies</div>
+                <div class="timeline-heading">Brand Premium Studies 2025</div>
                 <ul class="timeline-bullets">
                   <li>25h Heimat Residences Downtown Dubai</li>
                   <li>Faena Sao Paulo</li>
@@ -1692,7 +1723,7 @@
               <div class="timeline-year">2026</div>
               <div class="timeline-track">
                 <span class="tl-dot"></span>
-                <div class="timeline-heading">Brand Premiums 2026: Proposal Sent</div>
+                <div class="timeline-heading">Brand Premium Studies 2026</div>
                 <ul class="timeline-bullets">
                   <li>Raffles OWO</li>
                   <li>Raffles Boston</li>
@@ -2439,14 +2470,20 @@ function showPage(page) {
   const filterBar = document.getElementById('filterBar');
   const mapEl = document.getElementById('map');
   const legend = document.querySelector('.legend');
+  const floatBtn = document.getElementById('globalBtn');
+  const hintEl = document.querySelector('.map-hint');
   if (page === 'map') {
     filterBar.style.display = 'flex';
     mapEl.style.display = 'block';
     legend.style.display = 'block';
+    if (floatBtn) floatBtn.style.display = 'flex';
+    if (hintEl) hintEl.style.display = 'flex';
   } else {
     filterBar.style.display = 'none';
     mapEl.style.display = 'none';
     legend.style.display = 'none';
+    if (floatBtn) floatBtn.style.display = 'none';
+    if (hintEl) hintEl.style.display = 'none';
     const pageEl = document.getElementById('page-' + page);
     if (pageEl) pageEl.classList.add('active');
     closePanel(false);
