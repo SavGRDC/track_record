@@ -671,8 +671,8 @@
     .overview-hero-left {}
     .overview-hero-tagline {
       font-family: var(--font-serif); font-size: 56px; font-weight: 500;
-      color: var(--navy); line-height: 1.05; letter-spacing: -1px;
-      margin: 0;
+      color: var(--navy); line-height: 1.22; letter-spacing: -1px;
+      margin: 0; text-align: center;
     }
     .overview-hero-tagline em.tagline-red {
       font-style: italic;
@@ -751,14 +751,15 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
     .stats-band .overview-stat {
-      background: #fff;
+      background: rgba(37,39,58,0.68);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
-      padding: 22px 24px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(37,39,58,0.16);
+      padding: 22px 24px; text-align: center;
     }
-    .stats-band .overview-stat-value { color: var(--navy); }
-    .stats-band .overview-stat-label { color: #888; }
+    .stats-band .overview-stat-value { color: #fff; }
+    .stats-band .overview-stat-label { color: rgba(255,255,255,0.55); }
     .overview-stat-icon {
       color: var(--yellow);
       margin-bottom: 10px;
