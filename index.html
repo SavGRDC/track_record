@@ -792,14 +792,25 @@
       padding: 20px 20px;
     }
     .logo-band-cell img {
-      max-height: 70px; max-width: 200px;
+      max-height: 64px; max-width: 200px;
       width: auto; height: auto; object-fit: contain; display: block;
-      filter: brightness(0) invert(1) opacity(1);
+      filter: brightness(0) invert(1) opacity(0.62);
       transition: filter 0.25s;
     }
     .logo-band-cell:hover img {
-      filter: brightness(0) invert(1) opacity(1) drop-shadow(0 0 8px rgba(255,255,255,0.55));
+      filter: brightness(0) invert(1) opacity(1);
     }
+    /* Per-logo size corrections for visual balance */
+    .logo-band-cell img[alt="Mandarin Oriental"] { max-height: 50px; }
+    .logo-band-cell img[alt="Maybourne"]         { max-height: 56px; }
+    .logo-band-cell img[alt="W Hotels"]          { max-height: 52px; }
+    .logo-band-cell img[alt="Rosewood"]          { max-height: 40px; }
+    .logo-band-cell img[alt="Marriott"]          { max-height: 46px; }
+    .logo-band-cell img[alt="One&amp;Only"]      { max-height: 48px; }
+    .logo-band-cell img[alt="Ritz-Carlton"]      { max-height: 78px; }
+    .logo-band-cell img[alt="Four Seasons"]      { max-height: 64px; }
+    .logo-band-cell img[alt="Six Senses"]        { max-height: 58px; }
+    .logo-band-cell img[alt="Accor"]             { max-height: 62px; }
     /* Hero on white */
     .band-white .overview-hero-tagline { color: var(--navy); }
     .band-white .overview-hero-copy { color: var(--text-body); }
