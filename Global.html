@@ -18,8 +18,8 @@
   --white:  #ffffff;
   --off:    #F5F4F1;
   --ink:    #1C1C1E;
-  --mid:    #38383A;
-  --muted:  #6E6E72;
+  --mid:    #2C2C2E;
+  --muted:  #515154;
   --rule:   rgba(28,28,30,0.09);
   --serif:  Georgia, 'Times New Roman', serif;
   --sans:   'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -72,6 +72,11 @@ body.on-overview .hdr-logo img      { filter: none; }
 body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
 .hdr-left {
   position: absolute; left: 40px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; align-items: center;
+}
+.hdr-right {
+  position: absolute; right: 40px; top: 50%;
   transform: translateY(-50%);
   display: flex; align-items: center;
 }
@@ -358,22 +363,22 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   padding: 16px 20px;
 }
 .logo-cell img {
-  max-height: 52px; max-width: 140px;
+  max-height: 78px; max-width: 210px;
   width: auto; height: auto; object-fit: contain; display: block;
   filter: brightness(0) opacity(0.17);
   transition: filter 0.3s;
 }
-.logo-cell img:hover { filter: brightness(0) opacity(0.55); }
-.logo-cell img[alt="Mandarin Oriental"] { max-height: 44px; }
-.logo-cell img[alt="Maybourne"]         { max-height: 50px; }
-.logo-cell img[alt="W Hotels"]          { max-height: 44px; }
-.logo-cell img[alt="Rosewood"]          { max-height: 62px; }
-.logo-cell img[alt="Marriott"]          { max-height: 66px; }
-.logo-cell img[alt="One&Only"]          { max-height: 42px; }
-.logo-cell img[alt="Ritz-Carlton"]      { max-height: 82px; }
-.logo-cell img[alt="Four Seasons"]      { max-height: 70px; }
-.logo-cell img[alt="Six Senses"]        { max-height: 50px; }
-.logo-cell img[alt="Accor"]             { max-height: 56px; }
+.logo-cell img:hover { filter: brightness(0) opacity(1); }
+.logo-cell img[alt="Mandarin Oriental"] { max-height: 66px; }
+.logo-cell img[alt="Maybourne"]         { max-height: 75px; }
+.logo-cell img[alt="W Hotels"]          { max-height: 66px; }
+.logo-cell img[alt="Rosewood"]          { max-height: 93px; }
+.logo-cell img[alt="Marriott"]          { max-height: 99px; }
+.logo-cell img[alt="One&Only"]          { max-height: 63px; }
+.logo-cell img[alt="Ritz-Carlton"]      { max-height: 123px; }
+.logo-cell img[alt="Four Seasons"]      { max-height: 105px; }
+.logo-cell img[alt="Six Senses"]        { max-height: 75px; }
+.logo-cell img[alt="Accor"]             { max-height: 84px; }
 
 /* ═══════════════════════════════════════════════
    TWO-COL SECTION — F+P prose layout
@@ -940,7 +945,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 #page-map .tr-filter-bar {
   position: relative;
   margin-top: 96px;
-  height: 64px; background: #F5EFE9;
+  height: 64px; background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(37,39,58,0.10);
   display: flex; align-items: center;
   padding: 0 16px; gap: 10px; z-index: 900;
@@ -960,7 +966,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   color: #79828C; font-weight: 700; margin-bottom: 2px; padding-left: 1px;
 }
 #page-map .dd-trigger {
-  height: 34px; min-width: 180px; background: #F5EFE9;
+  height: 34px; min-width: 180px; background: rgba(255,255,255,0.5);
   border: 1px solid rgba(37,39,58,0.22);
   padding: 0 30px 0 11px;
   font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: 600;
@@ -1182,10 +1188,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </button>
   </div>
   <div class="hdr-center">
-    <div class="hdr-logo"><img src="https://savgrdc.github.io/track_record/images/SavLogo.png" alt="Savills"></div>
     <div class="hdr-wordmark">
-      <div class="hdr-wordmark-main">Global Residential Development Consultancy</div>
+      <div class="hdr-wordmark-main">Savills Global Residential Development Consultancy</div>
     </div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-logo"><img src="https://savgrdc.github.io/track_record/images/SavLogo.png" alt="Savills"></div>
   </div>
 </header>
 
@@ -1680,7 +1688,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <div class="page-inner" style="max-width: 1240px; padding-bottom: 48px;">
     <h1 class="pg-title">Case Studies</h1>
     <p style="font-family: var(--serif); font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--ink); line-height: 1.4; letter-spacing: -0.2px; margin-bottom: 24px;">Advising landmark branded residential developments worldwide.</p>
-    <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid);">These case studies explore a selection of projects in greater detail, illustrating how Savills GRDC supports developers and partners across different stages of the branded residential development lifecycle.</p>
+    <p style="font-size: 18px; line-height: 1.9; font-weight: 300; color: var(--mid);">These case studies explore a selection of projects in greater detail, illustrating how Savills GRDC supports developers and partners across different stages of the branded residential development lifecycle.</p>
   </div>
 
   <!-- Featured hero card: The Ellinikon -->
