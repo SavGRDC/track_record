@@ -466,67 +466,144 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
-   SERVICES — editorial vertical layout
+   SERVICES — Draft B editorial layout
 ═══════════════════════════════════════════════ */
-.svc-chapters { padding-bottom: 100px; }
-.svc-chapter { margin-top: 80px; }
-.svc-chapter:first-child { margin-top: 40px; }
-.svc-chapter-label {
-  padding: 0 72px 28px;
-  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--muted);
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 0;
+/* Centred container used throughout services */
+.svc-wrap { max-width: 1240px; margin: 0 auto; padding: 0 72px; }
+
+/* Chapter bands — alternating backgrounds */
+.svc-chapter-band { }
+.svc-chapter-band--white { background: #fff; }
+.svc-chapter-band--off   { background: var(--off); }
+
+/* Chapter header */
+.svc-ch-header { padding: 72px 0 0; }
+.svc-ch-rule   { width: 100%; height: 1px; background: var(--rule); margin-bottom: 40px; }
+.svc-ch-label  {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.8px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
 }
-.svc-service {
-  border-bottom: 1px solid var(--rule);
+.svc-ch-name {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.6vw, 30px); font-weight: 400;
+  color: var(--ink); letter-spacing: -0.3px;
 }
-.svc-service-img-wrap {
-  position: relative;
-  height: 62vh;
-  min-height: 400px;
-  overflow: hidden;
+
+/* Hero service — full-bleed, first in chapter 1 */
+.svc-hero { margin-top: 56px; }
+.svc-hero-img-wrap {
+  position: relative; width: 100%;
+  height: 78vh; min-height: 540px; overflow: hidden;
 }
-.svc-service--final .svc-service-img-wrap {
-  height: 72vh;
-  min-height: 480px;
-}
-.svc-service-img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  transition: transform 0.8s ease;
-}
-.svc-service:hover .svc-service-img { transform: scale(1.03); }
-.svc-service-overlay {
+.svc-hero-img-wrap img {
   position: absolute; inset: 0;
-  background: rgba(0,0,0,0.36);
+  width: 100%; height: 100%;
+  object-fit: cover; transition: transform 0.9s ease;
 }
-.svc-service-img-text {
-  position: absolute; bottom: 0; left: 0;
-  padding: 48px 72px;
+.svc-hero:hover .svc-hero-img-wrap img { transform: scale(1.03); }
+.svc-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(20,20,32,0.72) 0%, rgba(20,20,32,0.22) 55%, rgba(20,20,32,0.05) 100%);
 }
-.svc-service-title {
+.svc-hero-text-pos {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: center;
+}
+.svc-hero-text {
+  width: 100%; max-width: 1240px;
+  padding: 0 72px 56px;
+}
+.svc-hero-title {
   font-family: var(--serif);
-  font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 400; color: #fff;
-  line-height: 1.15; letter-spacing: -0.4px;
-  margin: 0 0 10px;
+  font-size: clamp(38px, 4.8vw, 64px); font-weight: 400;
+  color: #fff; line-height: 1.1; letter-spacing: -0.8px;
+  margin-bottom: 14px; max-width: 720px;
 }
-.svc-service-sub {
+.svc-hero-sub {
+  font-family: var(--serif); font-size: 19px; font-style: italic;
+  color: rgba(255,255,255,0.62); line-height: 1.4;
+}
+.svc-hero-body-band { padding: 44px 0 0; }
+.svc-hero-body {
+  font-size: 15px; line-height: 1.9; font-weight: 300;
+  color: var(--mid); max-width: 620px;
+}
+
+/* Alternating split services */
+.svc-splits { padding: 0 0 96px; }
+.svc-split {
+  display: grid; grid-template-columns: 42% 1fr;
+  gap: 0; align-items: stretch;
+  border-top: 1px solid var(--rule);
+  min-height: 440px;
+}
+.svc-split:nth-child(even) { grid-template-columns: 1fr 42%; }
+.svc-split:nth-child(even) .svc-img-col { order: -1; }
+
+.svc-text-col {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 64px 60px;
+}
+.svc-split:nth-child(even) .svc-text-col { padding: 64px 64px 64px 60px; }
+.svc-gold-rule { width: 26px; height: 1.5px; background: var(--gold); margin-bottom: 26px; }
+.svc-split-title {
   font-family: var(--serif);
-  font-size: 17px; font-style: italic;
-  color: rgba(255,255,255,0.62);
-  margin: 0; line-height: 1.4;
+  font-size: clamp(24px, 2.4vw, 32px); font-weight: 400;
+  color: var(--ink); line-height: 1.18; letter-spacing: -0.3px; margin-bottom: 12px;
 }
-.svc-service-body {
-  padding: 40px 72px 56px;
-  max-width: 700px;
+.svc-split-sub {
+  font-family: var(--serif); font-size: 16px; font-style: italic;
+  color: var(--mid); margin-bottom: 22px; line-height: 1.45;
 }
-.svc-service-body p {
-  font-size: 15px; line-height: 1.88; font-weight: 300;
-  color: var(--mid); margin: 0 0 14px;
+.svc-split-body {
+  font-size: 14px; line-height: 1.9; font-weight: 300; color: var(--mid);
 }
-.svc-service-body p:last-child { margin-bottom: 0; }
+.svc-img-col {
+  position: relative; overflow: hidden; min-height: 400px; background: #ddd;
+}
+.svc-img-col img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.svc-split:hover .svc-img-col img { transform: scale(1.04); }
+
+/* Closing service (Sales chapter) — full-bleed with overlay text */
+.svc-closing-img-wrap {
+  position: relative; width: 100%;
+  height: 72vh; min-height: 480px; overflow: hidden;
+}
+.svc-closing-img-wrap img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.svc-closing-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(20,20,32,0.75) 0%, rgba(20,20,32,0.18) 55%, transparent 100%);
+}
+.svc-closing-text-pos {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: center;
+}
+.svc-closing-text {
+  width: 100%; max-width: 1240px; padding: 0 72px 56px;
+}
+.svc-closing-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px); font-weight: 400;
+  color: #fff; line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 12px;
+}
+.svc-closing-sub {
+  font-family: var(--serif); font-size: 18px; font-style: italic;
+  color: rgba(255,255,255,0.6);
+}
+.svc-closing-body-band { padding: 44px 0 96px; }
+.svc-closing-body {
+  font-size: 15px; line-height: 1.9; font-weight: 300;
+  color: var(--mid); max-width: 620px;
+}
 
 /* ═══════════════════════════════════════════════
    CASE STUDIES
@@ -917,142 +994,147 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      WHAT WE DO
 ══════════════════════════════════════ -->
 <div class="page" id="page-what">
-  <div class="page-inner" style="padding-bottom: 40px;">
+  <div class="page-inner" style="padding-bottom: 56px;">
     <div class="pg-eyebrow">Savills GRDC</div>
     <h1 class="pg-title">Services</h1>
     <p class="pg-intro">Strategic advisory across the branded residential lifecycle</p>
-    <p style="font-size:15px; line-height:1.85; font-weight:300; color:var(--mid); max-width:640px; margin-top:20px;">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.</p>
   </div>
 
-  <div class="svc-chapters">
+  <!-- ── Chapter 1: Development Advisory (white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--white">
+    <div class="svc-wrap">
+      <div class="svc-ch-header">
+        <div class="svc-ch-rule"></div>
+        <div class="svc-ch-label">Chapter One</div>
+        <div class="svc-ch-name">Development Advisory</div>
+      </div>
+    </div>
 
-    <!-- Chapter 1: Development Advisory -->
-    <div class="svc-chapter">
-      <div class="svc-chapter-label">Development Advisory</div>
-
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Development Strategy">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Development Strategy &amp; Feasibility</h3>
-            <p class="svc-service-sub">Defining the optimal development strategy</p>
+    <!-- Hero: Development Strategy & Feasibility -->
+    <div class="svc-hero">
+      <div class="svc-hero-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
+        <div class="svc-hero-overlay"></div>
+        <div class="svc-hero-text-pos">
+          <div class="svc-hero-text">
+            <h2 class="svc-hero-title">Development Strategy &amp; Feasibility</h2>
+            <p class="svc-hero-sub">Defining the optimal development strategy</p>
           </div>
-        </div>
-        <div class="svc-service-body">
-          <p>Before committing capital, developers must understand whether a branded residential concept is viable, differentiated and financially compelling.</p>
-          <p>Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development.</p>
-          <p>Our feasibility studies assess market demand, pricing potential, development scale and financial viability, providing developers with the evidence required to proceed with confidence.</p>
-          <p>This work is typically undertaken during the earliest stages of project planning and informs key decisions on product mix, branding strategy and project economics.</p>
         </div>
       </div>
-
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="Brand Search">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Brand Search</h3>
-            <p class="svc-service-sub">Identifying the right brand partner</p>
-          </div>
-        </div>
-        <div class="svc-service-body">
-          <p>Selecting the appropriate brand is one of the most important decisions in a branded residential development.</p>
-          <p>Savills GRDC manages the full brand search process, from defining the brand brief and identifying suitable partners to coordinating negotiations and supporting the execution of brand agreements.</p>
-          <p>Our global relationships with leading hotel and lifestyle brands ensure developers secure partners that enhance project positioning, pricing power and long term value.</p>
-        </div>
-      </div>
-
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Operator Advisory">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Operator Advisory</h3>
-            <p class="svc-service-sub">Structuring projects for operational success</p>
-          </div>
-        </div>
-        <div class="svc-service-body">
-          <p>Branded residential developments require carefully designed operational frameworks to align the interests of developers, operators and residents.</p>
-          <p>Savills GRDC advises on residential management structures, rental programmes, homeowners associations and operational budgeting to ensure projects operate smoothly and deliver the intended resident experience.</p>
-          <p>This work is typically undertaken alongside brand negotiations and project design development.</p>
-        </div>
-      </div>
-
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Equity Raising">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Equity Raising</h3>
-            <p class="svc-service-sub">Securing capital to deliver the project</p>
-          </div>
-        </div>
-        <div class="svc-service-body">
-          <p>Large scale branded residential developments often require significant development capital and strategic investment partners.</p>
-          <p>Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network.</p>
-          <p>Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
+      <div class="svc-hero-body-band">
+        <div class="svc-wrap">
+          <p class="svc-hero-body">Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development. Our feasibility studies provide developers with the evidence required to proceed with confidence.</p>
         </div>
       </div>
     </div>
 
-    <!-- Chapter 2: Research & Intelligence -->
-    <div class="svc-chapter">
-      <div class="svc-chapter-label">Research &amp; Intelligence</div>
-
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Market Intelligence">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Market Intelligence</h3>
-            <p class="svc-service-sub">Industry-leading research on the branded residences sector</p>
-          </div>
+    <!-- Splits: Brand Search / Operator Advisory / Equity Raising -->
+    <div class="svc-splits">
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Brand Search</h2>
+          <p class="svc-split-sub">Identifying the right brand partner</p>
+          <p class="svc-split-body">Savills GRDC manages the full brand search process, from defining the brand brief and identifying suitable partners to coordinating negotiations and supporting the execution of brand agreements. Our global relationships with leading hotel and lifestyle brands ensure developers secure partners that enhance project positioning and long term value.</p>
         </div>
-        <div class="svc-service-body">
-          <p>Savills GRDC produces industry leading research on the branded residences sector, including global and regional reports covering pricing benchmarks, development pipelines and market trends.</p>
-          <p>Alongside these publications, the team delivers bespoke market intelligence assignments for developers, investors and operators seeking detailed insight into specific markets or project concepts.</p>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="SLS Infantas Madrid">
         </div>
       </div>
 
-      <div class="svc-service">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Brand Premium Studies">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Brand Premium Studies</h3>
-            <p class="svc-service-sub">Quantifying the value of brand affiliation</p>
-          </div>
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Operator Advisory</h2>
+          <p class="svc-split-sub">Structuring projects for operational success</p>
+          <p class="svc-split-body">Savills GRDC advises on residential management structures, rental programmes, homeowners associations and operational budgeting to ensure projects operate smoothly and deliver the intended resident experience.</p>
         </div>
-        <div class="svc-service-body">
-          <p>Savills GRDC quantifies the price premium associated with specific brands in specific markets, providing developers with the evidence required to negotiate brand agreements and underwrite project finances.</p>
-          <p>These studies draw on proprietary transaction data and comparable analysis across global branded residential markets.</p>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Maybourne">
         </div>
       </div>
-    </div>
 
-    <!-- Chapter 3: Sales & Commercialisation -->
-    <div class="svc-chapter">
-      <div class="svc-chapter-label">Sales &amp; Commercialisation</div>
-
-      <div class="svc-service svc-service--final">
-        <div class="svc-service-img-wrap">
-          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Residential Sales">
-          <div class="svc-service-overlay"></div>
-          <div class="svc-service-img-text">
-            <h3 class="svc-service-title">Residential Sales</h3>
-            <p class="svc-service-sub">Delivering successful project commercialisation</p>
-          </div>
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Equity Raising</h2>
+          <p class="svc-split-sub">Securing capital to deliver the project</p>
+          <p class="svc-split-body">Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network. Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
         </div>
-        <div class="svc-service-body">
-          <p>Through Savills' global residential sales platform, developers gain access to one of the most established international buyer networks in luxury real estate.</p>
-          <p>Working alongside Savills' specialist sales teams, Savills GRDC supports the development of sales strategies, pricing structures and marketing programmes that maximise absorption and pricing performance.</p>
-          <p>This integrated approach allows projects to move seamlessly from development strategy through to successful sales execution.</p>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office">
         </div>
       </div>
     </div>
+  </div>
 
-  </div><!-- /svc-chapters -->
+  <!-- ── Chapter 2: Research & Intelligence (off-white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--off">
+    <div class="svc-wrap">
+      <div class="svc-ch-header">
+        <div class="svc-ch-rule"></div>
+        <div class="svc-ch-label">Chapter Two</div>
+        <div class="svc-ch-name">Research &amp; Intelligence</div>
+      </div>
+    </div>
+
+    <div class="svc-splits">
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Market Intelligence</h2>
+          <p class="svc-split-sub">Industry-leading research on the branded residences sector</p>
+          <p class="svc-split-body">Savills GRDC produces industry leading research on the branded residences sector, including global and regional reports covering pricing benchmarks, development pipelines and market trends. The team also delivers bespoke market intelligence for developers, investors and operators seeking detailed insight into specific markets or project concepts.</p>
+        </div>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Dragon Palace Estate">
+        </div>
+      </div>
+
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Brand Premium Studies</h2>
+          <p class="svc-split-sub">Quantifying the value of brand affiliation</p>
+          <p class="svc-split-body">Savills GRDC quantifies the price premium associated with specific brands in specific markets, providing developers with the evidence required to negotiate brand agreements and underwrite project finances. These studies draw on proprietary transaction data and comparable analysis across global branded residential markets.</p>
+        </div>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Accor">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Chapter 3: Sales & Commercialisation (white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--white">
+    <div class="svc-wrap">
+      <div class="svc-ch-header">
+        <div class="svc-ch-rule"></div>
+        <div class="svc-ch-label">Chapter Three</div>
+        <div class="svc-ch-name">Sales &amp; Commercialisation</div>
+      </div>
+    </div>
+
+    <!-- Closing full-bleed: Residential Sales -->
+    <div style="margin-top: 56px;">
+      <div class="svc-closing-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Residential Sales">
+        <div class="svc-closing-overlay"></div>
+        <div class="svc-closing-text-pos">
+          <div class="svc-closing-text">
+            <h2 class="svc-closing-title">Residential Sales</h2>
+            <p class="svc-closing-sub">Delivering successful project commercialisation</p>
+          </div>
+        </div>
+      </div>
+      <div class="svc-closing-body-band">
+        <div class="svc-wrap">
+          <p class="svc-closing-body">Through Savills' global residential sales platform, developers gain access to one of the most established international buyer networks in luxury real estate. Working alongside Savills' specialist sales teams, Savills GRDC supports the development of sales strategies, pricing structures and marketing programmes that maximise absorption and pricing performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-left">
