@@ -466,12 +466,15 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 /* ═══════════════════════════════════════════════
    WHAT WE DO — service card grid
 ═══════════════════════════════════════════════ */
+.svc-grid-wrap {
+  position: relative;
+  margin-top: 48px;
+}
 .svc-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3px;
   background: #111;
-  margin-top: 48px;
 }
 .svc-card {
   position: relative;
@@ -520,20 +523,26 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   height: 3px;
   background: var(--gold);
 }
-/* Detail panel */
+/* Detail panel — overlays the card grid */
 .svc-detail {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-  background: var(--navy);
+  position: absolute;
+  inset: 0;
+  background: rgba(25, 27, 46, 0.97);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  align-items: center;
 }
-.svc-detail.open { max-height: 420px; }
+.svc-detail.open { opacity: 1; pointer-events: all; }
 .svc-detail-inner {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 32px;
+  gap: 48px;
   align-items: start;
   padding: 52px 72px;
+  width: 100%;
 }
 .svc-detail-meta { display: flex; flex-direction: column; gap: 10px; }
 .svc-detail-num {
@@ -962,6 +971,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   </div>
 
   <!-- Service card grid -->
+  <div class="svc-grid-wrap">
   <div class="svc-grid">
     <div class="svc-card svc-card--large" id="card-feasibility" onclick="toggleService('feasibility')">
       <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="">
@@ -1005,7 +1015,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
   </div>
 
-  <!-- Expandable detail panel -->
+  <!-- Detail panel overlays the grid -->
   <div class="svc-detail" id="svc-detail">
     <div class="svc-detail-inner">
       <div class="svc-detail-meta">
@@ -1017,6 +1027,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
       <button class="svc-detail-close" onclick="closeService()">×</button>
     </div>
   </div>
+  </div><!-- /svc-grid-wrap -->
 
   <footer class="site-footer">
     <div class="footer-left">
@@ -1495,9 +1506,6 @@ function toggleService(id) {
 
   clickedCard.classList.add('svc-active');
   detail.classList.add('open');
-
-  // Scroll panel into view smoothly
-  setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
 }
 
 function closeService() {
