@@ -112,6 +112,18 @@ body.on-map .menu-trigger:hover { color: #fff; }
   text-align: center;
   transition: color 0.3s ease;
 }
+.hdr-page-title {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--muted); line-height: 1; text-align: center;
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+  margin-top: 0;
+}
+.hdr-page-title.visible {
+  max-height: 20px; opacity: 1; margin-top: 5px;
+}
+body.on-overview .hdr-page-title { color: rgba(255,255,255,0.6); }
+body.on-map .hdr-page-title { color: rgba(255,255,255,0.6); }
 .hdr-wordmark-sub {
   font-size: 8.5px; letter-spacing: 2.5px; text-transform: uppercase;
   transition: color 0.3s ease;
@@ -1247,6 +1259,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <div class="hdr-center">
     <div class="hdr-wordmark">
       <div class="hdr-wordmark-main">Savills Global Residential Development Consultancy</div>
+      <div class="hdr-page-title" id="hdrPageTitle"></div>
     </div>
   </div>
   <div class="hdr-right">
@@ -2349,6 +2362,14 @@ function toggleMenu() {
   document.body.classList.toggle('menu-open');
 }
 
+var pageTitles = {
+  overview: '',
+  what: 'Services',
+  map: 'Interactive Track Record',
+  cases: 'Case Studies',
+  reports: 'Research Reports'
+};
+
 function show(id) {
   // hide all pages, deactivate all nav items
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2361,6 +2382,10 @@ function show(id) {
   // header style: translucent on overview, white on all other pages
   document.body.classList.toggle('on-overview', id === 'overview');
   document.body.classList.toggle('on-map', id === 'map');
+  // Update header page title
+  var hdrPT = document.getElementById('hdrPageTitle');
+  hdrPT.textContent = pageTitles[id] || '';
+  hdrPT.classList.remove('visible');
   // close menu with slight delay so user sees the selection
   setTimeout(() => document.body.classList.remove('menu-open'), 280);
   // Init map on first visit to Track Record page
@@ -2372,6 +2397,35 @@ function show(id) {
     if (trGlobalPanelOpen) trToggleGlobalPanel();
   }
 }
+
+// ── Header page-title reveal on scroll ──────────────────────
+(function() {
+  var hdrPT = document.getElementById('hdrPageTitle');
+  if (!hdrPT) return;
+
+  function attachScrollWatcher(pageEl) {
+    pageEl.addEventListener('scroll', function() {
+      // Find the page title element inside this page
+      var titleEl = pageEl.querySelector('.pg-title') || pageEl.querySelector('.va-title');
+      // For overview, check hero title
+      if (pageEl.id === 'page-overview') titleEl = pageEl.querySelector('.hero-title');
+      // For map page, check the title row
+      if (pageEl.id === 'page-map') titleEl = pageEl.querySelector('.tr-title-row');
+
+      if (!titleEl) return;
+
+      var rect = titleEl.getBoundingClientRect();
+      // Show subtitle when the title has scrolled above the header (96px)
+      if (rect.bottom < 96) {
+        hdrPT.classList.add('visible');
+      } else {
+        hdrPT.classList.remove('visible');
+      }
+    }, { passive: true });
+  }
+
+  document.querySelectorAll('.page').forEach(attachScrollWatcher);
+})();
 
 // ── Smooth scroll within the services page ──
 function smoothScrollSvc(e, targetId) {
