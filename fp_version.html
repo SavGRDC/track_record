@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savills GRDC — Branded Residences</title>
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & TOKENS
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:   #25273A;
+  --gold:   #C9A84C;
+  --white:  #ffffff;
+  --off:    #F5F4F1;
+  --ink:    #1C1C1E;
+  --mid:    #4A4A4C;
+  --muted:  #8A8A8E;
+  --rule:   rgba(28,28,30,0.09);
+  --serif:  Georgia, 'Times New Roman', serif;
+  --sans:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --hdr:    56px;
+  --nav:    40px;
+}
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════ */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--hdr);
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.hdr-left {
+  display: flex; align-items: center; gap: 14px;
+}
+.hdr-logo {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hdr-logo span {
+  font-family: var(--serif); font-size: 17px; font-weight: 700;
+  color: #fff; line-height: 1;
+}
+.hdr-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.12); }
+.hdr-wordmark {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hdr-wordmark-main {
+  font-family: var(--serif); font-size: 15px; font-weight: 400;
+  color: #fff; letter-spacing: 0.2px; line-height: 1;
+}
+.hdr-wordmark-sub {
+  font-size: 8.5px; color: rgba(255,255,255,0.30);
+  letter-spacing: 2.5px; text-transform: uppercase;
+}
+.hdr-stats { display: flex; }
+.hdr-stat {
+  text-align: right; padding: 0 18px;
+  border-left: 1px solid rgba(255,255,255,0.07);
+}
+.hdr-stat:last-child { padding-right: 0; }
+.hdr-stat-val {
+  font-family: var(--serif); font-size: 16px; font-weight: 600;
+  color: #fff; line-height: 1; margin-bottom: 2px;
+}
+.hdr-stat-lbl {
+  font-size: 8px; color: rgba(255,255,255,0.28);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   NAV BAR
+═══════════════════════════════════════════════ */
+.site-nav {
+  position: fixed; top: var(--hdr); left: 0; right: 0;
+  height: var(--nav);
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: stretch;
+  padding: 0 40px;
+  z-index: 900;
+}
+.nav-btn {
+  display: flex; align-items: center;
+  padding: 0 16px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+  border: none; background: none; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.nav-btn:first-child { padding-left: 0; }
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════════════ */
+.page {
+  position: fixed;
+  top: calc(var(--hdr) + var(--nav));
+  left: 0; right: 0; bottom: 0;
+  overflow-y: auto;
+  display: none;
+  background: var(--white);
+}
+.page.active { display: block; }
+
+/* ═══════════════════════════════════════════════
+   OVERVIEW — HERO
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 560px;
+  overflow: hidden;
+}
+.hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 38%;
+}
+.hero-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(20,20,24,0.90) 0%,
+    rgba(20,20,24,0.38) 50%,
+    transparent 100%);
+}
+.hero-inner {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 72px 72px;
+  max-width: 1200px; width: 100%;
+}
+.hero-pill {
+  display: inline-block;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 5px 13px; border-radius: 2px;
+  margin-bottom: 24px;
+}
+.hero-headline {
+  font-family: var(--serif);
+  font-size: 54px; font-weight: 400;
+  color: #fff; line-height: 1.14;
+  letter-spacing: -0.5px;
+  max-width: 640px;
+  margin-bottom: 0;
+}
+.hero-rule { width: 28px; height: 1.5px; background: var(--gold); margin: 24px 0; }
+.hero-copy {
+  font-size: 15px; line-height: 1.8; font-weight: 300;
+  color: rgba(255,255,255,0.62);
+  max-width: 460px; margin-bottom: 32px;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 11px 22px;
+  border: 1px solid rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.78);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: transparent; cursor: pointer;
+  border-radius: 1px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.hero-cta:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+.hero-caption {
+  position: absolute; bottom: 14px; right: 20px; z-index: 3;
+  font-size: 9.5px; font-style: italic; letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.28);
+}
+
+/* ═══════════════════════════════════════════════
+   STATS BAND — huge numbers
+═══════════════════════════════════════════════ */
+.stats-band {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.stats-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 72px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.stat-col {
+  padding: 52px 0;
+  border-right: 1px solid var(--rule);
+  padding-right: 56px; padding-left: 56px;
+}
+.stat-col:first-child { padding-left: 0; }
+.stat-col:last-child { border-right: none; padding-right: 0; }
+.stat-num {
+  font-family: var(--serif);
+  font-size: 60px; font-weight: 400;
+  color: var(--ink); line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.stat-num sup { font-size: 32px; letter-spacing: -1px; vertical-align: baseline; }
+.stat-num sub { font-size: 30px; letter-spacing: 0px; }
+.stat-rule { width: 24px; height: 1px; background: var(--gold); margin-bottom: 12px; }
+.stat-label {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted); line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════
+   LOGO BAND
+═══════════════════════════════════════════════ */
+.logos-band {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--rule);
+}
+.logos-heading {
+  text-align: center;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(28,28,30,0.22); margin-bottom: 36px;
+}
+.logos-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  max-width: 1100px; margin: 0 auto; padding: 0 72px;
+}
+.logo-cell {
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px 20px;
+}
+.logo-cell img {
+  max-height: 52px; max-width: 140px;
+  width: auto; height: auto; object-fit: contain; display: block;
+  filter: brightness(0) opacity(0.17);
+  transition: filter 0.3s;
+}
+.logo-cell img:hover { filter: brightness(0) opacity(0.55); }
+.logo-cell img[alt="Mandarin Oriental"] { max-height: 44px; }
+.logo-cell img[alt="Maybourne"]         { max-height: 50px; }
+.logo-cell img[alt="W Hotels"]          { max-height: 44px; }
+.logo-cell img[alt="Rosewood"]          { max-height: 62px; }
+.logo-cell img[alt="Marriott"]          { max-height: 66px; }
+.logo-cell img[alt="One&Only"]          { max-height: 42px; }
+.logo-cell img[alt="Ritz-Carlton"]      { max-height: 82px; }
+.logo-cell img[alt="Four Seasons"]      { max-height: 70px; }
+.logo-cell img[alt="Six Senses"]        { max-height: 50px; }
+.logo-cell img[alt="Accor"]             { max-height: 56px; }
+
+/* ═══════════════════════════════════════════════
+   TWO-COL SECTION — F+P prose layout
+═══════════════════════════════════════════════ */
+.two-col-section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.two-col-section.off { background: var(--off); }
+.two-col-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 72px;
+  display: grid; grid-template-columns: 280px 1fr; gap: 80px;
+  align-items: start;
+}
+.tcol-left {}
+.tcol-eyebrow {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 18px;
+}
+.tcol-heading {
+  font-family: var(--serif);
+  font-size: 26px; font-weight: 400;
+  color: var(--ink); line-height: 1.32;
+}
+.tcol-gold-rule { width: 24px; height: 1.5px; background: var(--gold); margin-top: 20px; }
+.tcol-right {}
+.tcol-body p {
+  font-size: 15px; line-height: 1.85; font-weight: 300;
+  color: var(--mid); margin-bottom: 20px;
+}
+.tcol-body p:last-child { margin-bottom: 0; }
+.tcol-link {
+  display: inline-block; margin-top: 28px;
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(28,28,30,0.3);
+  padding-bottom: 4px; cursor: pointer;
+  transition: border-color 0.2s;
+}
+.tcol-link:hover { border-color: var(--ink); }
+
+/* ═══════════════════════════════════════════════
+   OVERVIEW FOOTER
+═══════════════════════════════════════════════ */
+.site-footer {
+  background: var(--navy);
+  padding: 36px 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-left { display: flex; align-items: center; gap: 16px; }
+.footer-brand {
+  font-family: var(--serif); font-size: 14px; font-weight: 400;
+  color: #fff;
+}
+.footer-fdivider { width: 1px; height: 18px; background: rgba(255,255,255,0.15); }
+.footer-sub {
+  font-size: 9px; color: rgba(255,255,255,0.3);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.footer-right { display: flex; align-items: center; gap: 24px; }
+.footer-office {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+}
+.footer-link {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-link:hover { color: #fff; }
+.footer-copy {
+  width: 100%;
+  font-size: 9px; color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE INNER — shared
+═══════════════════════════════════════════════ */
+.page-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 80px 72px 100px;
+}
+.pg-eyebrow {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.pg-eyebrow::before {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--gold); flex-shrink: 0;
+}
+.pg-title {
+  font-family: var(--serif);
+  font-size: 52px; font-weight: 400;
+  color: var(--ink); line-height: 1.1;
+  letter-spacing: -0.5px; margin-bottom: 24px;
+}
+.pg-intro {
+  font-size: 16px; line-height: 1.8; font-weight: 300;
+  color: var(--mid);
+  max-width: 680px; margin-bottom: 64px;
+  padding-left: 20px;
+  border-left: 2px solid var(--gold);
+}
+
+/* ═══════════════════════════════════════════════
+   WHAT WE DO — service list
+═══════════════════════════════════════════════ */
+.service-list { border-top: 1px solid var(--rule); }
+.service-item {
+  display: grid;
+  grid-template-columns: 64px 260px 1fr;
+  gap: 0 48px;
+  padding: 44px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+  transition: background 0.2s;
+}
+.service-item:hover { background: var(--off); margin: 0 -72px; padding: 44px 72px; }
+.svc-num {
+  font-family: var(--serif);
+  font-size: 36px; font-weight: 400;
+  color: rgba(28,28,30,0.14); line-height: 1;
+  padding-top: 4px;
+}
+.svc-left {}
+.svc-title {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 400;
+  color: var(--ink); margin-bottom: 10px; line-height: 1.2;
+}
+.svc-tag {
+  display: inline-block;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: 3px 8px; border-radius: 1px;
+}
+.svc-desc {
+  font-size: 14px; line-height: 1.85; font-weight: 300;
+  color: var(--mid); padding-top: 6px;
+}
+
+/* ═══════════════════════════════════════════════
+   CASE STUDIES
+═══════════════════════════════════════════════ */
+.cases-list { border-top: 1px solid var(--rule); }
+.case-item {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  border-bottom: 1px solid var(--rule);
+  min-height: 280px;
+  overflow: hidden;
+}
+.case-img-wrap {
+  position: relative; overflow: hidden;
+  background: var(--off);
+}
+.case-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.5s ease;
+}
+.case-item:hover .case-img-wrap img { transform: scale(1.04); }
+.case-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(20,20,24,0.72) 0%, transparent 55%);
+}
+.case-img-tags {
+  position: absolute; bottom: 16px; left: 16px; right: 16px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.case-tag {
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 3px 8px; border-radius: 1px;
+}
+.case-body {
+  padding: 44px 48px;
+  display: flex; flex-direction: column;
+}
+.case-meta {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+}
+.case-title {
+  font-family: var(--serif);
+  font-size: 28px; font-weight: 400;
+  color: var(--ink); line-height: 1.2; margin-bottom: 28px;
+}
+.case-two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  margin-bottom: 32px;
+}
+.case-block-label {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.case-block-text {
+  font-size: 13px; line-height: 1.75; font-weight: 300;
+  color: var(--mid);
+}
+.case-timeline-strip {
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tl-row {
+  display: grid; grid-template-columns: 48px 1fr; gap: 16px;
+  align-items: baseline;
+}
+.tl-year {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  color: rgba(28,28,30,0.35); line-height: 1;
+}
+.tl-content {}
+.tl-heading {
+  font-size: 11px; font-weight: 700;
+  color: var(--ink); margin-bottom: 4px;
+  letter-spacing: 0.3px;
+}
+.tl-bullets {
+  list-style: none; padding: 0; margin: 0;
+}
+.tl-bullets li {
+  font-size: 12px; font-weight: 300; color: var(--muted);
+  line-height: 1.6; padding-left: 12px; position: relative;
+}
+.tl-bullets li::before {
+  content: '—'; position: absolute; left: 0;
+  color: rgba(28,28,30,0.25); font-size: 10px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESEARCH REPORTS
+═══════════════════════════════════════════════ */
+.reports-section-label {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  padding-top: 40px;
+}
+.reports-section-label:first-of-type { padding-top: 0; }
+.reports-list { border-top: 1px solid var(--rule); margin-bottom: 0; }
+.report-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 40px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  transition: background 0.15s;
+}
+.report-row:hover { background: var(--off); margin: 0 -72px; padding: 28px 72px; }
+.report-year {
+  font-family: var(--serif); font-size: 20px; font-weight: 400;
+  color: rgba(28,28,30,0.3); line-height: 1;
+}
+.report-info {}
+.report-tag {
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px; display: block;
+}
+.report-title {
+  font-family: var(--serif); font-size: 17px; font-weight: 400;
+  color: var(--ink); margin-bottom: 6px; line-height: 1.3;
+}
+.report-desc {
+  font-size: 12.5px; font-weight: 300; color: var(--muted);
+  line-height: 1.65; max-width: 580px;
+}
+.report-dl {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid rgba(28,28,30,0.2);
+  padding-bottom: 3px;
+  transition: border-color 0.2s;
+}
+.report-dl:hover { border-color: var(--ink); }
+.report-dl svg { flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════
+   MAP PAGE
+═══════════════════════════════════════════════ */
+.map-placeholder {
+  height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px; text-align: center;
+  padding: 40px;
+  background: var(--off);
+}
+.map-placeholder-icon {
+  width: 56px; height: 56px;
+  border: 1.5px solid var(--rule);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.map-placeholder h2 {
+  font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink);
+}
+.map-placeholder p {
+  font-size: 14px; font-weight: 300; color: var(--muted);
+  max-width: 400px; line-height: 1.7;
+}
+.map-open-btn {
+  margin-top: 8px; padding: 12px 24px;
+  background: var(--navy); color: #fff;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  border: none; border-radius: 2px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header class="site-header">
+  <div class="hdr-left">
+    <div class="hdr-logo"><span>S</span></div>
+    <div class="hdr-divider"></div>
+    <div class="hdr-wordmark">
+      <div class="hdr-wordmark-main">Branded Residences</div>
+      <div class="hdr-wordmark-sub">Track Record</div>
+    </div>
+  </div>
+  <div class="hdr-stats">
+    <div class="hdr-stat">
+      <div class="hdr-stat-val">£38.5bn</div>
+      <div class="hdr-stat-lbl">GDV Advised</div>
+    </div>
+    <div class="hdr-stat">
+      <div class="hdr-stat-val">265</div>
+      <div class="hdr-stat-lbl">Projects</div>
+    </div>
+    <div class="hdr-stat">
+      <div class="hdr-stat-val">51</div>
+      <div class="hdr-stat-lbl">Countries</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav class="site-nav">
+  <button class="nav-btn active" id="nav-overview" onclick="show('overview')">Overview</button>
+  <button class="nav-btn" id="nav-what"     onclick="show('what')">What We Do</button>
+  <button class="nav-btn" id="nav-map"      onclick="show('map')">Track Record</button>
+  <button class="nav-btn" id="nav-cases"    onclick="show('cases')">Case Studies</button>
+  <button class="nav-btn" id="nav-reports"  onclick="show('reports')">Research Reports</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     OVERVIEW PAGE
+══════════════════════════════════════ -->
+<div class="page active" id="page-overview">
+
+  <!-- Hero -->
+  <div class="hero">
+    <img class="hero-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office, London">
+    <div class="hero-grad"></div>
+    <div class="hero-caption">Raffles Old War Office, London</div>
+    <div class="hero-inner">
+      <div class="hero-pill">Savills Global Residential Development Consultancy</div>
+      <p class="hero-headline">The World's Leading Advisors in Branded Residences.</p>
+      <div class="hero-rule"></div>
+      <p class="hero-copy">Strategic advisory for branded residential developments, from concept through to commercialisation.</p>
+      <button class="hero-cta" onclick="show('map')">View our global track record →</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-band">
+    <div class="stats-inner">
+      <div class="stat-col">
+        <div class="stat-num">£38<sub>.5bn</sub></div>
+        <div class="stat-rule"></div>
+        <div class="stat-label">Development<br>Value Advised</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num">265</div>
+        <div class="stat-rule"></div>
+        <div class="stat-label">Projects<br>Completed</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num">51</div>
+        <div class="stat-rule"></div>
+        <div class="stat-label">Countries<br>Worldwide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo band -->
+  <div class="logos-band">
+    <div class="logos-heading">Trusted Brand Partners</div>
+    <div class="logos-grid">
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Four-Seasons.png" alt="Four Seasons"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Rosewood.png" alt="Rosewood"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Mandarin-oriental.png" alt="Mandarin Oriental"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Six-senses.png" alt="Six Senses"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/W-hotels.png" alt="W Hotels"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Accor-hotels.png" alt="Accor"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Marriott-international.png" alt="Marriott"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Maybourne-hotel-group.svg.png" alt="Maybourne"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/One&amp;Only.webp" alt="One&Only"></div>
+      <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Ritz-carlton.png" alt="Ritz-Carlton"></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="two-col-section">
+    <div class="two-col-inner">
+      <div class="tcol-left">
+        <div class="tcol-eyebrow">About</div>
+        <div class="tcol-heading">The first and leading advisors in branded residential real estate.</div>
+        <div class="tcol-gold-rule"></div>
+      </div>
+      <div class="tcol-right">
+        <div class="tcol-body">
+          <p>The first and leading branded residential advisors, Savills GRDC has been at the forefront of this sector since 2009. The team comprises two core divisions — Consultancy and Sales &amp; Marketing — working in tandem to deliver a seamless end-to-end service from project conception to successful commercialisation.</p>
+          <p>Based in London and Dubai, our experts bring unrivalled experience across luxury large-scale mixed-use destination resorts and specialist standalone residential developments in urban and resort locations worldwide. Working closely with Savills' international network of offices, we provide advisory grounded in a deep understanding of global property demand dynamics.</p>
+          <span class="tcol-link" onclick="show('what')">Our Services →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Market -->
+  <div class="two-col-section off">
+    <div class="two-col-inner">
+      <div class="tcol-left">
+        <div class="tcol-eyebrow">The Market</div>
+        <div class="tcol-heading">A sector that has grown over 180% in the past decade.</div>
+        <div class="tcol-gold-rule"></div>
+      </div>
+      <div class="tcol-right">
+        <div class="tcol-body">
+          <p>The branded residences sector has proven its resilience through periods of significant global uncertainty. The development pipeline continues to expand, with upcoming projects set to double current supply by the end of the forecast period.</p>
+          <p>In 2024, branded residences commanded a global average premium of 33% over non-branded equivalents, rising to 47% in emerging cities where luxury brands attract growing high-net-worth populations.</p>
+          <p>The sector is no longer the exclusive domain of luxury hotel brands. Non-hotel brands are entering in increasing numbers, catering to the evolving preferences of younger buyers who are reshaping amenity and service expectations globally.</p>
+          <p>Dubai, South Florida, and New York remain the top destinations for branded residences, while emerging cities and resort locations are rapidly climbing the rankings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Network -->
+  <div class="two-col-section">
+    <div class="two-col-inner">
+      <div class="tcol-left">
+        <div class="tcol-eyebrow">Our Network</div>
+        <div class="tcol-heading">700+ offices. 170 years of residential expertise.</div>
+        <div class="tcol-gold-rule"></div>
+      </div>
+      <div class="tcol-right">
+        <div class="tcol-body">
+          <p>With over 170 years in residential property, Savills has built enduring relationships and a network of 700+ offices worldwide. Savills GRDC works closely with this network to ensure clients receive the most current market intelligence, buyer insight and transactional data available.</p>
+          <p>From market research and financial viability through to sales, marketing and capital markets, Savills advises across the full development lifecycle, de-risking and optimising projects from inception to completion.</p>
+          <span class="tcol-link" onclick="show('map')">Explore Track Record →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-brand">Savills GRDC</span>
+      <div class="footer-fdivider"></div>
+      <span class="footer-sub">Global Residential Development Consultancy</span>
+    </div>
+    <div class="footer-right">
+      <span class="footer-office"><strong style="color:rgba(255,255,255,0.6)">London</strong> &nbsp;33 Margaret Street, W1G 0JD</span>
+      <a class="footer-link" href="https://www.savills.co.uk" target="_blank">savills.co.uk →</a>
+    </div>
+    <div class="footer-copy">© 2026 Savills plc. All rights reserved.</div>
+  </footer>
+
+</div><!-- /overview -->
+
+<!-- ══════════════════════════════════════
+     WHAT WE DO
+══════════════════════════════════════ -->
+<div class="page" id="page-what">
+  <div class="page-inner">
+    <div class="pg-eyebrow">Savills GRDC</div>
+    <h1 class="pg-title">What We Do</h1>
+    <p class="pg-intro">From initial concept through to sale, Savills GRDC provides end-to-end advisory across the full branded residential development lifecycle. Our five core service lines are delivered by specialist teams with deep market knowledge and a track record spanning 51 countries.</p>
+
+    <div class="service-list">
+
+      <div class="service-item">
+        <div class="svc-num">01</div>
+        <div class="svc-left">
+          <div class="svc-title">Feasibility Studies</div>
+          <span class="svc-tag">Developers &amp; Investors</span>
+        </div>
+        <div class="svc-desc">We provide rigorous market analysis and financial feasibility assessments to establish whether a branded residential project is viable, well-positioned and commercially optimised before a developer commits capital. Our studies cover demand analysis, competitive benchmarking, pricing strategy, financial projections and brand fit assessment.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="svc-num">02</div>
+        <div class="svc-left">
+          <div class="svc-title">Brand Search</div>
+          <span class="svc-tag">Developers</span>
+        </div>
+        <div class="svc-desc">Identifying the right brand partner is one of the most critical decisions in a branded residences project. Savills GRDC manages the full brand search and selection process: from defining the brand brief and longlisting candidates to negotiating term sheets and finalising brand agreements on behalf of the developer.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="svc-num">03</div>
+        <div class="svc-left">
+          <div class="svc-title">Market Intelligence</div>
+          <span class="svc-tag">Developers &amp; Operators</span>
+        </div>
+        <div class="svc-desc">Our in-house research team publishes annual global and regional reports on the branded residences sector, providing developers, investors and brand partners with authoritative data, pricing benchmarks and pipeline analysis. Bespoke market intelligence commissions are also available for specific geographies or asset types.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="svc-num">04</div>
+        <div class="svc-left">
+          <div class="svc-title">Operator Advisory</div>
+          <span class="svc-tag">Developers &amp; Operators</span>
+        </div>
+        <div class="svc-desc">Structuring branded residences, whether standalone or integrated developments, requires thoughtful consideration to ensure seamless operations and maximum synergistic impact. Savills GRDC offers guidance on rental programmes, HOA integration, residential agreements and budgeting, protecting stakeholders and delivering successful projects.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="svc-num">05</div>
+        <div class="svc-left">
+          <div class="svc-title">Brand Premium Studies</div>
+          <span class="svc-tag">Operators</span>
+        </div>
+        <div class="svc-desc">We quantify the price premium commanded by a specific brand in a specific market, providing developers with the evidence base to negotiate brand agreements and underwrite project finances. Our premium studies draw on Savills' proprietary transaction data and comparable sales analysis across global branded residential markets.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-brand">Savills GRDC</span>
+      <div class="footer-fdivider"></div>
+      <span class="footer-sub">Global Residential Development Consultancy</span>
+    </div>
+    <div class="footer-right">
+      <span class="footer-office"><strong style="color:rgba(255,255,255,0.6)">London</strong> &nbsp;33 Margaret Street, W1G 0JD</span>
+      <a class="footer-link" href="https://www.savills.co.uk" target="_blank">savills.co.uk →</a>
+    </div>
+    <div class="footer-copy">© 2026 Savills plc. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     TRACK RECORD (MAP)
+══════════════════════════════════════ -->
+<div class="page" id="page-map">
+  <div class="map-placeholder">
+    <div class="map-placeholder-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="#8A8A8E" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9" stroke="#8A8A8E" stroke-width="1.5"/>
+        <line x1="3" y1="9" x2="21" y2="9" stroke="#8A8A8E" stroke-width="1.5"/>
+        <line x1="3" y1="15" x2="21" y2="15" stroke="#8A8A8E" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h2>Global Track Record</h2>
+    <p>The interactive project map — 265 projects across 51 countries — is available in the live site.</p>
+    <a class="map-open-btn" href="https://savgrdc.github.io/track_record/" target="_blank">Open Live Map →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CASE STUDIES
+══════════════════════════════════════ -->
+<div class="page" id="page-cases">
+  <div class="page-inner">
+    <div class="pg-eyebrow">Selected Highlights</div>
+    <h1 class="pg-title">Case Studies</h1>
+    <p class="pg-intro">Savills GRDC has worked on a multitude of pioneering projects across 51 countries. The following selection demonstrates the breadth of our expertise across geographies, asset types and service lines.</p>
+  </div>
+
+  <div class="cases-list">
+
+    <!-- SLS INFANTAS MADRID -->
+    <div class="case-item">
+      <div class="case-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="SLS Infantas Madrid">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-tags">
+          <span class="case-tag">Development Consultancy</span>
+          <span class="case-tag">Brand Search</span>
+          <span class="case-tag">Sales Agency</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">Madrid, Spain &nbsp;·&nbsp; 2022–2024</div>
+        <div class="case-title">SLS Infantas Madrid</div>
+        <div class="case-two-col">
+          <div>
+            <div class="case-block-label">The Challenge</div>
+            <div class="case-block-text">Securing an internationally recognised luxury brand for a historic urban asset in Madrid's competitive luxury market, and structuring a multi-continent sales campaign from a standing start.</div>
+          </div>
+          <div>
+            <div class="case-block-label">The Outcome</div>
+            <div class="case-block-text">SLS Hotels &amp; Residences signed following a comprehensive brand search. Project successfully launched to buyers across four continents with sales driven through Savills' global network.</div>
+          </div>
+        </div>
+        <div class="case-timeline-strip">
+          <div class="tl-row">
+            <div class="tl-year">2022</div>
+            <div class="tl-content">
+              <div class="tl-heading">Development Consultancy</div>
+              <ul class="tl-bullets"><li>Unit configuration analysis</li><li>Local &amp; international benchmarking</li><li>Development recommendations</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">2023</div>
+            <div class="tl-content">
+              <div class="tl-heading">Brand Search &amp; Selection</div>
+              <ul class="tl-bullets"><li>Brand identification, proposal review &amp; alignment matrix</li><li>Negotiation of key terms and brand signing</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">2024</div>
+            <div class="tl-content">
+              <div class="tl-heading">Launch &amp; Sales</div>
+              <ul class="tl-bullets"><li>Marketing events in Madrid, London and Dubai</li><li>Agency briefings across four continents</li><li>Sales driven by Savills global network</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE ELLINIKON -->
+    <div class="case-item">
+      <div class="case-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-tags">
+          <span class="case-tag">Market Research</span>
+          <span class="case-tag">Development Consultancy</span>
+          <span class="case-tag">Capital Markets</span>
+          <span class="case-tag">Brand Search</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">Athens, Greece &nbsp;·&nbsp; Lamda S.A. &nbsp;·&nbsp; 2014–2024</div>
+        <div class="case-title">The Ellinikon</div>
+        <div class="case-two-col">
+          <div>
+            <div class="case-block-label">The Challenge</div>
+            <div class="case-block-text">Europe's largest urban regeneration project: 3 million sq m GBA, GDV exceeding $9.6bn — requiring comprehensive financial appraisal of 10,000+ residential units across two luxury branded schemes, hotels, retail, a marina, casino and a 2 million sq m metropolitan park.</div>
+          </div>
+          <div>
+            <div class="case-block-label">Our Approach</div>
+            <div class="case-block-text">Full multi-asset benchmarking across local, regional and international comparables; branded vs non-branded quantum analysis; inventory pricing and absorption modelling; strategic phasing; and a comprehensive international sales and marketing strategy.</div>
+          </div>
+        </div>
+        <div class="case-timeline-strip">
+          <div class="tl-row">
+            <div class="tl-year">2014</div>
+            <div class="tl-content">
+              <div class="tl-heading">Market Research &amp; Feasibility</div>
+              <ul class="tl-bullets"><li>Benchmarking across all asset classes</li><li>Red Book Valuation of residential and mixed-use components</li><li>Financial feasibility for 10,000+ residential units</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">2017</div>
+            <div class="tl-content">
+              <div class="tl-heading">Development Consultancy &amp; Capital Markets</div>
+              <ul class="tl-bullets"><li>Inventory pricing, absorption rates and growth rate modelling</li><li>Capital Markets Agency advisory</li><li>Strategic phasing and sales strategy</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">2024</div>
+            <div class="tl-content">
+              <div class="tl-heading">Operator Negotiation &amp; Sales Strategy</div>
+              <ul class="tl-bullets"><li>Operator identification and negotiation of key terms</li><li>Updated market segmentation and pricing review</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRAGON PALACE ESTATE -->
+    <div class="case-item">
+      <div class="case-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Dragon Palace Estate">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-tags">
+          <span class="case-tag">Development Consultancy</span>
+          <span class="case-tag">Hotel Feasibility</span>
+          <span class="case-tag">Financial Modelling</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">China &nbsp;·&nbsp; LUX &amp; Fendi &nbsp;·&nbsp; 2026</div>
+        <div class="case-title">Dragon Palace Estate</div>
+        <div class="case-two-col">
+          <div>
+            <div class="case-block-label">The Challenge</div>
+            <div class="case-block-text">A location with no history of high-value residential transactions — no pricing benchmark, no absorption data, no precedent for branded residences at this scale in non-urban China. The client's ambition was to price at global trophy-asset levels.</div>
+          </div>
+          <div>
+            <div class="case-block-label">The Outcome</div>
+            <div class="case-block-text">A credible pricing framework projecting total GDV in excess of US$3bn across a 7–8 year sell-out, with a four-phase pricing escalation strategy that treats the absence of comparables as the foundation of its pricing power.</div>
+          </div>
+        </div>
+        <div class="case-timeline-strip">
+          <div class="tl-row">
+            <div class="tl-year">01</div>
+            <div class="tl-content">
+              <div class="tl-heading">Market Research &amp; Benchmarking</div>
+              <ul class="tl-bullets"><li>Nearest comparables 130km away in Shanghai and Hangzhou</li><li>International UHNW buyer profiling and demand segmentation</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">02</div>
+            <div class="tl-content">
+              <div class="tl-heading">Pricing &amp; Sales Strategy</div>
+              <ul class="tl-bullets"><li>Four-phase pricing escalation strategy contingent on absorption targets</li><li>Market-making framework treating absence of comparables as a pricing asset</li></ul>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-year">03</div>
+            <div class="tl-content">
+              <div class="tl-heading">Hotel Feasibility &amp; Financial Modelling</div>
+              <ul class="tl-bullets"><li>Full DCF model integrating residential sales, hotel operations and development costs</li><li>Investment memorandum to support capital raising</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAYBOURNE -->
+    <div class="case-item">
+      <div class="case-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Maybourne Hotel Group">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-tags">
+          <span class="case-tag">Development Consultancy</span>
+          <span class="case-tag">Operational Advisory</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">6 Properties &nbsp;·&nbsp; Ongoing</div>
+        <div class="case-title">Maybourne Hotel Group</div>
+        <div class="case-two-col">
+          <div>
+            <div class="case-block-label">The Brief</div>
+            <div class="case-block-text">Maybourne Hotel Group — owner of Claridge's, The Connaught and The Berkeley — engaged Savills GRDC to provide development consultancy across a growing international portfolio spanning London, Hampshire, Marrakesh, Miami, Paris and New York.</div>
+          </div>
+          <div>
+            <div class="case-block-label">The Outcome</div>
+            <div class="case-block-text">Bespoke feasibility, market research and operational advisory across six discrete assignments, supporting Maybourne's expansion beyond its core UK portfolio into resort and urban international markets.</div>
+          </div>
+        </div>
+        <div class="case-timeline-strip">
+          <div class="tl-row"><div class="tl-year">01</div><div class="tl-content"><div class="tl-heading">The Berkeley, London</div><ul class="tl-bullets"><li>Development Consultancy</li></ul></div></div>
+          <div class="tl-row"><div class="tl-year">02</div><div class="tl-content"><div class="tl-heading">Hackwood Manor, Hampshire</div><ul class="tl-bullets"><li>Development Consultancy</li></ul></div></div>
+          <div class="tl-row"><div class="tl-year">03–06</div><div class="tl-content"><div class="tl-heading">Marrakesh · Miami · Paris · New York</div><ul class="tl-bullets"><li>Development Consultancy &amp; Operational Advisory</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOR -->
+    <div class="case-item">
+      <div class="case-img-wrap">
+        <img src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Accor Group">
+        <div class="case-img-overlay"></div>
+        <div class="case-img-tags">
+          <span class="case-tag">Market Intelligence</span>
+          <span class="case-tag">Brand Premium Studies</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-meta">Accor Group &nbsp;·&nbsp; Multiple Markets &nbsp;·&nbsp; Ongoing</div>
+        <div class="case-title">Accor Group</div>
+        <div class="case-two-col">
+          <div>
+            <div class="case-block-label">The Brief</div>
+            <div class="case-block-text">Accor engaged Savills GRDC as a preferred research partner to support its branded residential expansion, commissioning market intelligence reports and brand premium studies across the Middle East, Australia, UAE and USA.</div>
+          </div>
+          <div>
+            <div class="case-block-label">The Outcome</div>
+            <div class="case-block-text">A series of market intelligence and brand premium studies providing Accor with authoritative data on competitive positioning, pricing premiums and demand dynamics to support developer negotiations and licensing strategy across multiple geographies.</div>
+          </div>
+        </div>
+        <div class="case-timeline-strip">
+          <div class="tl-row"><div class="tl-year">2024</div><div class="tl-content"><div class="tl-heading">Market Intelligence — MEA, Australia, London, UAE, USA</div><ul class="tl-bullets"><li>Regional demand and pipeline analysis across key Accor expansion markets</li></ul></div></div>
+          <div class="tl-row"><div class="tl-year">2024</div><div class="tl-content"><div class="tl-heading">Brand Premium Studies</div><ul class="tl-bullets"><li>Mondrian Gold Coast · Raffles Boston · Raffles OWO · Rixos Dubai Islands · SLS Palm Jumeirah</li></ul></div></div>
+          <div class="tl-row"><div class="tl-year">2025</div><div class="tl-content"><div class="tl-heading">Brand Premium Studies</div><ul class="tl-bullets"><li>25h Heimat Downtown Dubai · Faena São Paulo · Fairmont Telluride · SLS Madrid · SO Uptown Dubai</li></ul></div></div>
+          <div class="tl-row"><div class="tl-year">2026</div><div class="tl-content"><div class="tl-heading">Brand Premium Studies</div><ul class="tl-bullets"><li>Raffles OWO · Raffles Boston · Mama Shelter Cape Town · Fairmont Al Marjan</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cases-list -->
+
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-brand">Savills GRDC</span>
+      <div class="footer-fdivider"></div>
+      <span class="footer-sub">Global Residential Development Consultancy</span>
+    </div>
+    <div class="footer-right">
+      <span class="footer-office"><strong style="color:rgba(255,255,255,0.6)">London</strong> &nbsp;33 Margaret Street, W1G 0JD</span>
+      <a class="footer-link" href="https://www.savills.co.uk" target="_blank">savills.co.uk →</a>
+    </div>
+    <div class="footer-copy">© 2026 Savills plc. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     RESEARCH REPORTS
+══════════════════════════════════════ -->
+<div class="page" id="page-reports">
+  <div class="page-inner">
+    <div class="pg-eyebrow">Research &amp; Insight</div>
+    <h1 class="pg-title">Research Reports</h1>
+    <p class="pg-intro">Savills GRDC publishes annual and regional research on the global branded residences sector, providing developers, investors and brand partners with authoritative data, market intelligence and strategic insight.</p>
+
+    <div class="reports-section-label">Annual Reports</div>
+    <div class="reports-list">
+
+      <div class="report-row">
+        <div class="report-year">2025<br>/26</div>
+        <div class="report-info">
+          <span class="report-tag">Annual</span>
+          <div class="report-title">Branded Residences 2025/26</div>
+          <div class="report-desc">Our flagship annual report tracks the global branded residences pipeline, pricing premiums, brand portfolio growth and emerging market opportunities. The 2025/26 edition covers 910+ projects across 100+ markets.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+      <div class="report-row">
+        <div class="report-year">2024<br>/25</div>
+        <div class="report-info">
+          <span class="report-tag">Annual</span>
+          <div class="report-title">Branded Residences 2024/25</div>
+          <div class="report-desc">In-depth analysis covering 764 projects recorded at end of 2024, with regional market dynamics, pricing data and brand partner intelligence.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+      <div class="report-row">
+        <div class="report-year">2023<br>/24</div>
+        <div class="report-info">
+          <span class="report-tag">Annual</span>
+          <div class="report-title">Branded Residences 2023/24</div>
+          <div class="report-desc">Covers 700 branded residential schemes globally, with analysis of the growing non-hotel brand segment and resort market performance.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+      <div class="report-row">
+        <div class="report-year">2022<br>/23</div>
+        <div class="report-info">
+          <span class="report-tag">Annual</span>
+          <div class="report-title">Branded Residences 2022/23</div>
+          <div class="report-desc">Analysis of post-pandemic market recovery and the accelerating pipeline of branded residence projects driven by changing buyer preferences and increased brand partner interest.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+    </div>
+
+    <div class="reports-section-label">Regional &amp; Thematic Reports</div>
+    <div class="reports-list">
+
+      <div class="report-row">
+        <div class="report-year">2024</div>
+        <div class="report-info">
+          <span class="report-tag">Regional</span>
+          <div class="report-title">Branded Residences in the Middle East</div>
+          <div class="report-desc">A deep-dive into the world's fastest-growing branded residences market, covering Dubai, Abu Dhabi, Saudi Arabia and emerging Gulf markets with pricing, pipeline and brand activity analysis.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+      <div class="report-row">
+        <div class="report-year">2024</div>
+        <div class="report-info">
+          <span class="report-tag">Thematic</span>
+          <div class="report-title">Non-Hotel Branded Residences</div>
+          <div class="report-desc">Examining the rapid rise of fashion, automotive and lifestyle brands entering the branded residences sector, with analysis of buyer appeal, pricing premiums and development pipeline.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+      <div class="report-row">
+        <div class="report-year">2023</div>
+        <div class="report-info">
+          <span class="report-tag">Regional</span>
+          <div class="report-title">European Branded Residences</div>
+          <div class="report-desc">Analysis of the European branded residential market including urban versus resort development, buyer profiles across key source markets, and the growing pipeline across Southern Europe and the Alps.</div>
+        </div>
+        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-brand">Savills GRDC</span>
+      <div class="footer-fdivider"></div>
+      <span class="footer-sub">Global Residential Development Consultancy</span>
+    </div>
+    <div class="footer-right">
+      <span class="footer-office"><strong style="color:rgba(255,255,255,0.6)">London</strong> &nbsp;33 Margaret Street, W1G 0JD</span>
+      <a class="footer-link" href="https://www.savills.co.uk" target="_blank">savills.co.uk →</a>
+    </div>
+    <div class="footer-copy">© 2026 Savills plc. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════
+     JS — page switching
+══════════════════════════════════════ -->
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  // scroll to top of page
+  document.getElementById('page-' + id).scrollTop = 0;
+}
+</script>
+
+</body>
+</html>
