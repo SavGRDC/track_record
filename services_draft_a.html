@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Draft A: Editorial Scroll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ── */
+:root {
+  --navy:  #25273A;
+  --gold:  #C9A84C;
+  --ink:   #1C1C1E;
+  --mid:   rgba(28,28,30,0.60);
+  --muted: rgba(28,28,30,0.38);
+  --rule:  rgba(28,28,30,0.10);
+  --off:   #F7F6F4;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+
+/* ── Minimal header ── */
+.hdr {
+  position: sticky; top: 0; z-index: 100;
+  height: 72px; background: #fff;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center;
+  padding: 0 40px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  color: var(--ink);
+}
+.hdr span { opacity: 0.4; margin: 0 10px; }
+
+/* ── Page intro ── */
+.page-intro {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 72px 72px 64px;
+  border-bottom: 1px solid var(--rule);
+}
+.intro-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 24px;
+}
+.intro-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400; color: var(--navy);
+  line-height: 1.13; letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+.intro-sub {
+  font-family: var(--serif);
+  font-size: 18px; font-style: italic;
+  color: var(--mid); max-width: 560px;
+  line-height: 1.5;
+}
+
+/* ── Chapters ── */
+.chapters { max-width: 1240px; margin: 0 auto; padding: 0 72px 120px; }
+
+.chapter { padding-top: 96px; }
+.chapter + .chapter { border-top: 1px solid var(--rule); }
+
+.chapter-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 64px;
+  display: flex; align-items: center; gap: 18px;
+}
+.chapter-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--rule);
+}
+
+/* ── Individual service ── */
+.service { margin-bottom: 88px; }
+.service:last-child { margin-bottom: 0; }
+
+.service-title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 400; color: var(--navy);
+  line-height: 1.15; letter-spacing: -0.4px;
+  margin-bottom: 12px;
+}
+.service-sub {
+  font-family: var(--serif);
+  font-size: 17px; font-style: italic;
+  color: var(--mid);
+  margin-bottom: 22px; line-height: 1.45;
+}
+.service-body {
+  font-size: 15px; line-height: 1.88; font-weight: 300;
+  color: var(--mid); max-width: 600px;
+  margin-bottom: 36px;
+}
+.service-image {
+  width: 100%; height: 52vh; min-height: 360px;
+  object-fit: cover; display: block;
+}
+
+/* ── Draft label ── */
+.draft-badge {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--navy); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; padding: 8px 16px;
+  border-radius: 2px; z-index: 999;
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  Savills GRDC <span>/</span> Services — Draft A
+</div>
+
+<div class="page-intro">
+  <div class="intro-eyebrow">Savills GRDC</div>
+  <h1 class="intro-title">Services</h1>
+  <p class="intro-sub">Strategic advisory across the branded residential lifecycle</p>
+</div>
+
+<div class="chapters">
+
+  <!-- Chapter 1 -->
+  <div class="chapter">
+    <div class="chapter-label">Development Advisory</div>
+
+    <div class="service">
+      <h2 class="service-title">Development Strategy &amp; Feasibility</h2>
+      <p class="service-sub">Defining the optimal development strategy</p>
+      <p class="service-body">Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
+    </div>
+
+    <div class="service">
+      <h2 class="service-title">Brand Search</h2>
+      <p class="service-sub">Identifying the right brand partner</p>
+      <p class="service-body">Savills GRDC manages the full brand search process, from defining the brand brief and identifying suitable partners to coordinating negotiations and supporting the execution of brand agreements.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="SLS Infantas Madrid">
+    </div>
+
+    <div class="service">
+      <h2 class="service-title">Operator Advisory</h2>
+      <p class="service-sub">Structuring projects for operational success</p>
+      <p class="service-body">Savills GRDC advises on residential management structures, rental programmes, homeowners associations and operational budgeting to ensure projects operate smoothly and deliver the intended resident experience.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Maybourne">
+    </div>
+
+    <div class="service">
+      <h2 class="service-title">Equity Raising</h2>
+      <p class="service-sub">Securing capital to deliver the project</p>
+      <p class="service-body">Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office">
+    </div>
+  </div>
+
+  <!-- Chapter 2 -->
+  <div class="chapter">
+    <div class="chapter-label">Research &amp; Intelligence</div>
+
+    <div class="service">
+      <h2 class="service-title">Market Intelligence</h2>
+      <p class="service-sub">Industry-leading research on the branded residences sector</p>
+      <p class="service-body">Savills GRDC produces industry leading research on the branded residences sector, including global and regional reports covering pricing benchmarks, development pipelines and market trends.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Dragon Palace Estate">
+    </div>
+
+    <div class="service">
+      <h2 class="service-title">Brand Premium Studies</h2>
+      <p class="service-sub">Quantifying the value of brand affiliation</p>
+      <p class="service-body">Savills GRDC quantifies the price premium associated with specific brands in specific markets, providing developers with the evidence required to negotiate brand agreements and underwrite project finances.</p>
+      <img class="service-image" src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Accor">
+    </div>
+  </div>
+
+  <!-- Chapter 3 -->
+  <div class="chapter">
+    <div class="chapter-label">Sales &amp; Commercialisation</div>
+
+    <div class="service">
+      <h2 class="service-title">Residential Sales</h2>
+      <p class="service-sub">Delivering successful project commercialisation</p>
+      <p class="service-body">Through Savills' global residential sales platform, developers gain access to one of the most established international buyer networks in luxury real estate. Working alongside Savills' specialist sales teams, Savills GRDC supports the development of sales strategies, pricing structures and marketing programmes that maximise absorption and pricing performance.</p>
+      <img class="service-image" style="height: 62vh;" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Residential Sales">
+    </div>
+  </div>
+
+</div>
+
+<div class="draft-badge">Draft A — Editorial Scroll</div>
+
+</body>
+</html>
