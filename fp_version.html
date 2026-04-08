@@ -1561,11 +1561,12 @@ document.addEventListener('keydown', e => {
   if (!overviewPage || !heroWrap || !hero) return;
 
   overviewPage.addEventListener('scroll', function() {
-    const scrollY = overviewPage.scrollTop;
-    const heroH   = hero.offsetHeight;
-    if (scrollY < heroH) {
-      heroWrap.style.transform = 'translateY(' + scrollY + 'px)';
-    }
+    const scrollY  = overviewPage.scrollTop;
+    const heroH    = hero.offsetHeight;
+    // Cap shift so text parks ~140px above hero bottom, then scrolls away upward
+    const maxShift = heroH / 2 - 140;
+    const shift    = Math.min(scrollY, maxShift);
+    heroWrap.style.transform = 'translateY(' + shift + 'px)';
   }, { passive: true });
 })();
 
