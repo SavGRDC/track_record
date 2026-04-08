@@ -260,7 +260,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .hero-mask {
   position: absolute; inset: 0; z-index: 1;
-  background: rgba(20,20,32,0.48);
+  background: rgba(20,20,32,0.62);
 }
 .hero-title-wrap {
   position: absolute; inset: 0; z-index: 2;
@@ -300,12 +300,9 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   display: grid; grid-template-columns: repeat(3, 1fr);
 }
 .stat-col {
-  padding: 52px 0;
-  border-right: 1px solid var(--rule);
-  padding-right: 56px; padding-left: 56px;
+  padding: 56px 40px;
+  text-align: center;
 }
-.stat-col:first-child { padding-left: 0; }
-.stat-col:last-child { border-right: none; padding-right: 0; }
 .stat-num {
   font-family: var(--serif);
   font-size: 60px; font-weight: 400;
@@ -315,7 +312,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .stat-num sup { font-size: 32px; letter-spacing: -1px; vertical-align: baseline; }
 .stat-num sub { font-size: 30px; letter-spacing: 0px; }
-.stat-rule { width: 24px; height: 1px; background: var(--gold); margin-bottom: 12px; }
+.stat-rule { width: 24px; height: 1px; background: var(--gold); margin: 0 auto 12px; }
 .stat-label {
   font-size: 9.5px; font-weight: 700;
   letter-spacing: 2.5px; text-transform: uppercase;
@@ -885,17 +882,17 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <div class="stats-band">
     <div class="stats-inner">
       <div class="stat-col">
-        <div class="stat-num">£38<sub>.5bn</sub></div>
+        <div class="stat-num" data-target="38.5" data-prefix="£" data-suffix="bn" data-decimals="1">£38<sub>.5bn</sub></div>
         <div class="stat-rule"></div>
         <div class="stat-label">Development<br>Value Advised</div>
       </div>
       <div class="stat-col">
-        <div class="stat-num">265</div>
+        <div class="stat-num" data-target="265" data-prefix="" data-suffix="" data-decimals="0">265</div>
         <div class="stat-rule"></div>
         <div class="stat-label">Projects<br>Completed</div>
       </div>
       <div class="stat-col">
-        <div class="stat-num">51</div>
+        <div class="stat-num" data-target="51" data-prefix="" data-suffix="" data-decimals="0">51</div>
         <div class="stat-rule"></div>
         <div class="stat-label">Countries<br>Worldwide</div>
       </div>
@@ -1555,6 +1552,58 @@ function show(id) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.body.classList.remove('menu-open');
 });
+
+// ── Hero title floats with scroll ─────────────────────────────
+(function() {
+  const overviewPage = document.getElementById('page-overview');
+  const heroWrap     = document.querySelector('.hero-title-wrap');
+  const hero         = document.querySelector('.hero');
+  if (!overviewPage || !heroWrap || !hero) return;
+
+  overviewPage.addEventListener('scroll', function() {
+    const scrollY = overviewPage.scrollTop;
+    const heroH   = hero.offsetHeight;
+    if (scrollY < heroH) {
+      heroWrap.style.transform = 'translateY(' + scrollY + 'px)';
+    }
+  }, { passive: true });
+})();
+
+// ── Stats count-up ────────────────────────────────────────────
+(function() {
+  function animateStat(el) {
+    const target   = parseFloat(el.dataset.target);
+    const prefix   = el.dataset.prefix  || '';
+    const suffix   = el.dataset.suffix  || '';
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const duration = 1600;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const elapsed  = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased    = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      el.textContent = prefix + (eased * target).toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statsBand = document.querySelector('.stats-band');
+  if (!statsBand) return;
+
+  let fired = false;
+  const observer = new IntersectionObserver(function(entries) {
+    if (fired) return;
+    if (entries[0].isIntersecting) {
+      fired = true;
+      document.querySelectorAll('.stat-num[data-target]').forEach(animateStat);
+      observer.disconnect();
+    }
+  }, { threshold: 0.4 });
+
+  observer.observe(statsBand);
+})();
 
 // ── Service card interactions (retained for future use) ──────────────────
 const serviceData = {
