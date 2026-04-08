@@ -38,18 +38,33 @@ body {
 .site-header {
   position: fixed; top: 0; left: 0; right: 0;
   height: 76px;
-  background: rgba(37,39,58,0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #fff;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.3s ease;
+  border-bottom: 1px solid rgba(28,28,30,0.08);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
-.site-header:hover {
+/* Overview page: translucent over hero image */
+body.on-overview .site-header {
+  background: rgba(37,39,58,0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+body.on-overview .site-header:hover {
   background: rgba(37,39,58,1);
 }
+/* Flip text/icon colours for white header */
+.hdr-wordmark-main   { color: var(--ink); }
+.hdr-divider         { background: rgba(28,28,30,0.15); }
+.hdr-logo img        { filter: brightness(0); }
+.menu-trigger        { color: rgba(28,28,30,0.6); }
+/* Override to white when on overview */
+body.on-overview .hdr-wordmark-main { color: #fff; }
+body.on-overview .hdr-divider       { background: rgba(255,255,255,0.15); }
+body.on-overview .hdr-logo img      { filter: brightness(0) invert(1); }
+body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
 .hdr-left {
   display: flex; align-items: center; gap: 14px;
 }
@@ -61,19 +76,20 @@ body {
 .hdr-logo img {
   height: 36px; width: auto;
   display: block; object-fit: contain;
-  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
 }
-.hdr-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.12); }
+.hdr-divider { width: 1px; height: 22px; transition: background 0.3s ease; }
 .hdr-wordmark {
   display: flex; flex-direction: column; gap: 2px;
 }
 .hdr-wordmark-main {
   font-family: var(--serif); font-size: 15px; font-weight: 400;
-  color: #fff; letter-spacing: 0.2px; line-height: 1;
+  letter-spacing: 0.2px; line-height: 1;
+  transition: color 0.3s ease;
 }
 .hdr-wordmark-sub {
-  font-size: 8.5px; color: rgba(255,255,255,0.30);
-  letter-spacing: 2.5px; text-transform: uppercase;
+  font-size: 8.5px; letter-spacing: 2.5px; text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 .hdr-stats { display: flex; }
 .hdr-stat {
@@ -1375,6 +1391,8 @@ function show(id) {
   document.getElementById('nav-' + id).classList.add('active');
   // scroll page to top
   document.getElementById('page-' + id).scrollTop = 0;
+  // header style: translucent on overview, white on all other pages
+  document.body.classList.toggle('on-overview', id === 'overview');
   // close menu with slight delay so user sees the selection
   setTimeout(() => document.body.classList.remove('menu-open'), 280);
 }
