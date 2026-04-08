@@ -76,7 +76,7 @@ body.on-map .site-header {
   border-bottom-color: rgba(255,255,255,0.06);
 }
 body.on-map .hdr-wordmark-main { color: #fff; }
-body.on-map .hdr-logo img      { filter: brightness(0) invert(1); }
+body.on-map .hdr-logo img      { filter: none; }
 body.on-map .menu-trigger      { color: rgba(255,255,255,0.75); }
 body.on-map .menu-trigger:hover { color: #fff; }
 .hdr-left {
@@ -992,9 +992,17 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 #page-map.active { display: flex; }
 
+#page-map .tr-title-row {
+  margin-top: 96px;
+  height: 52px; background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 20px; font-weight: 400;
+  color: #fff; letter-spacing: 0.3px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
 #page-map .tr-filter-bar {
   position: relative;
-  margin-top: 96px;
   height: 64px; background: var(--navy);
   border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex; align-items: center;
@@ -1618,6 +1626,9 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      TRACK RECORD (MAP)
 ══════════════════════════════════════ -->
 <div class="page" id="page-map">
+
+<!-- TITLE ROW -->
+<div class="tr-title-row">Interactive Track Record</div>
 
 <!-- FILTER BAR -->
 <div class="tr-filter-bar" id="trFilterBar">
