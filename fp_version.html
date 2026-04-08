@@ -637,6 +637,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 .svc-split:hover .svc-img-col img { transform: scale(1.03); }
+.svc-img-caption {
+  position: absolute; bottom: 10px; right: 12px;
+  font-size: 9px; font-style: italic; letter-spacing: 0.3px;
+  color: rgba(255,255,255,0.45);
+  z-index: 2;
+}
 
 /* ═══════════════════════════════════════════════
    CASE STUDIES — Card Grid + Expand
@@ -783,6 +789,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   font-family: var(--serif);
   font-size: 36px; font-weight: 400;
   color: #fff; line-height: 1.15;
+}
+.case-expand-hero-caption {
+  position: absolute; top: 12px; right: 16px;
+  font-size: 9px; font-style: italic; letter-spacing: 0.3px;
+  color: rgba(255,255,255,0.45);
+  z-index: 2;
 }
 .case-expand-sub-header {
   padding: 32px 48px 0;
@@ -1201,6 +1213,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/one-and-only-one-zaabeel-dubai-exterior.jpg" alt="One&amp;Only One Za'abeel, Dubai">
+          <span class="svc-img-caption">One&amp;Only One Za'abeel, Dubai</span>
         </div>
       </div>
 
@@ -1212,6 +1225,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/FS-Madrid-Services.jpg" alt="Four Seasons Madrid">
+          <span class="svc-img-caption">Four Seasons Madrid</span>
         </div>
       </div>
 
@@ -1223,6 +1237,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Amanzoe-Greece-experiences.webp" alt="Amanzoe, Greece">
+          <span class="svc-img-caption">Amanzoe, Greece</span>
         </div>
       </div>
     </div>
@@ -1243,6 +1258,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/OneOnly-One-Zaabeel-2.jpg" alt="One&amp;Only One Za'abeel interior">
+          <span class="svc-img-caption">One&amp;Only One Za'abeel, Dubai</span>
         </div>
       </div>
 
@@ -1254,6 +1270,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/SLS-residences-Vision-penthouse-living-room.png" alt="SLS Residences penthouse">
+          <span class="svc-img-caption">SLS Residences, Madrid</span>
         </div>
       </div>
     </div>
@@ -1274,6 +1291,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Services-Bently-residences-miami.jpg" alt="Bentley Residences, Miami">
+          <span class="svc-img-caption">Bentley Residences, Miami</span>
         </div>
       </div>
 
@@ -1285,6 +1303,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Rafflles-old-war-office-stairs.jpg" alt="Raffles Old War Office">
+          <span class="svc-img-caption">Raffles at The OWO, London</span>
         </div>
       </div>
     </div>
@@ -1769,6 +1788,7 @@ const caseData = {
   'case-ellinikon': {
     img: 'https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg',
     alt: 'The Ellinikon',
+    caption: 'The Ellinikon, Athens',
     tags: ['Market Research','Development Consultancy','Capital Markets','Brand Search'],
     meta: 'Athens, Greece &middot; Lamda S.A. &middot; 2014-2024',
     title: 'The Ellinikon',
@@ -1785,6 +1805,7 @@ const caseData = {
   'case-sls': {
     img: 'https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg',
     alt: 'SLS Infantas Madrid',
+    caption: 'SLS Infantas, Madrid',
     tags: ['Development Consultancy','Brand Search','Sales Agency'],
     meta: 'Madrid, Spain &middot; 2022-2024',
     title: 'SLS Infantas Madrid',
@@ -1801,6 +1822,7 @@ const caseData = {
   'case-dragon': {
     img: 'https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg',
     alt: 'Dragon Palace Estate',
+    caption: 'Dragon Palace Estate, China',
     tags: ['Development Consultancy','Hotel Feasibility','Financial Modelling'],
     meta: 'China &middot; LUX & Fendi &middot; 2026',
     title: 'Dragon Palace Estate',
@@ -1817,6 +1839,7 @@ const caseData = {
   'case-maybourne': {
     img: 'https://savgrdc.github.io/track_record/images/case-maybourne.jpg',
     alt: 'Maybourne Hotel Group',
+    caption: 'Claridge\'s, London',
     tags: ['Development Consultancy','Operational Advisory'],
     meta: '6 Properties &middot; Ongoing',
     title: 'Maybourne Hotel Group',
@@ -1831,8 +1854,9 @@ const caseData = {
     ]
   },
   'case-accor': {
-    img: 'https://savgrdc.github.io/track_record/hero-images/Case-Mondrian-gc-Ext.webp',
+    img: 'https://savgrdc.github.io/track_record/images/case-accor.jpg',
     alt: 'Accor Group',
+    caption: 'Mondrian Gold Coast',
     tags: ['Market Intelligence','Brand Premium Studies'],
     meta: 'Accor Group &middot; Multiple Markets &middot; Ongoing',
     title: 'Accor Group',
@@ -1864,6 +1888,7 @@ function openCase(id) {
     '<div class="case-expand-hero">' +
       '<img src="' + d.img + '" alt="' + d.alt + '">' +
       '<div class="case-expand-hero-overlay"></div>' +
+      '<span class="case-expand-hero-caption">' + d.caption + '</span>' +
       '<div class="case-expand-hero-title">' + d.title + '</div>' +
     '</div>' +
     '<div class="case-expand-sub-header">' +
