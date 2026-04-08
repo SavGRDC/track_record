@@ -123,7 +123,7 @@ body.on-map .menu-trigger:hover { color: #fff; }
   max-height: 20px; opacity: 1; margin-top: 5px;
 }
 body.on-overview .hdr-page-title { color: rgba(255,255,255,0.6); }
-body.on-map .hdr-page-title { color: rgba(255,255,255,0.6); }
+body.on-map .hdr-page-title { color: rgba(255,255,255,0.6); max-height: 20px; opacity: 1; margin-top: 5px; }
 .hdr-wordmark-sub {
   font-size: 8.5px; letter-spacing: 2.5px; text-transform: uppercase;
   transition: color 0.3s ease;
@@ -1004,17 +1004,9 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 #page-map.active { display: flex; }
 
-#page-map .tr-title-row {
-  margin-top: 96px;
-  height: 52px; background: var(--navy);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-size: 20px; font-weight: 400;
-  color: #fff; letter-spacing: 0.3px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  flex-shrink: 0;
-}
 #page-map .tr-filter-bar {
   position: relative;
+  margin-top: 96px;
   height: 64px; background: var(--navy);
   border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex; align-items: center;
@@ -1639,9 +1631,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      TRACK RECORD (MAP)
 ══════════════════════════════════════ -->
 <div class="page" id="page-map">
-
-<!-- TITLE ROW -->
-<div class="tr-title-row">Interactive Track Record</div>
 
 <!-- FILTER BAR -->
 <div class="tr-filter-bar" id="trFilterBar">
