@@ -84,12 +84,12 @@ body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
 .hdr-logo {
-  height: 32px; width: auto;
+  height: 42px; width: auto;
   display: flex; align-items: center;
   flex-shrink: 0;
 }
 .hdr-logo img {
-  height: 32px; width: auto;
+  height: 42px; width: auto;
   display: block; object-fit: contain;
   transition: filter 0.3s ease;
 }
@@ -357,10 +357,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .logos-grid {
   display: grid; grid-template-columns: repeat(5, 1fr);
   max-width: 1100px; margin: 0 auto; padding: 0 72px;
+  row-gap: 0; column-gap: 0;
 }
 .logo-cell {
   display: flex; align-items: center; justify-content: center;
-  padding: 16px 20px;
+  height: 120px; padding: 10px 24px;
 }
 .logo-cell img {
   max-height: 78px; max-width: 210px;
@@ -375,8 +376,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .logo-cell img[alt="Rosewood"]          { max-height: 93px; }
 .logo-cell img[alt="Marriott"]          { max-height: 99px; }
 .logo-cell img[alt="One&Only"]          { max-height: 63px; }
-.logo-cell img[alt="Ritz-Carlton"]      { max-height: 123px; }
-.logo-cell img[alt="Four Seasons"]      { max-height: 105px; }
+.logo-cell img[alt="Ritz-Carlton"]      { max-height: 100px; }
+.logo-cell img[alt="Four Seasons"]      { max-height: 90px; }
 .logo-cell img[alt="Six Senses"]        { max-height: 75px; }
 .logo-cell img[alt="Accor"]             { max-height: 84px; }
 
@@ -880,56 +881,65 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
-   RESEARCH REPORTS
+   RESEARCH REPORTS — Version A Card Grid
 ═══════════════════════════════════════════════ */
-.reports-section-label {
-  font-size: 8.5px; font-weight: 700;
+.va-header { margin-bottom: 56px; }
+.va-title {
+  font-family: var(--serif); font-size: 48px; font-weight: 400;
+  color: var(--ink); line-height: 1.1; margin-bottom: 16px;
+}
+.va-intro {
+  font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--mid);
+  max-width: 700px;
+}
+.va-section-label {
+  font-size: 9px; font-weight: 700;
   letter-spacing: 3px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 20px;
-  padding-top: 40px;
+  color: var(--muted); margin-bottom: 24px; padding-top: 8px;
 }
-.reports-section-label:first-of-type { padding-top: 0; }
-.reports-list { border-top: 1px solid var(--rule); margin-bottom: 0; }
-.report-row {
-  display: grid;
-  grid-template-columns: 90px 1fr auto;
-  gap: 40px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--rule);
-  align-items: center;
-  transition: background 0.15s;
+.va-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 28px; margin-bottom: 56px;
 }
-.report-row:hover { background: var(--off); margin: 0 -72px; padding: 28px 72px; }
-.report-year {
-  font-family: var(--serif); font-size: 20px; font-weight: 400;
-  color: rgba(28,28,30,0.3); line-height: 1;
+.va-card {
+  border: 1px solid var(--rule);
+  transition: box-shadow 0.25s, transform 0.25s;
+  overflow: hidden; text-decoration: none; color: inherit;
+  display: flex; flex-direction: column;
 }
-.report-info {}
-.report-tag {
-  font-size: 8px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 6px; display: block;
+.va-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.va-card-cover {
+  height: 180px; background: var(--navy); position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 20px 24px;
 }
-.report-title {
-  font-family: var(--serif); font-size: 17px; font-weight: 400;
-  color: var(--ink); margin-bottom: 6px; line-height: 1.3;
+.va-card-cover-pattern {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+  background-size: 14px 14px;
 }
-.report-desc {
-  font-size: 12.5px; font-weight: 300; color: var(--muted);
-  line-height: 1.65; max-width: 580px;
+.va-card-cover-tag {
+  font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); position: absolute; top: 16px; left: 24px;
 }
-.report-dl {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 9.5px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none; white-space: nowrap;
-  border-bottom: 1px solid rgba(28,28,30,0.2);
-  padding-bottom: 3px;
-  transition: border-color 0.2s;
+.va-card-cover-year {
+  font-family: var(--serif); font-size: 64px; font-weight: 400;
+  color: rgba(255,255,255,0.06); position: absolute; right: 20px; bottom: -8px;
+  line-height: 1;
 }
-.report-dl:hover { border-color: var(--ink); }
-.report-dl svg { flex-shrink: 0; }
+.va-card-cover-title {
+  font-family: var(--serif); font-size: 22px; font-weight: 400;
+  color: #fff; line-height: 1.25; position: relative; z-index: 1;
+}
+.va-card-body { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+.va-card-desc {
+  font-size: 13px; font-weight: 300; color: var(--muted);
+  line-height: 1.7; flex: 1; margin-bottom: 16px;
+}
+.va-card-dl {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink); display: flex; align-items: center; gap: 6px;
+}
+/* old report-row styles removed - replaced by va-card grid above */
 
 /* ═══════════════════════════════════════════════
    MAP PAGE
@@ -1998,110 +2008,131 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 ══════════════════════════════════════ -->
 <div class="page" id="page-reports">
   <div class="page-inner">
-    <div class="pg-eyebrow">Research &amp; Insight</div>
-    <h1 class="pg-title">Research Reports</h1>
-    <p class="pg-intro">Savills GRDC publishes annual and regional research on the global branded residences sector, providing developers, investors and brand partners with authoritative data, market intelligence and strategic insight.</p>
 
-    <div class="reports-section-label">Annual Reports</div>
-    <div class="reports-list">
-
-      <div class="report-row">
-        <div class="report-year">2025<br>/26</div>
-        <div class="report-info">
-          <span class="report-tag">Annual</span>
-          <div class="report-title">Branded Residences 2025/26</div>
-          <div class="report-desc">Our flagship annual report tracks the global branded residences pipeline, pricing premiums, brand portfolio growth and emerging market opportunities. The 2025/26 edition covers 910+ projects across 100+ markets.</div>
-        </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
-
-      <div class="report-row">
-        <div class="report-year">2024<br>/25</div>
-        <div class="report-info">
-          <span class="report-tag">Annual</span>
-          <div class="report-title">Branded Residences 2024/25</div>
-          <div class="report-desc">In-depth analysis covering 764 projects recorded at end of 2024, with regional market dynamics, pricing data and brand partner intelligence.</div>
-        </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
-
-      <div class="report-row">
-        <div class="report-year">2023<br>/24</div>
-        <div class="report-info">
-          <span class="report-tag">Annual</span>
-          <div class="report-title">Branded Residences 2023/24</div>
-          <div class="report-desc">Covers 700 branded residential schemes globally, with analysis of the growing non-hotel brand segment and resort market performance.</div>
-        </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
-
-      <div class="report-row">
-        <div class="report-year">2022<br>/23</div>
-        <div class="report-info">
-          <span class="report-tag">Annual</span>
-          <div class="report-title">Branded Residences 2022/23</div>
-          <div class="report-desc">Analysis of post-pandemic market recovery and the accelerating pipeline of branded residence projects driven by changing buyer preferences and increased brand partner interest.</div>
-        </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
-
+    <div class="va-header">
+      <div class="va-title">Research Reports</div>
+      <div class="va-intro">Savills GRDC publishes annual and regional research on the global branded residences sector, providing developers, investors and brand partners with authoritative data, market intelligence and strategic insight.</div>
     </div>
 
-    <div class="reports-section-label">Regional &amp; Thematic Reports</div>
-    <div class="reports-list">
+    <div class="va-section-label">Annual Reports</div>
+    <div class="va-grid">
 
-      <div class="report-row">
-        <div class="report-year">2024</div>
-        <div class="report-info">
-          <span class="report-tag">Regional</span>
-          <div class="report-title">Branded Residences in the Middle East</div>
-          <div class="report-desc">A deep-dive into the world's fastest-growing branded residences market, covering Dubai, Abu Dhabi, Saudi Arabia and emerging Gulf markets with pricing, pipeline and brand activity analysis.</div>
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Annual</div>
+          <div class="va-card-cover-year">2025</div>
+          <div class="va-card-cover-title">Branded Residences<br>2025/26</div>
         </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
-
-      <div class="report-row">
-        <div class="report-year">2024</div>
-        <div class="report-info">
-          <span class="report-tag">Thematic</span>
-          <div class="report-title">Non-Hotel Branded Residences</div>
-          <div class="report-desc">Examining the rapid rise of fashion, automotive and lifestyle brands entering the branded residences sector, with analysis of buyer appeal, pricing premiums and development pipeline.</div>
+        <div class="va-card-body">
+          <div class="va-card-desc">Our flagship annual report tracks the global branded residences pipeline, pricing premiums, brand portfolio growth and emerging market opportunities. The 2025/26 edition covers 910+ projects across 100+ markets.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
         </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
+      </a>
 
-      <div class="report-row">
-        <div class="report-year">2023</div>
-        <div class="report-info">
-          <span class="report-tag">Regional</span>
-          <div class="report-title">European Branded Residences</div>
-          <div class="report-desc">Analysis of the European branded residential market including urban versus resort development, buyer profiles across key source markets, and the growing pipeline across Southern Europe and the Alps.</div>
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #25273A 0%, #3d4065 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Annual</div>
+          <div class="va-card-cover-year">2024</div>
+          <div class="va-card-cover-title">Branded Residences<br>2024/25</div>
         </div>
-        <a class="report-dl" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download
-        </a>
-      </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">In-depth analysis covering 764 projects recorded at end of 2024, with regional market dynamics, pricing data and brand partner intelligence.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
 
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #2e3047 0%, #4a4e6a 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Annual</div>
+          <div class="va-card-cover-year">2023</div>
+          <div class="va-card-cover-title">Branded Residences<br>2023/24</div>
+        </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">Covers 700 branded residential schemes globally, with analysis of the growing non-hotel brand segment and resort market performance.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
+
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #363954 0%, #555878 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Annual</div>
+          <div class="va-card-cover-year">2022</div>
+          <div class="va-card-cover-title">Branded Residences<br>2022/23</div>
+        </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">Analysis of post-pandemic market recovery and the accelerating pipeline of branded residence projects driven by changing buyer preferences and increased brand partner interest.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
     </div>
+
+    <div class="va-section-label">Regional &amp; Thematic Reports</div>
+    <div class="va-grid">
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #25273A 0%, #9a1e22 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Regional</div>
+          <div class="va-card-cover-year">2024</div>
+          <div class="va-card-cover-title">Branded Residences<br>in the Middle East</div>
+        </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">A deep-dive into the world's fastest-growing branded residences market, covering Dubai, Abu Dhabi, Saudi Arabia and emerging Gulf markets.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
+
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #25273A 0%, #4A6FA5 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Thematic</div>
+          <div class="va-card-cover-year">2024</div>
+          <div class="va-card-cover-title">Non-Hotel Branded<br>Residences</div>
+        </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">Examining the rapid rise of fashion, automotive and lifestyle brands entering the branded residences sector.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
+
+      <a class="va-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences-reports---archive.aspx" target="_blank">
+        <div class="va-card-cover" style="background: linear-gradient(135deg, #25273A 0%, #2A7B6F 100%);">
+          <div class="va-card-cover-pattern"></div>
+          <div class="va-card-cover-tag">Regional</div>
+          <div class="va-card-cover-year">2023</div>
+          <div class="va-card-cover-title">European Branded<br>Residences</div>
+        </div>
+        <div class="va-card-body">
+          <div class="va-card-desc">Analysis of the European branded residential market including urban versus resort development, buyer profiles and growing pipeline across Southern Europe and the Alps.</div>
+          <div class="va-card-dl">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download Report
+          </div>
+        </div>
+      </a>
+    </div>
+
   </div>
 
   <footer class="site-footer">
