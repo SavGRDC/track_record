@@ -54,15 +54,14 @@ body {
   display: flex; align-items: center; gap: 14px;
 }
 .hdr-logo {
-  width: 34px; height: 34px;
-  background: rgba(255,255,255,0.10);
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
+  height: 36px; width: auto;
+  display: flex; align-items: center;
   flex-shrink: 0;
 }
-.hdr-logo span {
-  font-family: var(--serif); font-size: 17px; font-weight: 700;
-  color: #fff; line-height: 1;
+.hdr-logo img {
+  height: 36px; width: auto;
+  display: block; object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 .hdr-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.12); }
 .hdr-wordmark {
@@ -702,7 +701,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 ══════════════════════════════════════ -->
 <header class="site-header">
   <div class="hdr-left">
-    <div class="hdr-logo"><span>S</span></div>
+    <div class="hdr-logo"><img src="https://savgrdc.github.io/track_record/images/SavLogo.png" alt="Savills"></div>
     <div class="hdr-divider"></div>
     <div class="hdr-wordmark">
       <div class="hdr-wordmark-main">Global Residential Development Consultancy</div>
