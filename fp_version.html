@@ -531,21 +531,21 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* Alternating split services */
-.svc-splits { padding: 0 0 96px; }
+.svc-splits { padding: 0 0 112px; }
 .svc-split {
   display: grid; grid-template-columns: 42% 1fr;
   gap: 0; align-items: stretch;
   border-top: 1px solid var(--rule);
-  min-height: 440px;
+  min-height: 520px;
 }
 .svc-split:nth-child(even) { grid-template-columns: 1fr 42%; }
 .svc-split:nth-child(even) .svc-img-col { order: -1; }
 
 .svc-text-col {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 64px 60px;
+  padding: 80px 72px;
 }
-.svc-split:nth-child(even) .svc-text-col { padding: 64px 64px 64px 60px; }
+.svc-split:nth-child(even) .svc-text-col { padding: 80px 72px; }
 .svc-gold-rule { width: 26px; height: 1.5px; background: var(--gold); margin-bottom: 26px; }
 .svc-split-title {
   font-family: var(--serif);
@@ -994,10 +994,10 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      WHAT WE DO
 ══════════════════════════════════════ -->
 <div class="page" id="page-what">
-  <div class="page-inner" style="padding-bottom: 56px;">
-    <div class="pg-eyebrow">Savills GRDC</div>
+  <div class="page-inner" style="padding-bottom: 64px;">
     <h1 class="pg-title">Services</h1>
-    <p class="pg-intro">Strategic advisory across the branded residential lifecycle</p>
+    <p style="font-family: var(--serif); font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--ink); line-height: 1.4; letter-spacing: -0.2px; max-width: 680px; margin-bottom: 28px;">Strategic advisory across the branded residential lifecycle</p>
+    <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid); max-width: 640px;">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.<br><br>Our advisory combines deep market insight, global brand relationships and the strength of Savills' international platform to maximise project value and commercial success.</p>
   </div>
 
   <!-- ── Chapter 1: Development Advisory (white) ── -->
@@ -1005,32 +1005,24 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
-        <div class="svc-ch-label">Chapter One</div>
         <div class="svc-ch-name">Development Advisory</div>
       </div>
     </div>
 
-    <!-- Hero: Development Strategy & Feasibility -->
-    <div class="svc-hero">
-      <div class="svc-hero-img-wrap">
-        <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
-        <div class="svc-hero-overlay"></div>
-        <div class="svc-hero-text-pos">
-          <div class="svc-hero-text">
-            <h2 class="svc-hero-title">Development Strategy &amp; Feasibility</h2>
-            <p class="svc-hero-sub">Defining the optimal development strategy</p>
-          </div>
-        </div>
-      </div>
-      <div class="svc-hero-body-band">
-        <div class="svc-wrap">
-          <p class="svc-hero-body">Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development. Our feasibility studies provide developers with the evidence required to proceed with confidence.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Splits: Brand Search / Operator Advisory / Equity Raising -->
+    <!-- Splits: Development Strategy / Brand Search / Operator Advisory / Equity Raising -->
     <div class="svc-splits">
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Development Strategy &amp; Feasibility</h2>
+          <p class="svc-split-sub">Defining the optimal development strategy</p>
+          <p class="svc-split-body">Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development. Our feasibility studies provide developers with the evidence required to proceed with confidence.</p>
+        </div>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
+        </div>
+      </div>
+
       <div class="svc-split">
         <div class="svc-text-col">
           <div class="svc-gold-rule"></div>
@@ -1074,7 +1066,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
-        <div class="svc-ch-label">Chapter Two</div>
         <div class="svc-ch-name">Research &amp; Intelligence</div>
       </div>
     </div>
@@ -1111,7 +1102,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
-        <div class="svc-ch-label">Chapter Three</div>
         <div class="svc-ch-name">Sales &amp; Commercialisation</div>
       </div>
     </div>
