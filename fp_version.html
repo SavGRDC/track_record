@@ -58,12 +58,12 @@ body.on-overview .site-header:hover {
 /* Flip text/icon colours for white header */
 .hdr-wordmark-main   { color: var(--ink); }
 .hdr-divider         { background: rgba(28,28,30,0.15); }
-.hdr-logo img        { filter: brightness(0); }
+.hdr-logo img        { filter: none; }
 .menu-trigger        { color: rgba(28,28,30,0.6); }
-/* Override to white when on overview */
+/* Override when on overview (translucent navy header) */
 body.on-overview .hdr-wordmark-main { color: #fff; }
 body.on-overview .hdr-divider       { background: rgba(255,255,255,0.15); }
-body.on-overview .hdr-logo img      { filter: brightness(0) invert(1); }
+body.on-overview .hdr-logo img      { filter: none; }
 body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
 .hdr-left {
   display: flex; align-items: center; gap: 14px;
@@ -710,7 +710,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 </style>
 </head>
-<body>
+<body class="on-overview">
 
 <!-- ══════════════════════════════════════
      HEADER
