@@ -263,6 +263,24 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
+   HERO STATEMENT — headline below image
+═══════════════════════════════════════════════ */
+.hero-statement {
+  padding: 72px 72px 64px;
+  border-bottom: 1px solid rgba(28,28,30,0.08);
+}
+.hero-statement p {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.18;
+  letter-spacing: -0.5px;
+  max-width: 820px;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════
    STATS BAND — huge numbers
 ═══════════════════════════════════════════════ */
 .stats-band {
@@ -748,6 +766,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <div class="hero">
     <img class="hero-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office, London">
     <div class="hero-caption">Raffles Old War Office, London</div>
+  </div>
+
+  <!-- Hero headline -->
+  <div class="hero-statement">
+    <p>Savills, The World's Leading Advisor on Branded Residences</p>
   </div>
 
   <!-- Stats -->
