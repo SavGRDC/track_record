@@ -86,38 +86,135 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   NAV BAR
+   MENU TRIGGER
 ═══════════════════════════════════════════════ */
-.site-nav {
-  position: fixed; top: var(--hdr); left: 0; right: 0;
-  height: var(--nav);
-  background: var(--white);
-  border-bottom: 1px solid var(--rule);
-  display: flex; align-items: stretch;
-  padding: 0 40px;
-  z-index: 900;
+.menu-trigger {
+  display: flex; align-items: center; gap: 10px;
+  background: none; border: none; cursor: pointer;
+  padding: 0; color: rgba(255,255,255,0.75);
+  transition: color 0.2s;
 }
-.nav-btn {
-  display: flex; align-items: center;
-  padding: 0 16px;
-  font-size: 10px; font-weight: 700;
+.menu-trigger:hover { color: #fff; }
+.menu-trigger-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+}
+.menu-trigger-icon {
+  display: flex; flex-direction: column;
+  gap: 5px; width: 22px;
+}
+.menu-trigger-icon span {
+  display: block; height: 1.5px;
+  background: currentColor;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+              opacity   0.35s cubic-bezier(0.4,0,0.2,1),
+              width     0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.menu-trigger-icon span:nth-child(3) { width: 14px; }
+/* open state */
+body.menu-open .menu-trigger-icon span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+body.menu-open .menu-trigger-icon span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+body.menu-open .menu-trigger-icon span:nth-child(3) { width: 22px; transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ═══════════════════════════════════════════════
+   FULLSCREEN MENU OVERLAY
+═══════════════════════════════════════════════ */
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: var(--navy);
+  z-index: 800;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+body.menu-open .nav-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-overlay-inner {
+  max-width: 700px;
+}
+.nav-overlay-label {
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 48px;
+}
+.nav-overlay-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.nav-overlay-item {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1),
+              opacity   0.45s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-overlay-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+/* staggered entrance */
+body.menu-open .nav-overlay-item:nth-child(1) { transition-delay: 0.05s; transform: none; opacity: 1; }
+body.menu-open .nav-overlay-item:nth-child(2) { transition-delay: 0.10s; transform: none; opacity: 1; }
+body.menu-open .nav-overlay-item:nth-child(3) { transition-delay: 0.15s; transform: none; opacity: 1; }
+body.menu-open .nav-overlay-item:nth-child(4) { transition-delay: 0.20s; transform: none; opacity: 1; }
+body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transform: none; opacity: 1; }
+
+.nav-overlay-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 28px 0;
+  background: none; border: none; cursor: pointer;
+  text-align: left;
+  color: rgba(255,255,255,0.45);
+  transition: color 0.2s;
+}
+.nav-overlay-btn:hover { color: #fff; }
+.nav-overlay-btn.active { color: #fff; }
+.nav-overlay-btn-text {
+  font-family: var(--serif);
+  font-size: 38px; font-weight: 400;
+  line-height: 1; letter-spacing: -0.5px;
+}
+.nav-overlay-btn-arrow {
+  font-size: 18px; opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.nav-overlay-btn:hover .nav-overlay-btn-arrow,
+.nav-overlay-btn.active .nav-overlay-btn-arrow {
+  opacity: 1; transform: translateX(6px);
+}
+/* Active item gets gold accent */
+.nav-overlay-btn.active .nav-overlay-btn-text {
+  color: #fff;
+}
+.nav-overlay-footer {
+  margin-top: 56px;
+  display: flex; align-items: center; gap: 32px;
+}
+.nav-overlay-footer-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.nav-overlay-footer-val {
+  font-family: var(--serif); font-size: 22px; font-weight: 400;
+  color: rgba(255,255,255,0.7); line-height: 1;
+}
+.nav-overlay-footer-lbl {
+  font-size: 8px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted);
-  border: none; background: none; cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
-  white-space: nowrap;
+  color: rgba(255,255,255,0.25);
 }
-.nav-btn:first-child { padding-left: 0; }
-.nav-btn:hover { color: var(--ink); }
-.nav-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+.nav-overlay-footer-divider {
+  width: 1px; height: 36px;
+  background: rgba(255,255,255,0.1);
+}
 
 /* ═══════════════════════════════════════════════
    PAGE SYSTEM
 ═══════════════════════════════════════════════ */
 .page {
   position: fixed;
-  top: calc(var(--hdr) + var(--nav));
+  top: var(--hdr);
   left: 0; right: 0; bottom: 0;
   overflow-y: auto;
   display: none;
@@ -603,34 +700,89 @@ body {
     <div class="hdr-divider"></div>
     <div class="hdr-wordmark">
       <div class="hdr-wordmark-main">Branded Residences</div>
-      <div class="hdr-wordmark-sub">Track Record</div>
+      <div class="hdr-wordmark-sub">Savills Global Residential Development Consultancy</div>
     </div>
   </div>
-  <div class="hdr-stats">
-    <div class="hdr-stat">
-      <div class="hdr-stat-val">£38.5bn</div>
-      <div class="hdr-stat-lbl">GDV Advised</div>
+  <div style="display:flex; align-items:center; gap:32px;">
+    <div class="hdr-stats">
+      <div class="hdr-stat">
+        <div class="hdr-stat-val">£38.5bn</div>
+        <div class="hdr-stat-lbl">GDV Advised</div>
+      </div>
+      <div class="hdr-stat">
+        <div class="hdr-stat-val">265</div>
+        <div class="hdr-stat-lbl">Projects</div>
+      </div>
+      <div class="hdr-stat">
+        <div class="hdr-stat-val">51</div>
+        <div class="hdr-stat-lbl">Countries</div>
+      </div>
     </div>
-    <div class="hdr-stat">
-      <div class="hdr-stat-val">265</div>
-      <div class="hdr-stat-lbl">Projects</div>
-    </div>
-    <div class="hdr-stat">
-      <div class="hdr-stat-val">51</div>
-      <div class="hdr-stat-lbl">Countries</div>
-    </div>
+    <div class="hdr-divider"></div>
+    <button class="menu-trigger" onclick="toggleMenu()" aria-label="Menu">
+      <span class="menu-trigger-label">Menu</span>
+      <div class="menu-trigger-icon">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
   </div>
 </header>
 
 <!-- ══════════════════════════════════════
-     NAV
+     FULLSCREEN NAV OVERLAY
 ══════════════════════════════════════ -->
-<nav class="site-nav">
-  <button class="nav-btn active" id="nav-overview" onclick="show('overview')">Overview</button>
-  <button class="nav-btn" id="nav-what"     onclick="show('what')">What We Do</button>
-  <button class="nav-btn" id="nav-map"      onclick="show('map')">Track Record</button>
-  <button class="nav-btn" id="nav-cases"    onclick="show('cases')">Case Studies</button>
-  <button class="nav-btn" id="nav-reports"  onclick="show('reports')">Research Reports</button>
+<nav class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-inner">
+    <div class="nav-overlay-label">Navigation</div>
+    <ul class="nav-overlay-list">
+      <li class="nav-overlay-item">
+        <button class="nav-overlay-btn active" id="nav-overview" onclick="show('overview')">
+          <span class="nav-overlay-btn-text">Overview</span>
+          <span class="nav-overlay-btn-arrow">→</span>
+        </button>
+      </li>
+      <li class="nav-overlay-item">
+        <button class="nav-overlay-btn" id="nav-what" onclick="show('what')">
+          <span class="nav-overlay-btn-text">What We Do</span>
+          <span class="nav-overlay-btn-arrow">→</span>
+        </button>
+      </li>
+      <li class="nav-overlay-item">
+        <button class="nav-overlay-btn" id="nav-map" onclick="show('map')">
+          <span class="nav-overlay-btn-text">Track Record</span>
+          <span class="nav-overlay-btn-arrow">→</span>
+        </button>
+      </li>
+      <li class="nav-overlay-item">
+        <button class="nav-overlay-btn" id="nav-cases" onclick="show('cases')">
+          <span class="nav-overlay-btn-text">Case Studies</span>
+          <span class="nav-overlay-btn-arrow">→</span>
+        </button>
+      </li>
+      <li class="nav-overlay-item">
+        <button class="nav-overlay-btn" id="nav-reports" onclick="show('reports')">
+          <span class="nav-overlay-btn-text">Research Reports</span>
+          <span class="nav-overlay-btn-arrow">→</span>
+        </button>
+      </li>
+    </ul>
+    <div class="nav-overlay-footer">
+      <div class="nav-overlay-footer-stat">
+        <div class="nav-overlay-footer-val">£38.5bn</div>
+        <div class="nav-overlay-footer-lbl">Development Value Advised</div>
+      </div>
+      <div class="nav-overlay-footer-divider"></div>
+      <div class="nav-overlay-footer-stat">
+        <div class="nav-overlay-footer-val">265</div>
+        <div class="nav-overlay-footer-lbl">Projects</div>
+      </div>
+      <div class="nav-overlay-footer-divider"></div>
+      <div class="nav-overlay-footer-stat">
+        <div class="nav-overlay-footer-val">51</div>
+        <div class="nav-overlay-footer-lbl">Countries</div>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- ══════════════════════════════════════
@@ -1224,14 +1376,27 @@ body {
      JS — page switching
 ══════════════════════════════════════ -->
 <script>
+function toggleMenu() {
+  document.body.classList.toggle('menu-open');
+}
+
 function show(id) {
+  // hide all pages, deactivate all nav items
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-overlay-btn').forEach(b => b.classList.remove('active'));
+  // activate selected
   document.getElementById('page-' + id).classList.add('active');
   document.getElementById('nav-' + id).classList.add('active');
-  // scroll to top of page
+  // scroll page to top
   document.getElementById('page-' + id).scrollTop = 0;
+  // close menu with slight delay so user sees the selection
+  setTimeout(() => document.body.classList.remove('menu-open'), 280);
 }
+
+// close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.body.classList.remove('menu-open');
+});
 </script>
 
 </body>
