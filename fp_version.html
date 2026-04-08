@@ -920,34 +920,9 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 /* ═══════════════════════════════════════════════
    MAP PAGE
 ═══════════════════════════════════════════════ */
-.map-placeholder {
-  height: 100%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 20px; text-align: center;
-  padding: 40px;
-  background: var(--off);
-}
-.map-placeholder-icon {
-  width: 56px; height: 56px;
-  border: 1.5px solid var(--rule);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
-.map-placeholder h2 {
-  font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink);
-}
-.map-placeholder p {
-  font-size: 14px; font-weight: 300; color: var(--muted);
-  max-width: 400px; line-height: 1.7;
-}
-.map-open-btn {
-  margin-top: 8px; padding: 12px 24px;
-  background: var(--navy); color: #fff;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  border: none; border-radius: 2px; cursor: pointer;
-  text-decoration: none; display: inline-block;
+#page-map {
+  padding: 0;
+  overflow: hidden;
 }
 </style>
 </head>
@@ -1331,19 +1306,13 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      TRACK RECORD (MAP)
 ══════════════════════════════════════ -->
 <div class="page" id="page-map">
-  <div class="map-placeholder">
-    <div class="map-placeholder-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="9" stroke="#8A8A8E" stroke-width="1.5"/>
-        <ellipse cx="12" cy="12" rx="4" ry="9" stroke="#8A8A8E" stroke-width="1.5"/>
-        <line x1="3" y1="9" x2="21" y2="9" stroke="#8A8A8E" stroke-width="1.5"/>
-        <line x1="3" y1="15" x2="21" y2="15" stroke="#8A8A8E" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <h2>Global Track Record</h2>
-    <p>The interactive project map — 265 projects across 51 countries — is available in the live site.</p>
-    <a class="map-open-btn" href="https://savgrdc.github.io/track_record/" target="_blank">Open Live Map →</a>
-  </div>
+  <iframe
+    id="map-iframe"
+    src="https://savgrdc.github.io/track_record/"
+    style="width:100%; height:calc(100vh - 96px); border:none; display:block; margin-top:96px;"
+    loading="lazy"
+    allow="geolocation"
+  ></iframe>
 </div>
 
 <!-- ══════════════════════════════════════
