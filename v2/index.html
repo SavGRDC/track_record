@@ -564,23 +564,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   transition: border-color 0.2s; text-decoration: none;
 }
 .ov-cta:hover { border-color: #fff; }
-/* Market stat cards */
-.ov-stat-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-  margin: 36px 0 8px;
-}
-.ov-stat-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  padding: 28px 28px 24px; text-align: center;
-}
-.ov-stat-card-num {
-  font-family: var(--serif); font-size: 48px; font-weight: 400;
-  color: var(--gold); line-height: 1; margin-bottom: 8px;
-}
-.ov-stat-card-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.35); line-height: 1.5;
+/* Market stats band — mirrors .stats-band formatting */
+.ov-market-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 40px;
 }
 
 /* ═══════════════════════════════════════════════
@@ -1434,7 +1423,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <!-- About -->
   <div class="ov-section">
     <div class="ov-inner">
-      <div class="ov-eyebrow">About</div>
+      <div class="ov-eyebrow">About Savills GRDC</div>
       <div class="ov-heading">Savills are the global leaders in branded residential advisory</div>
       <div class="ov-rule"></div>
       <div class="ov-body">
@@ -1461,6 +1450,44 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
   </div>
 
+  <!-- The Market -->
+  <div class="ov-section">
+    <div class="ov-inner">
+      <div class="ov-eyebrow">The Market</div>
+      <div class="ov-heading">The branded residential market is one of the fastest growing sectors in global real estate</div>
+      <div class="ov-rule"></div>
+
+      <!-- Market stats band — matches Savills GRDC stats formatting -->
+      <div class="ov-market-stats">
+        <div class="stat-col">
+          <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <div class="stat-num">180%</div>
+          <div class="stat-rule"></div>
+          <div class="stat-label">Sector Growth<br>in 10 Years</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+          <div class="stat-num">33%</div>
+          <div class="stat-rule"></div>
+          <div class="stat-label">Average Global<br>Price Premium</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+          <div class="stat-num">47%</div>
+          <div class="stat-rule"></div>
+          <div class="stat-label">Emerging Market<br>Price Premium</div>
+        </div>
+      </div>
+
+      <div class="ov-body">
+        <p>The branded residences sector has expanded rapidly over the past decade, growing by more than 180% as developers increasingly partner with global brands to enhance product differentiation and pricing power.</p>
+        <p>In 2024, branded residences achieved an average global price premium of 33% over comparable non branded properties. In emerging luxury markets the premium rises to as much as 47% as international brands attract growing concentrations of high net worth buyers.</p>
+        <p>While the sector was historically dominated by luxury hotel operators, a new generation of non hotel brands is entering the market, broadening the branded residential landscape and responding to evolving buyer preferences.</p>
+        <p>Dubai, South Florida and New York remain the most established markets, while emerging cities and resort destinations continue to see strong development momentum.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Logo band -->
   <div class="logos-band">
     <div class="logos-heading">Trusted Brand Partners</div>
@@ -1475,31 +1502,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Maybourne-hotel-group.svg.png" alt="Maybourne"></div>
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/One&amp;Only.webp" alt="One&Only"></div>
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Ritz-carlton.png" alt="Ritz-Carlton"></div>
-    </div>
-  </div>
-
-  <!-- The Market -->
-  <div class="ov-section">
-    <div class="ov-inner">
-      <div class="ov-eyebrow">The Market</div>
-      <div class="ov-heading">The branded residential market is one of the fastest growing sectors in global real estate</div>
-      <div class="ov-rule"></div>
-      <div class="ov-body">
-        <p>The branded residences sector has expanded rapidly over the past decade, growing by more than 180% as developers increasingly partner with global brands to enhance product differentiation and pricing power.</p>
-        <div class="ov-stat-row">
-          <div class="ov-stat-card">
-            <div class="ov-stat-card-num">33%</div>
-            <div class="ov-stat-card-label">Average Global<br>Price Premium</div>
-          </div>
-          <div class="ov-stat-card">
-            <div class="ov-stat-card-num">47%</div>
-            <div class="ov-stat-card-label">Emerging Market<br>Price Premium</div>
-          </div>
-        </div>
-        <p>In 2024, branded residences achieved an average global price premium of 33% over comparable non branded properties. In emerging luxury markets the premium rises to as much as 47% as international brands attract growing concentrations of high net worth buyers.</p>
-        <p>While the sector was historically dominated by luxury hotel operators, a new generation of non hotel brands is entering the market, broadening the branded residential landscape and responding to evolving buyer preferences.</p>
-        <p>Dubai, South Florida and New York remain the most established markets, while emerging cities and resort destinations continue to see strong development momentum.</p>
-      </div>
     </div>
   </div>
 
