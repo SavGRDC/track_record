@@ -466,137 +466,67 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
-   WHAT WE DO — service card grid
+   SERVICES — editorial vertical layout
 ═══════════════════════════════════════════════ */
-.svc-grid-wrap {
-  position: relative;
-  margin-top: 0;
-}
-.svc-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  background: #111;
-}
-.svc-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  height: 42vh;
-  min-height: 260px;
-  background: var(--navy);
-}
-.svc-card--large { grid-column: span 2; }
-.svc-card-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease, opacity 0.4s ease;
-  opacity: 0.72;
-}
-.svc-card:hover .svc-card-img { transform: scale(1.04); opacity: 0.56; }
-.svc-card.svc-active .svc-card-img { opacity: 0.38; }
-.svc-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20,20,32,0.82) 0%, rgba(20,20,32,0.18) 60%, transparent 100%);
-}
-.svc-card-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 24px 28px;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.svc-card-num {
-  font-family: var(--serif);
-  font-size: 11px; font-weight: 400;
-  color: rgba(255,255,255,0.45);
-  letter-spacing: 0.5px;
-}
-.svc-card-name {
-  font-family: var(--serif);
-  font-size: 20px; font-weight: 400;
-  color: #fff; line-height: 1.2;
-  letter-spacing: -0.2px;
-}
-.svc-card--large .svc-card-name { font-size: 26px; }
-/* Active state indicator */
-.svc-card.svc-active::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--gold);
-}
-/* Detail panel — overlays the card grid */
-.svc-detail {
-  position: absolute;
-  inset: 0;
-  background: rgba(25, 27, 46, 0.97);
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  align-items: center;
-}
-.svc-detail.open { opacity: 1; pointer-events: all; }
-.svc-detail-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 48px;
-  align-items: start;
-  padding: 52px 72px;
-  width: 100%;
-}
-.svc-detail-meta { display: flex; flex-direction: column; gap: 10px; }
-.svc-detail-num {
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--gold);
-}
-.svc-detail-title {
-  font-family: var(--serif);
-  font-size: 30px; font-weight: 400;
-  color: #fff; line-height: 1.2;
-  letter-spacing: -0.3px; margin: 0 0 6px;
-}
-.svc-detail-tag {
-  font-size: 9px; font-weight: 700; letter-spacing: 1.8px;
-  text-transform: uppercase; color: rgba(255,255,255,0.38);
-}
-.svc-detail-desc {
-  font-size: 14px; line-height: 1.9; font-weight: 300;
-  color: rgba(255,255,255,0.65);
-  max-width: 640px; margin: 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-.svc-detail-close {
-  background: none; border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.5); cursor: pointer;
-  width: 36px; height: 36px; border-radius: 50%;
-  font-size: 18px; line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
-  flex-shrink: 0; margin-top: 4px;
-}
-.svc-detail-close:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
-/* Service section grouping */
-.svc-section-group { }
-.svc-section-label {
-  padding: 32px 72px 18px;
+.svc-chapters { padding-bottom: 100px; }
+.svc-chapter { margin-top: 80px; }
+.svc-chapter:first-child { margin-top: 40px; }
+.svc-chapter-label {
+  padding: 0 72px 28px;
   font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
   text-transform: uppercase; color: var(--muted);
-  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
 }
-.svc-section-group:first-of-type .svc-section-label { border-top: none; }
-.svc-grid--2col { grid-template-columns: repeat(2, 1fr); }
-.svc-card--full { grid-column: 1 / -1; height: 28vh; min-height: 180px; }
-.svc-detail-sub {
+.svc-service {
+  border-bottom: 1px solid var(--rule);
+}
+.svc-service-img-wrap {
+  position: relative;
+  height: 62vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+.svc-service--final .svc-service-img-wrap {
+  height: 72vh;
+  min-height: 480px;
+}
+.svc-service-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.8s ease;
+}
+.svc-service:hover .svc-service-img { transform: scale(1.03); }
+.svc-service-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.36);
+}
+.svc-service-img-text {
+  position: absolute; bottom: 0; left: 0;
+  padding: 48px 72px;
+}
+.svc-service-title {
   font-family: var(--serif);
-  font-size: 17px; font-weight: 400; font-style: italic;
-  color: rgba(255,255,255,0.52);
-  margin: 0; line-height: 1.35;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 400; color: #fff;
+  line-height: 1.15; letter-spacing: -0.4px;
+  margin: 0 0 10px;
 }
-.svc-detail-desc p { margin: 0 0 10px; }
-.svc-detail-desc p:last-child { margin-bottom: 0; }
+.svc-service-sub {
+  font-family: var(--serif);
+  font-size: 17px; font-style: italic;
+  color: rgba(255,255,255,0.62);
+  margin: 0; line-height: 1.4;
+}
+.svc-service-body {
+  padding: 40px 72px 56px;
+  max-width: 700px;
+}
+.svc-service-body p {
+  font-size: 15px; line-height: 1.88; font-weight: 300;
+  color: var(--mid); margin: 0 0 14px;
+}
+.svc-service-body p:last-child { margin-bottom: 0; }
 
 /* ═══════════════════════════════════════════════
    CASE STUDIES
@@ -987,130 +917,142 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      WHAT WE DO
 ══════════════════════════════════════ -->
 <div class="page" id="page-what">
-  <div class="page-inner" style="padding-bottom: 48px;">
+  <div class="page-inner" style="padding-bottom: 40px;">
     <div class="pg-eyebrow">Savills GRDC</div>
     <h1 class="pg-title">Services</h1>
     <p class="pg-intro">Strategic advisory across the branded residential lifecycle</p>
-    <p class="pg-intro" style="margin-top: 16px; color: var(--mid);">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.</p>
-    <p class="pg-intro" style="margin-top: 12px; color: var(--mid);">Our advisory combines deep market insight, global brand relationships and the strength of Savills' international platform to maximise project value and commercial success.</p>
+    <p style="font-size:15px; line-height:1.85; font-weight:300; color:var(--mid); max-width:640px; margin-top:20px;">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.</p>
   </div>
 
-  <!-- Development Advisory -->
-  <div class="svc-section-group">
-    <div class="svc-section-label">Development Advisory</div>
-    <div class="svc-grid-wrap">
-      <div class="svc-grid">
-        <div class="svc-card svc-card--large" id="card-dev-strategy" onclick="toggleService('dev-strategy')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-num">01</span>
-            <span class="svc-card-name">Development Strategy &amp; Feasibility</span>
+  <div class="svc-chapters">
+
+    <!-- Chapter 1: Development Advisory -->
+    <div class="svc-chapter">
+      <div class="svc-chapter-label">Development Advisory</div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Development Strategy">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Development Strategy &amp; Feasibility</h3>
+            <p class="svc-service-sub">Defining the optimal development strategy</p>
           </div>
         </div>
-        <div class="svc-card" id="card-brand-search" onclick="toggleService('brand-search')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-num">02</span>
-            <span class="svc-card-name">Brand Search</span>
-          </div>
-        </div>
-        <div class="svc-card svc-card--full" id="card-operator-advisory" onclick="toggleService('operator-advisory')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-num">03</span>
-            <span class="svc-card-name">Operator Advisory</span>
-          </div>
+        <div class="svc-service-body">
+          <p>Before committing capital, developers must understand whether a branded residential concept is viable, differentiated and financially compelling.</p>
+          <p>Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development.</p>
+          <p>Our feasibility studies assess market demand, pricing potential, development scale and financial viability, providing developers with the evidence required to proceed with confidence.</p>
+          <p>This work is typically undertaken during the earliest stages of project planning and informs key decisions on product mix, branding strategy and project economics.</p>
         </div>
       </div>
-      <div class="svc-detail" id="svc-detail-dev">
-        <div class="svc-detail-inner">
-          <div class="svc-detail-meta">
-            <div class="svc-detail-num" id="svc-detail-dev-num"></div>
-            <h2 class="svc-detail-title" id="svc-detail-dev-title"></h2>
-            <div class="svc-detail-sub" id="svc-detail-dev-sub"></div>
-            <span class="svc-detail-tag" id="svc-detail-dev-tag"></span>
-            <div class="svc-detail-desc" id="svc-detail-dev-desc"></div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="Brand Search">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Brand Search</h3>
+            <p class="svc-service-sub">Identifying the right brand partner</p>
           </div>
-          <button class="svc-detail-close" onclick="closeService()">×</button>
+        </div>
+        <div class="svc-service-body">
+          <p>Selecting the appropriate brand is one of the most important decisions in a branded residential development.</p>
+          <p>Savills GRDC manages the full brand search process, from defining the brand brief and identifying suitable partners to coordinating negotiations and supporting the execution of brand agreements.</p>
+          <p>Our global relationships with leading hotel and lifestyle brands ensure developers secure partners that enhance project positioning, pricing power and long term value.</p>
+        </div>
+      </div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Operator Advisory">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Operator Advisory</h3>
+            <p class="svc-service-sub">Structuring projects for operational success</p>
+          </div>
+        </div>
+        <div class="svc-service-body">
+          <p>Branded residential developments require carefully designed operational frameworks to align the interests of developers, operators and residents.</p>
+          <p>Savills GRDC advises on residential management structures, rental programmes, homeowners associations and operational budgeting to ensure projects operate smoothly and deliver the intended resident experience.</p>
+          <p>This work is typically undertaken alongside brand negotiations and project design development.</p>
+        </div>
+      </div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Equity Raising">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Equity Raising</h3>
+            <p class="svc-service-sub">Securing capital to deliver the project</p>
+          </div>
+        </div>
+        <div class="svc-service-body">
+          <p>Large scale branded residential developments often require significant development capital and strategic investment partners.</p>
+          <p>Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network.</p>
+          <p>Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Research & Intelligence -->
-  <div class="svc-section-group">
-    <div class="svc-section-label">Research &amp; Intelligence</div>
-    <div class="svc-grid-wrap">
-      <div class="svc-grid svc-grid--2col">
-        <div class="svc-card" id="card-market-intel" onclick="toggleService('market-intel')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-name">Market Intelligence</span>
+    <!-- Chapter 2: Research & Intelligence -->
+    <div class="svc-chapter">
+      <div class="svc-chapter-label">Research &amp; Intelligence</div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Market Intelligence">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Market Intelligence</h3>
+            <p class="svc-service-sub">Industry-leading research on the branded residences sector</p>
           </div>
         </div>
-        <div class="svc-card" id="card-brand-premium" onclick="toggleService('brand-premium')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-name">Brand Premium Studies</span>
-          </div>
+        <div class="svc-service-body">
+          <p>Savills GRDC produces industry leading research on the branded residences sector, including global and regional reports covering pricing benchmarks, development pipelines and market trends.</p>
+          <p>Alongside these publications, the team delivers bespoke market intelligence assignments for developers, investors and operators seeking detailed insight into specific markets or project concepts.</p>
         </div>
       </div>
-      <div class="svc-detail" id="svc-detail-research">
-        <div class="svc-detail-inner">
-          <div class="svc-detail-meta">
-            <div class="svc-detail-num" id="svc-detail-research-num"></div>
-            <h2 class="svc-detail-title" id="svc-detail-research-title"></h2>
-            <div class="svc-detail-sub" id="svc-detail-research-sub"></div>
-            <span class="svc-detail-tag" id="svc-detail-research-tag"></span>
-            <div class="svc-detail-desc" id="svc-detail-research-desc"></div>
+
+      <div class="svc-service">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Brand Premium Studies">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Brand Premium Studies</h3>
+            <p class="svc-service-sub">Quantifying the value of brand affiliation</p>
           </div>
-          <button class="svc-detail-close" onclick="closeService()">×</button>
+        </div>
+        <div class="svc-service-body">
+          <p>Savills GRDC quantifies the price premium associated with specific brands in specific markets, providing developers with the evidence required to negotiate brand agreements and underwrite project finances.</p>
+          <p>These studies draw on proprietary transaction data and comparable analysis across global branded residential markets.</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Project Commercialisation -->
-  <div class="svc-section-group">
-    <div class="svc-section-label">Project Commercialisation</div>
-    <div class="svc-grid-wrap">
-      <div class="svc-grid svc-grid--2col">
-        <div class="svc-card" id="card-equity-raising" onclick="toggleService('equity-raising')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-num">04</span>
-            <span class="svc-card-name">Equity Raising</span>
+    <!-- Chapter 3: Sales & Commercialisation -->
+    <div class="svc-chapter">
+      <div class="svc-chapter-label">Sales &amp; Commercialisation</div>
+
+      <div class="svc-service svc-service--final">
+        <div class="svc-service-img-wrap">
+          <img class="svc-service-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Residential Sales">
+          <div class="svc-service-overlay"></div>
+          <div class="svc-service-img-text">
+            <h3 class="svc-service-title">Residential Sales</h3>
+            <p class="svc-service-sub">Delivering successful project commercialisation</p>
           </div>
         </div>
-        <div class="svc-card" id="card-residential-sales" onclick="toggleService('residential-sales')">
-          <img class="svc-card-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="">
-          <div class="svc-card-overlay"></div>
-          <div class="svc-card-label">
-            <span class="svc-card-num">05</span>
-            <span class="svc-card-name">Residential Sales</span>
-          </div>
-        </div>
-      </div>
-      <div class="svc-detail" id="svc-detail-commercial">
-        <div class="svc-detail-inner">
-          <div class="svc-detail-meta">
-            <div class="svc-detail-num" id="svc-detail-commercial-num"></div>
-            <h2 class="svc-detail-title" id="svc-detail-commercial-title"></h2>
-            <div class="svc-detail-sub" id="svc-detail-commercial-sub"></div>
-            <span class="svc-detail-tag" id="svc-detail-commercial-tag"></span>
-            <div class="svc-detail-desc" id="svc-detail-commercial-desc"></div>
-          </div>
-          <button class="svc-detail-close" onclick="closeService()">×</button>
+        <div class="svc-service-body">
+          <p>Through Savills' global residential sales platform, developers gain access to one of the most established international buyer networks in luxury real estate.</p>
+          <p>Working alongside Savills' specialist sales teams, Savills GRDC supports the development of sales strategies, pricing structures and marketing programmes that maximise absorption and pricing performance.</p>
+          <p>This integrated approach allows projects to move seamlessly from development strategy through to successful sales execution.</p>
         </div>
       </div>
     </div>
-  </div>
+
+  </div><!-- /svc-chapters -->
 
   <footer class="site-footer">
     <div class="footer-left">
@@ -1537,13 +1479,10 @@ function show(id) {
 
 // close on Escape
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.body.classList.remove('menu-open');
-    closeService();
-  }
+  if (e.key === 'Escape') document.body.classList.remove('menu-open');
 });
 
-// ── Service card interactions ──────────────────
+// ── Service card interactions (retained for future use) ──────────────────
 const serviceData = {
   'dev-strategy': {
     num: '01', title: 'Development Strategy & Feasibility', tag: 'Developers & Investors',
