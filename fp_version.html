@@ -20,7 +20,7 @@
   --rule:   rgba(28,28,30,0.09);
   --serif:  Georgia, 'Times New Roman', serif;
   --sans:   'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --hdr:    76px;
+  --hdr:    96px;
   --nav:    40px;
 }
 html, body { height: 100%; }
@@ -37,9 +37,11 @@ body {
 ═══════════════════════════════════════════════ */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0;
-  height: 76px;
-  background: #fff;
-  display: flex; align-items: center; justify-content: space-between;
+  height: 96px;
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex; align-items: center; justify-content: center;
   padding: 0 40px;
   z-index: 1000;
   border-bottom: 1px solid rgba(28,28,30,0.08);
@@ -66,25 +68,31 @@ body.on-overview .hdr-divider       { background: rgba(255,255,255,0.15); }
 body.on-overview .hdr-logo img      { filter: none; }
 body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
 .hdr-left {
-  display: flex; align-items: center; gap: 14px;
+  position: absolute; left: 40px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; align-items: center;
+}
+.hdr-center {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
 .hdr-logo {
-  height: 36px; width: auto;
+  height: 32px; width: auto;
   display: flex; align-items: center;
   flex-shrink: 0;
 }
 .hdr-logo img {
-  height: 36px; width: auto;
+  height: 32px; width: auto;
   display: block; object-fit: contain;
   transition: filter 0.3s ease;
 }
-.hdr-divider { width: 1px; height: 22px; transition: background 0.3s ease; }
+.hdr-divider { display: none; }
 .hdr-wordmark {
-  display: flex; flex-direction: column; gap: 2px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
 .hdr-wordmark-main {
   font-family: var(--serif); font-size: 15px; font-weight: 400;
   letter-spacing: 0.2px; line-height: 1;
+  text-align: center;
   transition: color 0.3s ease;
 }
 .hdr-wordmark-sub {
@@ -466,6 +474,93 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
+   SERVICE TIMELINE
+═══════════════════════════════════════════════ */
+.svc-timeline-wrap {
+  max-width: 1240px; margin: 0 auto;
+  padding: 0 72px 80px;
+}
+.svc-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  position: relative;
+}
+.svc-tl-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Connector line */
+.svc-tl-step::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: calc(50% + 22px);
+  right: calc(-50% + 22px);
+  height: 1px;
+  background: var(--gold);
+}
+.svc-tl-step:last-child::after { display: none; }
+/* Number circle */
+.svc-tl-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 400;
+  color: var(--gold);
+  background: var(--white);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+.svc-tl-step:hover .svc-tl-num {
+  background: var(--gold);
+  color: var(--white);
+}
+.svc-tl-title {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 400;
+  color: var(--ink);
+  line-height: 1.3;
+  max-width: 140px;
+  transition: color 0.2s ease;
+}
+.svc-tl-step:hover .svc-tl-title {
+  color: var(--gold);
+}
+/* Progress track underneath */
+.svc-tl-track {
+  max-width: 1240px; margin: 0 auto;
+  padding: 0 72px;
+}
+.svc-tl-track-inner {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 12px;
+  padding-top: 28px;
+  border-top: none;
+}
+.svc-tl-track-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, var(--gold), rgba(201,168,76,0.15));
+}
+.svc-tl-track-label {
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
    SERVICES — Editorial layout
 ═══════════════════════════════════════════════ */
 .svc-wrap { max-width: 1240px; margin: 0 auto; padding: 0 72px; }
@@ -544,59 +639,176 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .svc-split:hover .svc-img-col img { transform: scale(1.03); }
 
 /* ═══════════════════════════════════════════════
-   CASE STUDIES
+   CASE STUDIES — Card Grid + Expand
 ═══════════════════════════════════════════════ */
-.cases-list { border-top: 1px solid var(--rule); }
-.case-item {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  border-bottom: 1px solid var(--rule);
-  min-height: 280px;
-  overflow: hidden;
+
+/* Featured hero card */
+.case-featured {
+  max-width: 1240px; margin: 0 auto;
+  padding: 0 72px 28px;
 }
-.case-img-wrap {
+.case-card-link {
+  display: block; text-decoration: none; cursor: pointer;
+}
+.case-featured-inner {
   position: relative; overflow: hidden;
-  background: var(--off);
 }
-.case-img-wrap img {
-  width: 100%; height: 100%;
+.case-featured-img {
+  width: 100%; height: 520px;
   object-fit: cover; display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.7s ease;
 }
-.case-item:hover .case-img-wrap img { transform: scale(1.04); }
-.case-img-overlay {
+.case-card-link:hover .case-featured-img { transform: scale(1.03); }
+.case-featured-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20,20,24,0.72) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(20,20,28,0.82) 0%, rgba(20,20,28,0.15) 50%, transparent 100%);
 }
-.case-img-tags {
-  position: absolute; bottom: 16px; left: 16px; right: 16px;
+.case-featured-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 48px 56px;
+}
+.case-featured-meta {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.case-featured-title {
+  font-family: var(--serif);
+  font-size: 38px; font-weight: 400;
+  color: #fff; line-height: 1.15;
+}
+
+/* 2x2 grid */
+.cases-grid {
+  max-width: 1240px; margin: 0 auto;
+  padding: 0 72px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.case-card {
+  position: relative; overflow: hidden;
+}
+.case-card-img {
+  width: 100%; height: 340px;
+  object-fit: cover; display: block;
+  transition: transform 0.7s ease;
+}
+.case-card-link:hover .case-card-img { transform: scale(1.03); }
+.case-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(20,20,28,0.8) 0%, rgba(20,20,28,0.12) 55%, transparent 100%);
+}
+.case-card-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 36px;
+}
+.case-card-meta {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.case-card-title {
+  font-family: var(--serif);
+  font-size: 26px; font-weight: 400;
+  color: #fff; line-height: 1.2;
+}
+
+/* ── Expanded case study overlay ── */
+.case-expand-overlay {
+  position: fixed; inset: 0;
+  background: rgba(20,20,28,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.case-expand-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.case-expand-panel {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 72%;
+  max-width: 960px;
+  background: var(--white);
+  z-index: 2001;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.case-expand-overlay.open .case-expand-panel {
+  transform: translateX(0);
+}
+.case-expand-close {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 24px 36px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+}
+.case-expand-close-btn {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(28,28,30,0.12);
+  border-radius: 50%;
+  background: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.case-expand-close-btn:hover {
+  background: var(--off);
+  border-color: rgba(28,28,30,0.25);
+}
+.case-expand-hero {
+  position: relative; overflow: hidden;
+}
+.case-expand-hero img {
+  width: 100%; height: 360px;
+  object-fit: cover; display: block;
+}
+.case-expand-hero-overlay {
+  position: absolute; inset: 0;
+  background: rgba(20,20,28,0.55);
+}
+.case-expand-hero-title {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 36px 48px;
+  font-family: var(--serif);
+  font-size: 36px; font-weight: 400;
+  color: #fff; line-height: 1.15;
+}
+.case-expand-sub-header {
+  padding: 32px 48px 0;
+}
+.case-expand-hero-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 16px;
 }
 .case-tag {
   font-size: 8px; font-weight: 700;
   letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 3px 8px; border-radius: 1px;
+  color: var(--muted);
+  background: rgba(28,28,30,0.04);
+  border: 1px solid rgba(28,28,30,0.12);
+  padding: 4px 10px;
 }
-.case-body {
-  padding: 44px 48px;
-  display: flex; flex-direction: column;
+.case-expand-hero-meta {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
 }
-.case-meta {
-  font-size: 9px; font-weight: 700;
-  letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 14px;
-}
-.case-title {
-  font-family: var(--serif);
-  font-size: 28px; font-weight: 400;
-  color: var(--ink); line-height: 1.2; margin-bottom: 28px;
+.case-expand-body {
+  padding: 32px 48px 48px;
 }
 .case-two-col {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 .case-block-label {
   font-size: 8.5px; font-weight: 700;
@@ -731,17 +943,18 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 ══════════════════════════════════════ -->
 <header class="site-header">
   <div class="hdr-left">
+    <button class="menu-trigger" onclick="toggleMenu()" aria-label="Menu">
+      <div class="menu-trigger-icon">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+  <div class="hdr-center">
     <div class="hdr-logo"><img src="https://savgrdc.github.io/track_record/images/SavLogo.png" alt="Savills"></div>
-    <div class="hdr-divider"></div>
     <div class="hdr-wordmark">
       <div class="hdr-wordmark-main">Global Residential Development Consultancy</div>
     </div>
   </div>
-  <button class="menu-trigger" onclick="toggleMenu()" aria-label="Menu">
-    <div class="menu-trigger-icon">
-      <span></span><span></span><span></span>
-    </div>
-  </button>
 </header>
 
 <!-- ══════════════════════════════════════
@@ -931,10 +1144,45 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      WHAT WE DO
 ══════════════════════════════════════ -->
 <div class="page" id="page-what">
-  <div class="page-inner" style="padding-bottom: 64px;">
+  <div class="page-inner" style="padding-bottom: 64px; max-width: 1240px;">
     <h1 class="pg-title">Services</h1>
-    <p style="font-family: var(--serif); font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--ink); line-height: 1.4; letter-spacing: -0.2px; max-width: 680px; margin-bottom: 28px;">Strategic advisory across the branded residential lifecycle</p>
-    <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid); max-width: 640px;">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.<br><br>Our advisory combines deep market insight, global brand relationships and the strength of Savills' international platform to maximise project value and commercial success.</p>
+    <p style="font-family: var(--serif); font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--ink); line-height: 1.4; letter-spacing: -0.2px; margin-bottom: 28px;">Strategic advisory across the branded residential lifecycle</p>
+    <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid);">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.<br><br>Our advisory combines deep market insight, global brand relationships and the strength of Savills' international platform to maximise project value and commercial success.</p>
+  </div>
+
+  <!-- ── Service Timeline ── -->
+  <div class="svc-timeline-wrap">
+    <div class="svc-timeline">
+      <a class="svc-tl-step" href="#svc-market-intelligence" onclick="smoothScrollSvc(event, 'svc-market-intelligence')">
+        <div class="svc-tl-num">1</div>
+        <div class="svc-tl-title">Market Intelligence</div>
+      </a>
+      <a class="svc-tl-step" href="#svc-dev-strategy" onclick="smoothScrollSvc(event, 'svc-dev-strategy')">
+        <div class="svc-tl-num">2</div>
+        <div class="svc-tl-title">Development Strategy &amp; Feasibility</div>
+      </a>
+      <a class="svc-tl-step" href="#svc-brand-search" onclick="smoothScrollSvc(event, 'svc-brand-search')">
+        <div class="svc-tl-num">3</div>
+        <div class="svc-tl-title">Brand Search</div>
+      </a>
+      <a class="svc-tl-step" href="#svc-equity-raise" onclick="smoothScrollSvc(event, 'svc-equity-raise')">
+        <div class="svc-tl-num">4</div>
+        <div class="svc-tl-title">Equity Raise</div>
+      </a>
+      <a class="svc-tl-step" href="#svc-residential-sales" onclick="smoothScrollSvc(event, 'svc-residential-sales')">
+        <div class="svc-tl-num">5</div>
+        <div class="svc-tl-title">Residential Sales</div>
+      </a>
+      <a class="svc-tl-step" href="#svc-brand-premium" onclick="smoothScrollSvc(event, 'svc-brand-premium')">
+        <div class="svc-tl-num">6</div>
+        <div class="svc-tl-title">Brand Premium Studies</div>
+      </a>
+    </div>
+    <div class="svc-tl-track-inner">
+      <span class="svc-tl-track-label">Project Inception</span>
+      <div class="svc-tl-track-line"></div>
+      <span class="svc-tl-track-label">Completion</span>
+    </div>
   </div>
 
   <!-- ── Chapter 1: Development Advisory (off-white) ── -->
@@ -944,7 +1192,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <div class="svc-ch-name">Development Advisory</div>
       </div>
 
-      <div class="svc-split">
+      <div class="svc-split" id="svc-dev-strategy">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Development Strategy &amp; Feasibility</h2>
           <p class="svc-split-sub">Defining the optimal development strategy</p>
@@ -955,7 +1203,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
       </div>
 
-      <div class="svc-split svc-split--flip">
+      <div class="svc-split svc-split--flip" id="svc-brand-search">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Brand Search</h2>
           <p class="svc-split-sub">Identifying the right brand partner</p>
@@ -986,7 +1234,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <div class="svc-ch-name">Research &amp; Intelligence</div>
       </div>
 
-      <div class="svc-split">
+      <div class="svc-split" id="svc-market-intelligence">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Market Intelligence</h2>
           <p class="svc-split-sub">Industry-leading research on the branded residences sector</p>
@@ -997,7 +1245,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
       </div>
 
-      <div class="svc-split svc-split--flip">
+      <div class="svc-split svc-split--flip" id="svc-brand-premium">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Brand Premium Studies</h2>
           <p class="svc-split-sub">Quantifying the value of brand affiliation</p>
@@ -1017,7 +1265,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <div class="svc-ch-name">Sales &amp; Commercialisation</div>
       </div>
 
-      <div class="svc-split">
+      <div class="svc-split" id="svc-equity-raise">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Equity Raising</h2>
           <p class="svc-split-sub">Securing capital to deliver the project</p>
@@ -1028,7 +1276,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
       </div>
 
-      <div class="svc-split svc-split--flip">
+      <div class="svc-split svc-split--flip" id="svc-residential-sales">
         <div class="svc-text-col">
           <h2 class="svc-split-title">Residential Sales</h2>
           <p class="svc-split-sub">Delivering successful project commercialisation</p>
@@ -1078,13 +1326,83 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      CASE STUDIES
 ══════════════════════════════════════ -->
 <div class="page" id="page-cases">
-  <div class="page-inner">
-    <div class="pg-eyebrow">Selected Highlights</div>
+  <div class="page-inner" style="max-width: 1240px; padding-bottom: 48px;">
     <h1 class="pg-title">Case Studies</h1>
-    <p class="pg-intro">Savills GRDC has worked on a multitude of pioneering projects across 51 countries. The following selection demonstrates the breadth of our expertise across geographies, asset types and service lines.</p>
+    <p style="font-family: var(--serif); font-size: clamp(18px, 2vw, 24px); font-weight: 400; color: var(--ink); line-height: 1.4; letter-spacing: -0.2px; margin-bottom: 24px;">Advising landmark branded residential developments worldwide.</p>
+    <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid);">These case studies explore a selection of projects in greater detail, illustrating how Savills GRDC supports developers and partners across different stages of the branded residential development lifecycle.</p>
   </div>
 
-  <div class="cases-list">
+  <!-- Featured hero card: The Ellinikon -->
+  <div class="case-featured">
+    <a class="case-card-link" onclick="openCase('case-ellinikon')">
+      <div class="case-featured-inner">
+        <img class="case-featured-img" src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="The Ellinikon">
+        <div class="case-featured-overlay"></div>
+        <div class="case-featured-content">
+          <div class="case-featured-meta">Athens, Greece &middot; 2014-2024</div>
+          <div class="case-featured-title">The Ellinikon</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 2x2 grid -->
+  <div class="cases-grid">
+    <a class="case-card-link" onclick="openCase('case-sls')">
+      <div class="case-card">
+        <img class="case-card-img" src="https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg" alt="SLS Infantas Madrid">
+        <div class="case-card-overlay"></div>
+        <div class="case-card-content">
+          <div class="case-card-meta">Madrid, Spain &middot; 2022-2024</div>
+          <div class="case-card-title">SLS Infantas Madrid</div>
+        </div>
+      </div>
+    </a>
+    <a class="case-card-link" onclick="openCase('case-dragon')">
+      <div class="case-card">
+        <img class="case-card-img" src="https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg" alt="Dragon Palace Estate">
+        <div class="case-card-overlay"></div>
+        <div class="case-card-content">
+          <div class="case-card-meta">China &middot; LUX &amp; Fendi &middot; 2026</div>
+          <div class="case-card-title">Dragon Palace Estate</div>
+        </div>
+      </div>
+    </a>
+    <a class="case-card-link" onclick="openCase('case-maybourne')">
+      <div class="case-card">
+        <img class="case-card-img" src="https://savgrdc.github.io/track_record/images/case-maybourne.jpg" alt="Maybourne Hotel Group">
+        <div class="case-card-overlay"></div>
+        <div class="case-card-content">
+          <div class="case-card-meta">6 Properties &middot; Ongoing</div>
+          <div class="case-card-title">Maybourne Hotel Group</div>
+        </div>
+      </div>
+    </a>
+    <a class="case-card-link" onclick="openCase('case-accor')">
+      <div class="case-card">
+        <img class="case-card-img" src="https://savgrdc.github.io/track_record/images/case-accor.jpg" alt="Accor Group">
+        <div class="case-card-overlay"></div>
+        <div class="case-card-content">
+          <div class="case-card-meta">Multiple Markets &middot; Ongoing</div>
+          <div class="case-card-title">Accor Group</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ═══ Expand overlay (shared, populated by JS) ═══ -->
+  <div class="case-expand-overlay" id="caseOverlay" onclick="closeCaseIfBg(event)">
+    <div class="case-expand-panel" id="casePanel">
+      <div class="case-expand-close">
+        <button class="case-expand-close-btn" onclick="closeCase()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="#1C1C1E" stroke-width="1.5"/><line x1="12" y1="2" x2="2" y2="12" stroke="#1C1C1E" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+      <div id="caseExpandContent"></div>
+    </div>
+  </div>
+
+  <div style="display:none">
 
     <!-- SLS INFANTAS MADRID -->
     <div class="case-item">
@@ -1300,7 +1618,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
       </div>
     </div>
 
-  </div><!-- /cases-list -->
+  </div><!-- /hidden case data -->
 
   <footer class="site-footer">
     <div class="footer-left">
@@ -1445,6 +1763,132 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
      JS — page switching
 ══════════════════════════════════════ -->
 <script>
+// ── Case study expand/collapse ──────────────────
+const caseData = {
+  'case-ellinikon': {
+    img: 'https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg',
+    alt: 'The Ellinikon',
+    tags: ['Market Research','Development Consultancy','Capital Markets','Brand Search'],
+    meta: 'Athens, Greece &middot; Lamda S.A. &middot; 2014-2024',
+    title: 'The Ellinikon',
+    cols: [
+      { label: 'The Challenge', text: 'Europe\'s largest urban regeneration project: 3 million sq m GBA, GDV exceeding $9.6bn \u2014 requiring comprehensive financial appraisal of 10,000+ residential units across two luxury branded schemes, hotels, retail, a marina, casino and a 2 million sq m metropolitan park.' },
+      { label: 'Our Approach', text: 'Full multi-asset benchmarking across local, regional and international comparables; branded vs non-branded quantum analysis; inventory pricing and absorption modelling; strategic phasing; and a comprehensive international sales and marketing strategy.' }
+    ],
+    timeline: [
+      { year: '2014', heading: 'Market Research & Feasibility', bullets: ['Benchmarking across all asset classes','Red Book Valuation of residential and mixed-use components','Financial feasibility for 10,000+ residential units'] },
+      { year: '2017', heading: 'Development Consultancy & Capital Markets', bullets: ['Inventory pricing, absorption rates and growth rate modelling','Capital Markets Agency advisory','Strategic phasing and sales strategy'] },
+      { year: '2024', heading: 'Operator Negotiation & Sales Strategy', bullets: ['Operator identification and negotiation of key terms','Updated market segmentation and pricing review'] }
+    ]
+  },
+  'case-sls': {
+    img: 'https://savgrdc.github.io/track_record/images/case-sls-infantas-madrid.jpg',
+    alt: 'SLS Infantas Madrid',
+    tags: ['Development Consultancy','Brand Search','Sales Agency'],
+    meta: 'Madrid, Spain &middot; 2022-2024',
+    title: 'SLS Infantas Madrid',
+    cols: [
+      { label: 'The Challenge', text: 'Securing an internationally recognised luxury brand for a historic urban asset in Madrid\'s competitive luxury market, and structuring a multi-continent sales campaign from a standing start.' },
+      { label: 'The Outcome', text: 'SLS Hotels & Residences signed following a comprehensive brand search. Project successfully launched to buyers across four continents with sales driven through Savills\' global network.' }
+    ],
+    timeline: [
+      { year: '2022', heading: 'Development Consultancy', bullets: ['Unit configuration analysis','Local & international benchmarking','Development recommendations'] },
+      { year: '2023', heading: 'Brand Search & Selection', bullets: ['Brand identification, proposal review & alignment matrix','Negotiation of key terms and brand signing'] },
+      { year: '2024', heading: 'Launch & Sales', bullets: ['Marketing events in Madrid, London and Dubai','Agency briefings across four continents','Sales driven by Savills global network'] }
+    ]
+  },
+  'case-dragon': {
+    img: 'https://savgrdc.github.io/track_record/images/case-dragon-palace-estate.jpg',
+    alt: 'Dragon Palace Estate',
+    tags: ['Development Consultancy','Hotel Feasibility','Financial Modelling'],
+    meta: 'China &middot; LUX & Fendi &middot; 2026',
+    title: 'Dragon Palace Estate',
+    cols: [
+      { label: 'The Challenge', text: 'A location with no history of high-value residential transactions \u2014 no pricing benchmark, no absorption data, no precedent for branded residences at this scale in non-urban China. The client\'s ambition was to price at global trophy-asset levels.' },
+      { label: 'The Outcome', text: 'A credible pricing framework projecting total GDV in excess of US$3bn across a 7-8 year sell-out, with a four-phase pricing escalation strategy that treats the absence of comparables as the foundation of its pricing power.' }
+    ],
+    timeline: [
+      { year: '01', heading: 'Market Research & Benchmarking', bullets: ['Nearest comparables 130km away in Shanghai and Hangzhou','International UHNW buyer profiling and demand segmentation'] },
+      { year: '02', heading: 'Pricing & Sales Strategy', bullets: ['Four-phase pricing escalation strategy contingent on absorption targets','Market-making framework treating absence of comparables as a pricing asset'] },
+      { year: '03', heading: 'Hotel Feasibility & Financial Modelling', bullets: ['Full DCF model integrating residential sales, hotel operations and development costs','Investment memorandum to support capital raising'] }
+    ]
+  },
+  'case-maybourne': {
+    img: 'https://savgrdc.github.io/track_record/images/case-maybourne.jpg',
+    alt: 'Maybourne Hotel Group',
+    tags: ['Development Consultancy','Operational Advisory'],
+    meta: '6 Properties &middot; Ongoing',
+    title: 'Maybourne Hotel Group',
+    cols: [
+      { label: 'The Brief', text: 'Maybourne Hotel Group \u2014 owner of Claridge\'s, The Connaught and The Berkeley \u2014 engaged Savills GRDC to provide development consultancy across a growing international portfolio spanning London, Hampshire, Marrakesh, Miami, Paris and New York.' },
+      { label: 'The Outcome', text: 'Bespoke feasibility, market research and operational advisory across six discrete assignments, supporting Maybourne\'s expansion beyond its core UK portfolio into resort and urban international markets.' }
+    ],
+    timeline: [
+      { year: '01', heading: 'The Berkeley, London', bullets: ['Development Consultancy'] },
+      { year: '02', heading: 'Hackwood Manor, Hampshire', bullets: ['Development Consultancy'] },
+      { year: '03-06', heading: 'Marrakesh, Miami, Paris, New York', bullets: ['Development Consultancy & Operational Advisory'] }
+    ]
+  },
+  'case-accor': {
+    img: 'https://savgrdc.github.io/track_record/images/case-accor.jpg',
+    alt: 'Accor Group',
+    tags: ['Market Intelligence','Brand Premium Studies'],
+    meta: 'Accor Group &middot; Multiple Markets &middot; Ongoing',
+    title: 'Accor Group',
+    cols: [
+      { label: 'The Brief', text: 'Accor engaged Savills GRDC as a preferred research partner to support its branded residential expansion, commissioning market intelligence reports and brand premium studies across the Middle East, Australia, UAE and USA.' },
+      { label: 'The Outcome', text: 'A series of market intelligence and brand premium studies providing Accor with authoritative data on competitive positioning, pricing premiums and demand dynamics to support developer negotiations and licensing strategy across multiple geographies.' }
+    ],
+    timeline: [
+      { year: '2024', heading: 'Market Intelligence \u2014 MEA, Australia, London, UAE, USA', bullets: ['Regional demand and pipeline analysis across key Accor expansion markets'] },
+      { year: '2024', heading: 'Brand Premium Studies', bullets: ['Mondrian Gold Coast, Raffles Boston, Raffles OWO, Rixos Dubai Islands, SLS Palm Jumeirah'] },
+      { year: '2025', heading: 'Brand Premium Studies', bullets: ['25h Heimat Downtown Dubai, Faena S\u00e3o Paulo, Fairmont Telluride, SLS Madrid, SO Uptown Dubai'] },
+      { year: '2026', heading: 'Brand Premium Studies', bullets: ['Raffles OWO, Raffles Boston, Mama Shelter Cape Town, Fairmont Al Marjan'] }
+    ]
+  }
+};
+
+function openCase(id) {
+  const d = caseData[id];
+  if (!d) return;
+  const tagsHtml = d.tags.map(t => '<span class="case-tag">' + t + '</span>').join('');
+  const colsHtml = d.cols.map(c =>
+    '<div><div class="case-block-label">' + c.label + '</div><div class="case-block-text">' + c.text + '</div></div>'
+  ).join('');
+  const tlHtml = d.timeline.map(r =>
+    '<div class="tl-row"><div class="tl-year">' + r.year + '</div><div class="tl-content"><div class="tl-heading">' + r.heading + '</div><ul class="tl-bullets">' + r.bullets.map(b => '<li>' + b + '</li>').join('') + '</ul></div></div>'
+  ).join('');
+
+  document.getElementById('caseExpandContent').innerHTML =
+    '<div class="case-expand-hero">' +
+      '<img src="' + d.img + '" alt="' + d.alt + '">' +
+      '<div class="case-expand-hero-overlay"></div>' +
+      '<div class="case-expand-hero-title">' + d.title + '</div>' +
+    '</div>' +
+    '<div class="case-expand-sub-header">' +
+      '<div class="case-expand-hero-tags">' + tagsHtml + '</div>' +
+      '<div class="case-expand-hero-meta">' + d.meta + '</div>' +
+    '</div>' +
+    '<div class="case-expand-body">' +
+      '<div class="case-two-col">' + colsHtml + '</div>' +
+      '<div class="case-timeline-strip">' + tlHtml + '</div>' +
+    '</div>';
+
+  document.getElementById('caseOverlay').classList.add('open');
+  // scroll panel to top
+  document.getElementById('casePanel').scrollTop = 0;
+}
+
+function closeCase() {
+  document.getElementById('caseOverlay').classList.remove('open');
+}
+function closeCaseIfBg(e) {
+  if (e.target === document.getElementById('caseOverlay')) closeCase();
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('caseOverlay').classList.contains('open')) closeCase();
+});
+
 function toggleMenu() {
   document.body.classList.toggle('menu-open');
 }
@@ -1462,6 +1906,17 @@ function show(id) {
   document.body.classList.toggle('on-overview', id === 'overview');
   // close menu with slight delay so user sees the selection
   setTimeout(() => document.body.classList.remove('menu-open'), 280);
+}
+
+// ── Smooth scroll within the services page ──
+function smoothScrollSvc(e, targetId) {
+  e.preventDefault();
+  const page = document.getElementById('page-what');
+  const target = document.getElementById(targetId);
+  if (page && target) {
+    const offset = target.offsetTop - 120;
+    page.scrollTo({ top: offset, behavior: 'smooth' });
+  }
 }
 
 // close on Escape
