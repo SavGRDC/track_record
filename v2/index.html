@@ -1307,9 +1307,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <div class="hero-title-wrap">
       <h1 class="hero-title">Savills, The World's Leading Advisor on Branded Residences</h1>
       <div class="hero-ctas">
+        <a class="hero-cta" onclick="document.querySelector('.stats-band').scrollIntoView({behavior:'smooth'});return false;" href="#">About Us</a>
         <a class="hero-cta" onclick="show('what');return false;" href="#">Services</a>
         <a class="hero-cta" onclick="show('map');return false;" href="#">Track Record</a>
         <a class="hero-cta" onclick="show('cases');return false;" href="#">Case Studies</a>
+        <a class="hero-cta" onclick="show('reports');return false;" href="#">Research Reports</a>
       </div>
       <div class="hero-scroll-hint" onclick="document.querySelector('.stats-band').scrollIntoView({behavior:'smooth'})">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
