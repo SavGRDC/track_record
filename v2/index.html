@@ -510,6 +510,43 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
+   OVERVIEW DARK MODE
+═══════════════════════════════════════════════ */
+#page-overview {
+  background: var(--navy); color: #fff;
+}
+#page-overview .stats-band {
+  border-top-color: rgba(255,255,255,0.08);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+#page-overview .stat-num { color: #fff; }
+#page-overview .stat-label { color: rgba(255,255,255,0.4); }
+#page-overview .logos-band {
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+#page-overview .logos-heading { color: rgba(255,255,255,0.35); }
+#page-overview .logo-cell img {
+  filter: brightness(0) invert(1) opacity(0.3);
+}
+#page-overview .logo-cell img:hover {
+  filter: brightness(0) invert(1) opacity(0.85);
+}
+#page-overview .two-col-section {
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+#page-overview .two-col-section.off {
+  background: rgba(255,255,255,0.03);
+}
+#page-overview .tcol-eyebrow { color: rgba(255,255,255,0.35); }
+#page-overview .tcol-heading { color: #fff; }
+#page-overview .tcol-body p { color: rgba(255,255,255,0.55); }
+#page-overview .tcol-link {
+  color: #fff;
+  border-bottom-color: rgba(255,255,255,0.25);
+}
+#page-overview .tcol-link:hover { border-bottom-color: #fff; }
+
+/* ═══════════════════════════════════════════════
    PAGE INNER — shared
 ═══════════════════════════════════════════════ */
 .page-inner {
