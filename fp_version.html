@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Savills GRDC — Branded Residences</title>
+<link rel="icon" type="image/png" href="https://savgrdc.github.io/track_record/images/SavLogo.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -92,7 +93,7 @@ body.on-overview .menu-trigger      { color: rgba(255,255,255,0.75); }
   display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
 .hdr-wordmark-main {
-  font-family: var(--serif); font-size: 15px; font-weight: 400;
+  font-family: var(--serif); font-size: 20px; font-weight: 400;
   letter-spacing: 0.2px; line-height: 1;
   text-align: center;
   transition: color 0.3s ease;
@@ -1618,7 +1619,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 
   <!-- GLOBAL FLOAT BUTTON -->
   <button class="global-float-btn" id="trGlobalBtn" onclick="trToggleGlobalPanel()" style="display:flex;">
-    <span class="global-btn-dot">G</span> Global Research Projects
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+    Global Research Projects
   </button>
 </div>
 
