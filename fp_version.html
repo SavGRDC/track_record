@@ -439,7 +439,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 ═══════════════════════════════════════════════ */
 .page-inner {
   max-width: 1100px; margin: 0 auto;
-  padding: 80px 72px 100px;
+  padding: 120px 72px 100px;
 }
 .pg-eyebrow {
   font-size: 8.5px; font-weight: 700;
@@ -477,8 +477,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .svc-chapter-band--off   { background: var(--off); }
 
 /* Chapter header */
-.svc-ch-header { padding: 72px 0 0; }
-.svc-ch-rule   { width: 100%; height: 1px; background: var(--rule); margin-bottom: 40px; }
+.svc-ch-header { padding: 80px 0 0; }
+.svc-ch-rule   { display: none; }
 .svc-ch-label  {
   font-size: 9px; font-weight: 700; letter-spacing: 2.8px;
   text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
@@ -1000,8 +1000,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <p style="font-size: 15px; line-height: 1.9; font-weight: 300; color: var(--mid); max-width: 640px;">Savills GRDC supports developers and investors at every stage of a branded residential project, from early development strategy through to brand selection, operational structuring, capital formation and successful project sales.<br><br>Our advisory combines deep market insight, global brand relationships and the strength of Savills' international platform to maximise project value and commercial success.</p>
   </div>
 
-  <!-- ── Chapter 1: Development Advisory (white) ── -->
-  <div class="svc-chapter-band svc-chapter-band--white">
+  <!-- ── Chapter 1: Development Advisory (off-white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--off">
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
@@ -1047,22 +1047,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         </div>
       </div>
 
-      <div class="svc-split">
-        <div class="svc-text-col">
-          <div class="svc-gold-rule"></div>
-          <h2 class="svc-split-title">Equity Raising</h2>
-          <p class="svc-split-sub">Securing capital to deliver the project</p>
-          <p class="svc-split-body">Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network. Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
-        </div>
-        <div class="svc-img-col">
-          <img src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office">
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- ── Chapter 2: Research & Intelligence (off-white) ── -->
-  <div class="svc-chapter-band svc-chapter-band--off">
+  <!-- ── Chapter 2: Research & Intelligence (white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--white">
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
@@ -1097,8 +1086,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
   </div>
 
-  <!-- ── Chapter 3: Sales & Commercialisation (white) ── -->
-  <div class="svc-chapter-band svc-chapter-band--white">
+  <!-- ── Chapter 3: Sales & Commercialisation (off-white) ── -->
+  <div class="svc-chapter-band svc-chapter-band--off">
     <div class="svc-wrap">
       <div class="svc-ch-header">
         <div class="svc-ch-rule"></div>
@@ -1106,8 +1095,23 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
       </div>
     </div>
 
+    <!-- Split: Equity Raising -->
+    <div class="svc-splits">
+      <div class="svc-split">
+        <div class="svc-text-col">
+          <div class="svc-gold-rule"></div>
+          <h2 class="svc-split-title">Equity Raising</h2>
+          <p class="svc-split-sub">Securing capital to deliver the project</p>
+          <p class="svc-split-body">Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network. Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
+        </div>
+        <div class="svc-img-col">
+          <img src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office">
+        </div>
+      </div>
+    </div>
+
     <!-- Closing full-bleed: Residential Sales -->
-    <div style="margin-top: 56px;">
+    <div style="margin-top: 0;">
       <div class="svc-closing-img-wrap">
         <img src="https://savgrdc.github.io/track_record/images/case-the-ellinikon.jpg" alt="Residential Sales">
         <div class="svc-closing-overlay"></div>
