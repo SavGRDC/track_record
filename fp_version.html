@@ -20,7 +20,7 @@
   --rule:   rgba(28,28,30,0.09);
   --serif:  Georgia, 'Times New Roman', serif;
   --sans:   'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --hdr:    56px;
+  --hdr:    76px;
   --nav:    40px;
 }
 html, body { height: 100%; }
@@ -37,12 +37,18 @@ body {
 ═══════════════════════════════════════════════ */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0;
-  height: var(--hdr);
-  background: var(--navy);
+  height: 76px;
+  background: rgba(37,39,58,0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px;
   z-index: 1000;
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease;
+}
+.site-header:hover {
+  background: rgba(37,39,58,1);
 }
 .hdr-left {
   display: flex; align-items: center; gap: 14px;
@@ -214,7 +220,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 ═══════════════════════════════════════════════ */
 .page {
   position: fixed;
-  top: var(--hdr);
+  top: 0;
   left: 0; right: 0; bottom: 0;
   overflow-y: auto;
   display: none;
@@ -703,7 +709,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
   </div>
   <button class="menu-trigger" onclick="toggleMenu()" aria-label="Menu">
-    <span class="menu-trigger-label">Menu</span>
     <div class="menu-trigger-icon">
       <span></span><span></span><span></span>
     </div>
