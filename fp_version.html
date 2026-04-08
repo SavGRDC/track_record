@@ -264,7 +264,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .hero-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; object-position: center 38%;
+  object-fit: cover; object-position: center center;
 }
 .hero-mask {
   position: absolute; inset: 0; z-index: 1;
@@ -1036,12 +1036,14 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 
   <!-- Hero -->
   <div class="hero">
-    <img class="hero-img" src="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg" alt="Raffles Old War Office, London">
+    <video class="hero-img" autoplay muted loop playsinline poster="https://savgrdc.github.io/track_record/images/raffles-old-war-office.jpg">
+      <source src="https://savgrdc.github.io/track_record/Videos/GRDC-Loop-web.mp4" type="video/mp4">
+    </video>
     <div class="hero-mask"></div>
     <div class="hero-title-wrap">
       <h1 class="hero-title">Savills, The World's Leading Advisor on Branded Residences</h1>
     </div>
-    <div class="hero-caption">Raffles Old War Office, London</div>
+    <div class="hero-caption"></div>
   </div>
 
   <!-- Stats -->
