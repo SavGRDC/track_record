@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
+<link rel="preload" as="image" href="https://savgrdc.github.io/track_record/Videos/hero-poster.jpg" fetchpriority="high">
+<link rel="preload" as="video" href="https://savgrdc.github.io/track_record/Videos/GRDC-Loop-optimised.mp4" fetchpriority="high">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -1791,8 +1793,8 @@ body.menu-open .nav-overlay-item:nth-child(6) { transition-delay: 0.30s; transfo
 
   <!-- Hero -->
   <div class="hero">
-    <video class="hero-img" autoplay muted loop playsinline >
-      <source src="https://savgrdc.github.io/track_record/Videos/GRDC-Loop-web.mp4" type="video/mp4">
+    <video class="hero-img" autoplay muted loop playsinline preload="auto" poster="https://savgrdc.github.io/track_record/Videos/hero-poster.jpg" fetchpriority="high">
+      <source src="https://savgrdc.github.io/track_record/Videos/GRDC-Loop-optimised.mp4" type="video/mp4">
     </video>
     <div class="hero-mask"></div>
     <div class="hero-title-wrap">
