@@ -281,9 +281,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   top: 0;
   left: 0; right: 0; bottom: 0;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   display: none;
   background: var(--white);
 }
+.page::-webkit-scrollbar { display: none; }
 .page.active { display: block; }
 
 /* ═══════════════════════════════════════════════
