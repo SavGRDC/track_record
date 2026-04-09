@@ -562,7 +562,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 
 /* ═══════════════════════════════════════════════
-   SCOPE OF WORK ACCORDION
+   SCOPE OF WORK OVERLAY
 ═══════════════════════════════════════════════ */
 .sow-trigger {
   display: inline-flex; align-items: center; gap: 8px;
@@ -572,67 +572,105 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   color: var(--gold); background: transparent;
   border: 1.5px solid var(--gold); border-radius: 4px;
   cursor: pointer; transition: all 0.3s ease;
+  text-decoration: none;
 }
 .sow-trigger:hover { background: var(--gold); color: #fff; }
-.sow-trigger svg { transition: transform 0.3s ease; }
-.sow-trigger.open svg { transform: rotate(180deg); }
-.sow-trigger.open { background: var(--gold); color: #fff; }
 
-.sow-panel {
-  max-height: 0; overflow: hidden; opacity: 0;
-  transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.4s ease, margin 0.4s ease;
-  margin-top: 0;
+/* Overlay backdrop */
+.sow-overlay {
+  position: fixed; inset: 0;
+  background: rgba(20,20,28,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
 }
-.sow-panel.open { opacity: 1; margin-top: 32px; }
+.sow-overlay.open { opacity: 1; pointer-events: all; }
+
+/* Slide-in panel */
+.sow-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 580px; max-width: 90vw;
+  background: var(--white);
+  z-index: 2001;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+}
+.sow-overlay.open .sow-panel { transform: translateX(0); }
+
+/* Panel header */
+.sow-panel-header {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 40px 24px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.sow-panel-title {
+  font-family: var(--serif); font-size: 22px; font-weight: 500;
+  color: var(--ink); line-height: 1.3;
+}
+.sow-panel-eyebrow {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.sow-close-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--rule); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.sow-close-btn:hover { background: var(--off); border-color: var(--mid); }
+
+/* Panel body */
+.sow-panel-body { padding: 36px 40px 48px; }
 
 .sow-summary {
-  font-family: var(--sans); font-size: 15px; line-height: 1.9;
-  font-weight: 300; color: var(--mid); margin-bottom: 20px;
+  font-family: var(--sans); font-size: 16px; line-height: 1.85;
+  font-weight: 300; color: var(--mid); margin-bottom: 32px;
+  padding-bottom: 28px; border-bottom: 1px solid var(--rule);
 }
-.sow-expand-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--sans); font-size: 12px; font-weight: 600;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: var(--gold); background: none; border: none;
-  cursor: pointer; padding: 0; margin-bottom: 8px;
-  transition: opacity 0.2s;
-}
-.sow-expand-btn:hover { opacity: 0.7; }
-.sow-expand-btn svg { transition: transform 0.3s ease; }
-.sow-expand-btn.open svg { transform: rotate(180deg); }
 
-.sow-full {
-  max-height: 0; overflow: hidden; opacity: 0;
-  transition: max-height 0.5s ease, opacity 0.35s ease;
-}
-.sow-full.open { opacity: 1; }
-
-.sow-full h4 {
+.sow-section-title {
   font-family: var(--serif); font-size: 18px; font-weight: 500;
-  color: var(--ink); margin: 28px 0 10px; line-height: 1.4;
+  color: var(--ink); margin: 32px 0 12px; line-height: 1.4;
 }
-.sow-full h4:first-child { margin-top: 16px; }
-.sow-full p {
-  font-family: var(--sans); font-size: 14px; line-height: 1.85;
-  font-weight: 300; color: var(--mid); margin-bottom: 14px;
+.sow-section-title:first-child { margin-top: 0; }
+
+.sow-panel-body p {
+  font-family: var(--sans); font-size: 14.5px; line-height: 1.85;
+  font-weight: 300; color: var(--mid); margin-bottom: 16px;
 }
-.sow-full ul {
-  list-style: none; padding: 0; margin: 0 0 16px;
+.sow-panel-body ul {
+  list-style: none; padding: 0; margin: 0 0 20px;
 }
-.sow-full ul li {
-  font-family: var(--sans); font-size: 14px; line-height: 1.85;
+.sow-panel-body ul li {
+  font-family: var(--sans); font-size: 14.5px; line-height: 1.85;
   font-weight: 300; color: var(--mid);
-  padding-left: 18px; position: relative; margin-bottom: 4px;
+  padding-left: 20px; position: relative; margin-bottom: 6px;
 }
-.sow-full ul li::before {
+.sow-panel-body ul li::before {
   content: ''; position: absolute; left: 0; top: 10px;
   width: 5px; height: 5px; border-radius: 50%;
   background: var(--gold);
 }
 .sow-divider {
   border: none; border-top: 1px solid var(--rule);
-  margin: 24px 0;
+  margin: 28px 0;
+}
+.sow-deliverable {
+  font-family: var(--sans); font-size: 13px; font-weight: 400;
+  color: var(--mid); background: var(--off);
+  padding: 16px 20px; border-radius: 6px; margin-top: 28px;
+  line-height: 1.7;
 }
 
 /* ═══════════════════════════════════════════════
@@ -1694,47 +1732,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Development Strategy &amp; Feasibility</h2>
           <p class="svc-split-sub">Defining the optimal development strategy</p>
           <p class="svc-split-body">Savills GRDC advises on the strategic foundations of a project, combining market demand analysis, competitive benchmarking, pricing strategy and financial modelling to determine the optimal positioning, scale and brand strategy for a development. Our feasibility studies provide developers with the evidence required to proceed with confidence.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">A comprehensive residential development consultancy report encompassing site analysis, market research, development recommendations and financial appraisal to establish gross development value and project viability.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Site Review &amp; SWOT Analysis</h4>
-              <p>Assessment of the site's location, accessibility and position relative to other developments, combined with a SWOT analysis to determine competitive position and suitability for branded residential development.</p>
-              <h4>Local &amp; Regional Market Research</h4>
-              <p>Review of current residential supply and competition with detailed case studies covering:</p>
-              <ul>
-                <li>Development summary, composition and sales data</li>
-                <li>Rental management programme offerings and service charges</li>
-                <li>Buyer profiles, amenities, services and key challenges</li>
-              </ul>
-              <h4>Market Analysis</h4>
-              <ul>
-                <li>Unit sizing versus capital values and price per sq m analysis</li>
-                <li>Unit mix, size and pricing trend analysis by unit type</li>
-                <li>Absorption analysis covering absolute and relative sales velocities</li>
-                <li>Branded residences sector overview including premiums and leading brands</li>
-              </ul>
-              <h4>Development Recommendations</h4>
-              <ul>
-                <li>Evaluation of suitability for branding and identification of buyer profiles</li>
-                <li>Recommended mix of product and unit types with size ranges</li>
-                <li>Achievable pricing including brand premium analysis versus non-branded supply</li>
-                <li>Expected sales absorption, phasing strategy and amenity recommendations</li>
-                <li>Gross development value calculation</li>
-              </ul>
-              <hr class="sow-divider">
-              <h4>Financial Appraisal</h4>
-              <p>Using a discounted cash flow approach, Savills calculates annual cash flows throughout the project lifespan, discounted to present value. The appraisal includes:</p>
-              <ul>
-                <li>Inputs and assumptions used</li>
-                <li>Appraisal calculations covering investment budget, revenue by component and consolidated cash flow</li>
-                <li>Produced using ARGUS Developer software or bespoke Excel model</li>
-              </ul>
-              <hr class="sow-divider">
-              <p><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('dev-strategy')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/one-and-only-one-zaabeel-dubai-exterior.jpg" alt="One&amp;Only One Za'abeel, Dubai">
@@ -1747,38 +1745,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Brand Search</h2>
           <p class="svc-split-sub">Identifying the right brand partner</p>
           <p class="svc-split-body">Savills GRDC manages the full brand search process, from defining the brand brief and identifying suitable partners to coordinating negotiations and supporting the execution of brand agreements. Our global relationships with leading hotel and lifestyle brands ensure developers secure partners that enhance project positioning and long term value.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">A structured brand selection and negotiation process, from initial identification and merit assessment through to evaluation matrix scoring, MOU and definitive agreement negotiation.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Brand Identification &amp; Assessment</h4>
-              <p>Savills identifies brands suitable to the developer vision, evaluating each based on expected value including:</p>
-              <ul>
-                <li>Perceived strength and recognition of the brand</li>
-                <li>Presence in the local and global market</li>
-                <li>Availability of regional support for design, marketing and operations</li>
-                <li>Strategic alignment between the client, project and brand</li>
-              </ul>
-              <h4>Evaluation &amp; Scoring</h4>
-              <p>Once proposals are received, Savills reviews the commercial and operational structure and prepares an evaluation matrix scoring each brand across:</p>
-              <ul>
-                <li>Brand alignment, positioning and residential experience</li>
-                <li>Corporate support and global brand network</li>
-                <li>National presence and residences network</li>
-                <li>Value proposition</li>
-              </ul>
-              <h4>Negotiation &amp; Agreement</h4>
-              <p>Savills advises and assists in negotiations with the selected brand(s) to complete the MOU and definitive agreements, which typically include:</p>
-              <ul>
-                <li>Hotel management agreement and brand license agreement</li>
-                <li>Design &amp; technical agreement</li>
-                <li>Residential management and rental agreements</li>
-                <li>Master agreement (back-to-back)</li>
-              </ul>
-              <p>If legal counsel is not already appointed, Savills can recommend qualified international law firms experienced in branded residential agreements.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('brand-search')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/FS-Madrid-Services.jpg" alt="Four Seasons Madrid">
@@ -1791,36 +1758,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Operator Advisory</h2>
           <p class="svc-split-sub">Structuring projects for operational success</p>
           <p class="svc-split-body">Savills GRDC advises on residential management structures, rental programmes, homeowners associations and operational budgeting to ensure projects operate smoothly and deliver the intended resident experience.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">Operational advisory covering P&amp;L structuring, rental programme integration, HOA budgeting and legal coordination, complemented by hotel feasibility analysis where a hotel component is present.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Profit &amp; Loss Statements</h4>
-              <p>Forecasting revenues and expenses using qualified market data, including HOA service charge budgeting benchmarked against existing prime residential communities, and integration with hotel P&amp;L allocations.</p>
-              <h4>Legal &amp; Operational Structuring</h4>
-              <ul>
-                <li>Review of rental and residential management agreements</li>
-                <li>Financial projections, revenue split and owner distributions</li>
-                <li>Expense allocations and common area management</li>
-                <li>Support on incorporating rental programmes into hotel revenue management</li>
-                <li>Coordination with qualified legal counsel for branded residential agreements</li>
-              </ul>
-              <hr class="sow-divider">
-              <h4>Hotel Feasibility Study</h4>
-              <p>Where a hotel component is present, Savills provides:</p>
-              <ul>
-                <li>Market background covering tourism sector, arrivals and seasonality</li>
-                <li>Hotel supply analysis and pipeline assessment</li>
-                <li>Masterplan evaluation including site SWOT analysis</li>
-                <li>Recommendations on room inventory, F&amp;B outlets and operating amenities</li>
-                <li>Room and F&amp;B performance models based on comparable operating data</li>
-                <li>Full project operating statement covering departmental revenues and expenses</li>
-              </ul>
-              <hr class="sow-divider">
-              <p><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('operator-advisory')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Amanzoe-Greece-experiences.webp" alt="Amanzoe, Greece">
@@ -1842,32 +1780,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Market Intelligence</h2>
           <p class="svc-split-sub">Industry-leading research on the branded residences sector</p>
           <p class="svc-split-body">Savills GRDC produces industry leading research on the branded residences sector, including global and regional reports covering pricing benchmarks, development pipelines and market trends. The team also delivers bespoke market intelligence for developers, investors and operators seeking detailed insight into specific markets or project concepts.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">A comprehensive market intelligence report covering local market dynamics, benchmarking and comparables, buyer profiling and detailed case studies of relevant luxury residential developments. Complemented by rental market research where applicable.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Market Intelligence Report</h4>
-              <p>Savills will prepare a report investigating luxury property dynamics in the subject market, focusing on branded residences where possible. The report covers:</p>
-              <ul>
-                <li>Local market dynamics and buyer profiling including nationalities and purchase motivations</li>
-                <li>Identification of leading residential neighbourhoods and emerging HNWI locations</li>
-                <li>Detailed benchmarking of comparable luxury developments including sales data, unit mix, pricing, absorption rates, services, amenities and buyer profiles</li>
-                <li>Pipeline developments including branded and non-branded schemes</li>
-              </ul>
-              <hr class="sow-divider">
-              <h4>Rental Market Research</h4>
-              <p>For projects with a rental component, Savills provides focused rental market advisory including:</p>
-              <ul>
-                <li>Asset review and SWOT analysis addressing key value drivers</li>
-                <li>Individual rental case studies covering building overview, rental rates, seasonality, market profiles and key success factors</li>
-                <li>Comparative analysis highlighting the impact of location, amenities, views, floor level and services on rental values</li>
-                <li>Rental rate recommendations provided as ranges by unit type and specific characteristics</li>
-              </ul>
-              <hr class="sow-divider">
-              <p><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('market-intelligence')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/OneOnly-One-Zaabeel-2.jpg" alt="One&amp;Only One Za'abeel interior">
@@ -1880,32 +1793,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Brand Premium Studies</h2>
           <p class="svc-split-sub">Quantifying the value of brand affiliation</p>
           <p class="svc-split-body">Savills GRDC quantifies the price premium associated with specific brands in specific markets, providing developers with the evidence required to negotiate brand agreements and underwrite project finances. These studies draw on proprietary transaction data and comparable analysis across global branded residential markets.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">A focused research and analysis report establishing the brand premium applicable to a subject property, using a proprietary scoring matrix, comparable dataset and three tiers of premium calculation.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Brand Premium Assessment</h4>
-              <p>The report comprises three key sections: an overview of the subject property, comparable dataset case studies, and a scoring matrix with premium calculation.</p>
-              <p>Savills will review the local market and establish a benchmark dataset of relevant, existing top-of-the-market, non-branded developments. Each case study covers:</p>
-              <ul>
-                <li>Location and accessibility</li>
-                <li>Composition of residential inventory</li>
-                <li>Services and amenities</li>
-                <li>Sales pricing</li>
-              </ul>
-              <h4>Scoring Matrix</h4>
-              <p>Using the proprietary scoring matrix, Savills quantifies the characteristics of the subject development and comparables by assessing several weighted factors based on purchaser motivations. Each development receives a final score out of 100, ensuring a holistic comparison. Relevance factors are applied to each case study to calculate weighted and unweighted price premiums.</p>
-              <h4>Premium Calculations</h4>
-              <ul>
-                <li><strong>Unweighted &amp; unadjusted:</strong> Average price per sq m for the subject development divided by the average for comparable developments</li>
-                <li><strong>Weighted &amp; unadjusted:</strong> As above, taking into account each comparable property's relevance factor</li>
-                <li><strong>Weighted &amp; score-adjusted:</strong> Isolates differences in macro- and micro-factors to determine the premium commanded exclusively by the brand</li>
-              </ul>
-              <hr class="sow-divider">
-              <p><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('brand-premium')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/SLS-residences-Vision-penthouse-living-room.png" alt="SLS Residences penthouse">
@@ -1940,28 +1828,29 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
           <h2 class="svc-split-title">Residential Sales</h2>
           <p class="svc-split-sub">Delivering successful project commercialisation</p>
           <p class="svc-split-body">Through Savills' global residential sales platform, developers gain access to one of the most established international buyer networks in luxury real estate. Working alongside Savills' specialist sales teams, Savills GRDC supports the development of sales strategies, pricing structures and marketing programmes that maximise absorption and pricing performance.</p>
-          <button class="sow-trigger" onclick="toggleSow(this)">Sample Scope of Work <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="sow-panel">
-            <p class="sow-summary">A tailored sales strategy leveraging Savills' global residential network to maximise absorption and pricing performance for branded residential developments.</p>
-            <button class="sow-expand-btn" onclick="toggleSowFull(this)">View full scope detail <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><polyline points="2,4 6,8 10,4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="sow-full">
-              <h4>Sales Strategy &amp; Execution</h4>
-              <ul>
-                <li>Development of pricing structures and sales phasing strategy</li>
-                <li>Access to Savills' established international buyer network across luxury real estate</li>
-                <li>Marketing programme design targeting relevant buyer demographics</li>
-                <li>Sales coordination across multiple geographies and Savills offices</li>
-                <li>Ongoing absorption monitoring and pricing optimisation</li>
-              </ul>
-              <p>Working alongside Savills' specialist sales teams globally, the GRDC team ensures branded developments are positioned to achieve optimal commercial outcomes.</p>
-            </div>
-          </div>
+          <button class="sow-trigger" onclick="openSow('residential-sales')">Sample Scope of Work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Rafflles-old-war-office-stairs.jpg" alt="Raffles Old War Office">
           <span class="svc-img-caption">Raffles at The OWO, London</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Scope of Work overlay -->
+  <div class="sow-overlay" id="sowOverlay" onclick="closeSowIfBg(event)">
+    <div class="sow-panel">
+      <div class="sow-panel-header">
+        <div>
+          <div class="sow-panel-eyebrow">Sample Scope of Work</div>
+          <div class="sow-panel-title" id="sowTitle"></div>
+        </div>
+        <button class="sow-close-btn" onclick="closeSow()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="#1C1C1E" stroke-width="1.5"/><line x1="12" y1="2" x2="2" y2="12" stroke="#1C1C1E" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+      <div class="sow-panel-body" id="sowContent"></div>
     </div>
   </div>
 
@@ -2778,48 +2667,168 @@ function smoothScrollSvc(e, targetId) {
 
 // close on Escape
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.body.classList.remove('menu-open');
+  if (e.key === 'Escape') { document.body.classList.remove('menu-open'); closeSow(); }
 });
 
-// ── Scope of Work accordion toggles ─────────────────────────
-function toggleSow(btn) {
-  var panel = btn.nextElementSibling;
-  var isOpen = panel.classList.contains('open');
-  btn.classList.toggle('open', !isOpen);
-  if (!isOpen) {
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-    panel.classList.add('open');
-  } else {
-    panel.style.maxHeight = '0';
-    panel.classList.remove('open');
-    // Also close inner detail if open
-    var inner = panel.querySelector('.sow-full');
-    var innerBtn = panel.querySelector('.sow-expand-btn');
-    if (inner && inner.classList.contains('open')) {
-      inner.style.maxHeight = '0';
-      inner.classList.remove('open');
-      if (innerBtn) innerBtn.classList.remove('open');
-    }
-  }
+// ── Scope of Work overlay ────────────────────────────────────
+function openSow(key) {
+  var overlay = document.getElementById('sowOverlay');
+  var content = document.getElementById('sowContent');
+  var title   = document.getElementById('sowTitle');
+  if (!overlay || !sowData[key]) return;
+  title.textContent = sowData[key].title;
+  content.innerHTML = sowData[key].html;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-function toggleSowFull(btn) {
-  var full = btn.nextElementSibling;
-  var isOpen = full.classList.contains('open');
-  btn.classList.toggle('open', !isOpen);
-  if (!isOpen) {
-    full.style.maxHeight = full.scrollHeight + 'px';
-    full.classList.add('open');
-    // Recalculate parent panel height
-    var panel = btn.closest('.sow-panel');
-    if (panel) panel.style.maxHeight = panel.scrollHeight + full.scrollHeight + 'px';
-  } else {
-    full.style.maxHeight = '0';
-    full.classList.remove('open');
-    // Recalculate parent panel height after transition
-    var panel = btn.closest('.sow-panel');
-    if (panel) setTimeout(function(){ panel.style.maxHeight = panel.scrollHeight + 'px'; }, 350);
-  }
+function closeSow() {
+  var overlay = document.getElementById('sowOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
 }
+function closeSowIfBg(e) {
+  if (e.target === e.currentTarget) closeSow();
+}
+var sowData = {
+  'market-intelligence': {
+    title: 'Market Intelligence',
+    html: '<p class="sow-summary">A comprehensive market intelligence report covering local market dynamics, benchmarking and comparables, buyer profiling and detailed case studies of relevant luxury residential developments. Complemented by rental market research where applicable.</p>'
+      + '<h4 class="sow-section-title">Market Intelligence Report</h4>'
+      + '<p>Savills will prepare a report investigating luxury property dynamics in the subject market, focusing on branded residences where possible. The report covers:</p>'
+      + '<ul><li>Local market dynamics and buyer profiling including nationalities and purchase motivations</li>'
+      + '<li>Identification of leading residential neighbourhoods and emerging HNWI locations</li>'
+      + '<li>Detailed benchmarking of comparable luxury developments including sales data, unit mix, pricing, absorption rates, services, amenities and buyer profiles</li>'
+      + '<li>Pipeline developments including branded and non-branded schemes</li></ul>'
+      + '<p>Savills will identify the most relevant projects offering luxury residences for sale, providing detail on sales launch dates, unit numbers and mix, unit sizes, pricing and capital values, sales absorption, services and amenities, service charges, buyer profiles and key successes and challenges.</p>'
+      + '<hr class="sow-divider">'
+      + '<h4 class="sow-section-title">Rental Market Research</h4>'
+      + '<p>For projects with a rental component, Savills provides focused rental market advisory including:</p>'
+      + '<ul><li>Asset review and SWOT analysis addressing key value drivers such as location, views, amenities and services</li>'
+      + '<li>Individual rental case studies covering building overview, location, scale, development components, views and sun orientation</li>'
+      + '<li>Typical rental market profiles, rental rates, seasonality and key success factors</li>'
+      + '<li>Comparative analysis highlighting the impact of location, floor level, amenities, views, services, size and other factors on rental values</li>'
+      + '<li>Rental rate recommendations provided as ranges by unit type and specific characteristics</li></ul>'
+      + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+  },
+  'dev-strategy': {
+    title: 'Development Strategy & Feasibility',
+    html: '<p class="sow-summary">A comprehensive residential development consultancy report encompassing site analysis, market research, development recommendations and financial appraisal to establish gross development value and project viability.</p>'
+      + '<h4 class="sow-section-title">Site Review & SWOT Analysis</h4>'
+      + '<p>Assessment of the site\'s location, accessibility and position relative to other development sites and destinations, combined with a SWOT analysis to determine competitive position and suitability for branded residential development.</p>'
+      + '<h4 class="sow-section-title">Local & Regional Market Research</h4>'
+      + '<p>Review of current residential supply and competition with detailed case studies covering:</p>'
+      + '<ul><li>Development summary, overview and composition</li>'
+      + '<li>Residential sales data overview</li>'
+      + '<li>Rental management programme offerings and service charges</li>'
+      + '<li>Buyer profiles, amenities, services and key successes and challenges</li></ul>'
+      + '<h4 class="sow-section-title">Market Analysis</h4>'
+      + '<ul><li>Overall market review assessing unit sizing versus capital values and price per sq m</li>'
+      + '<li>Unit mix analysis by type across the local market</li>'
+      + '<li>Unit size and pricing trend analysis by type</li>'
+      + '<li>Absorption analysis covering absolute and relative sales velocities across benchmarks</li>'
+      + '<li>Branded residences sector overview including historical evolution, leading geographies and achievable premiums</li></ul>'
+      + '<h4 class="sow-section-title">Development Recommendations</h4>'
+      + '<ul><li>Evaluation of suitability for branding and identification of buyer profiles</li>'
+      + '<li>Recommended mix of product types (apartments, townhouses, villas) and unit types (studio, 1-bed, 2-bed, etc.)</li>'
+      + '<li>Unit size ranges by type considering internal areas and private external space</li>'
+      + '<li>Achievable pricing including brand premium analysis versus non-branded supply</li>'
+      + '<li>Reverse yield analysis for projects with rental programme potential</li>'
+      + '<li>Expected sales absorption and phasing strategy</li>'
+      + '<li>High-level recommendations for amenity space, leisure, F&B and services</li>'
+      + '<li>Gross development value calculation</li></ul>'
+      + '<hr class="sow-divider">'
+      + '<h4 class="sow-section-title">Financial Appraisal</h4>'
+      + '<p>Using a discounted cash flow approach, Savills calculates all annual cash flows throughout the project lifespan, discounted to present value by applying an appropriately selected discount rate. The appraisal includes:</p>'
+      + '<ul><li>Inputs, data and assumptions used</li>'
+      + '<li>Appraisal calculations covering investment budget, revenue by component and phase, and consolidated cash flow</li>'
+      + '<li>Produced using ARGUS Developer software or bespoke Excel model</li></ul>'
+      + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+  },
+  'brand-search': {
+    title: 'Brand Search & Negotiation',
+    html: '<p class="sow-summary">A structured brand selection and negotiation process, from initial identification and merit assessment through to evaluation matrix scoring, MOU and definitive agreement negotiation.</p>'
+      + '<h4 class="sow-section-title">Brand Identification & Assessment</h4>'
+      + '<p>Savills identifies brands suitable to the developer vision, evaluating each based on expected value derived from:</p>'
+      + '<ul><li>Perceived strength and recognition of the brand</li>'
+      + '<li>Presence of the brand in the local and global market</li>'
+      + '<li>Availability of regional support for design, marketing and operations</li>'
+      + '<li>Strategic alignment between the client, project and brand</li></ul>'
+      + '<h4 class="sow-section-title">Evaluation & Scoring</h4>'
+      + '<p>Once proposals are received, Savills reviews the commercial and operational structure and prepares an evaluation matrix scoring each brand across:</p>'
+      + '<ul><li>Brand alignment and positioning</li>'
+      + '<li>Branded residential experience</li>'
+      + '<li>Corporate support and global brand network</li>'
+      + '<li>Global and national residences network</li>'
+      + '<li>Value proposition</li></ul>'
+      + '<p>Each score provides an indication of the potential strength of each brand to support the decision-making process.</p>'
+      + '<h4 class="sow-section-title">Negotiation & Agreement</h4>'
+      + '<p>Savills advises and assists in negotiations with the selected brand(s) to complete the MOU and definitive agreements, which typically include:</p>'
+      + '<ul><li>Hotel management agreement</li>'
+      + '<li>Brand license agreement</li>'
+      + '<li>Design & technical agreement</li>'
+      + '<li>Residential management agreement</li>'
+      + '<li>Residential rental agreement</li>'
+      + '<li>Master agreement (back-to-back)</li></ul>'
+      + '<p>If legal counsel is not already appointed, Savills can recommend qualified international law firms experienced in negotiating the full suite of branded residential agreements.</p>'
+  },
+  'operator-advisory': {
+    title: 'Operator Advisory',
+    html: '<p class="sow-summary">Operational advisory covering P&L structuring, rental programme integration, HOA budgeting and legal coordination, complemented by hotel feasibility analysis where a hotel component is present.</p>'
+      + '<h4 class="sow-section-title">Profit & Loss Statements</h4>'
+      + '<p>Forecasting revenues and expenses using qualified market data, converting market intelligence into budgets for HOA service charges and rental programmes. Savills uses in-house financial models and service charge budgeting tools to:</p>'
+      + '<ul><li>Benchmark service charges against existing prime residential homeowner associations</li>'
+      + '<li>Prepare preliminary first-year budgets</li>'
+      + '<li>Capture expenses from hotel P&L and allocate to the residential component</li></ul>'
+      + '<h4 class="sow-section-title">Legal & Operational Structuring</h4>'
+      + '<p>Adoption of internationally accepted commercial and operational terms to manage risk and protect stakeholders, including:</p>'
+      + '<ul><li>Review of rental and residential management agreements</li>'
+      + '<li>Financial projections, revenue split and owner distributions</li>'
+      + '<li>Expense allocations and common area management</li>'
+      + '<li>Support incorporating rental programmes into hotel revenue management and marketing</li>'
+      + '<li>Coordination with qualified legal counsel for branded residential agreements</li></ul>'
+      + '<hr class="sow-divider">'
+      + '<h4 class="sow-section-title">Hotel Feasibility Study</h4>'
+      + '<p>Where a hotel component is present, Savills provides comprehensive feasibility analysis:</p>'
+      + '<ul><li>Market background covering tourism sector, historical arrivals, passenger movements and seasonality</li>'
+      + '<li>Hotel supply analysis by segment and pipeline assessment across projection period</li>'
+      + '<li>Masterplan evaluation including site SWOT analysis and competitive positioning</li>'
+      + '<li>Recommendations on room inventory, F&B outlets and operating amenities</li>'
+      + '<li>Room performance model forecasting occupancy and average daily rate</li>'
+      + '<li>F&B performance model based on comparable operating data</li>'
+      + '<li>Full project operating statement covering department revenues, expenses and undistributed costs</li></ul>'
+      + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+  },
+  'brand-premium': {
+    title: 'Brand Premium Studies',
+    html: '<p class="sow-summary">A focused research and analysis report establishing the brand premium applicable to a subject property, using a proprietary scoring matrix, comparable dataset and three tiers of premium calculation.</p>'
+      + '<h4 class="sow-section-title">Brand Premium Assessment</h4>'
+      + '<p>The report comprises three key sections: an overview of the subject property, comparable dataset case studies, and a scoring matrix with premium calculation.</p>'
+      + '<p>Savills reviews the local market and establishes a benchmark dataset of relevant, existing top-of-the-market, non-branded developments. Each case study covers:</p>'
+      + '<ul><li>Location and accessibility</li>'
+      + '<li>Composition of residential inventory</li>'
+      + '<li>Services and amenities</li>'
+      + '<li>Sales pricing</li></ul>'
+      + '<h4 class="sow-section-title">Scoring Matrix</h4>'
+      + '<p>Using the proprietary scoring matrix, Savills quantifies the characteristics of the subject development and comparables by assessing several weighted factors based on purchaser motivations. Each development receives a final score out of 100, ensuring a holistic comparison. Relevance factors are applied to each case study based on comparability to the subject property.</p>'
+      + '<h4 class="sow-section-title">Premium Calculations</h4>'
+      + '<p>The report provides three types of premium calculation:</p>'
+      + '<ul><li><strong>Unweighted & unadjusted:</strong> Subject property premium as calculated by average price per sq m for the subject divided by the average for comparable developments</li>'
+      + '<li><strong>Weighted & unadjusted:</strong> As above, taking into account each comparable property\'s relevance factor and weighing the level of comparability</li>'
+      + '<li><strong>Weighted & score-adjusted:</strong> Premium considering the scoring matrix and relevance factors, isolating differences in macro- and micro-factors to determine the premium commanded exclusively by the brand</li></ul>'
+      + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+  },
+  'residential-sales': {
+    title: 'Residential Sales',
+    html: '<p class="sow-summary">A tailored sales strategy leveraging Savills\' global residential network to maximise absorption and pricing performance for branded residential developments.</p>'
+      + '<h4 class="sow-section-title">Sales Strategy & Execution</h4>'
+      + '<ul><li>Development of pricing structures and sales phasing strategy</li>'
+      + '<li>Access to Savills\' established international buyer network across luxury real estate</li>'
+      + '<li>Marketing programme design targeting relevant buyer demographics</li>'
+      + '<li>Sales coordination across multiple geographies and Savills offices</li>'
+      + '<li>Ongoing absorption monitoring and pricing optimisation</li></ul>'
+      + '<p>Working alongside Savills\' specialist sales teams globally, the GRDC team ensures branded developments are positioned to achieve optimal commercial outcomes.</p>'
+  }
+};
 
 // ── Scroll reveal animations (fade-in + fade-out) ───────────
 (function() {
