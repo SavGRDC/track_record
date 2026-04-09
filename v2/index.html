@@ -317,6 +317,24 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   letter-spacing: -0.4px;
   max-width: 820px;
   text-align: center;
+  position: relative;
+  height: 2.4em; /* room for wrapping on smaller viewports */
+  overflow: hidden;
+}
+.hero-title-line {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.hero-title-line.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-title-line.exit {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 .hero-ctas {
   display: flex; gap: 16px; margin-top: 40px;
@@ -1594,7 +1612,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </video>
     <div class="hero-mask"></div>
     <div class="hero-title-wrap">
-      <h1 class="hero-title">Savills, The World's Leading Advisor on Branded Residences</h1>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="hero-title-line active">Savills, The World's Leading Advisor on Branded Residences</span>
+        <span class="hero-title-line">We partner with the world's finest developers, operators and brands</span>
+        <span class="hero-title-line">Together we create remarkable destinations</span>
+      </h1>
       <div class="hero-ctas">
         <a class="hero-cta" onclick="document.querySelector('.stats-band').scrollIntoView({behavior:'smooth'});return false;" href="#">About Us</a>
         <a class="hero-cta" onclick="show('what');return false;" href="#">Services</a>
@@ -2955,6 +2977,24 @@ var sowData = {
 
     els.forEach(function(el) { obs.observe(el); });
   });
+})();
+
+// ── Hero title cycling messages ──────────────────────────────
+(function() {
+  var lines = document.querySelectorAll('.hero-title-line');
+  if (lines.length < 2) return;
+  var current = 0;
+  var interval = 4000; // 4 seconds per message
+  setInterval(function() {
+    lines[current].classList.remove('active');
+    lines[current].classList.add('exit');
+    var prev = current;
+    current = (current + 1) % lines.length;
+    lines[current].classList.remove('exit');
+    lines[current].classList.add('active');
+    // Clean up exit class after transition
+    setTimeout(function() { lines[prev].classList.remove('exit'); }, 900);
+  }, interval);
 })();
 
 // ── Hero title floats with scroll ─────────────────────────────
