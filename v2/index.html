@@ -301,7 +301,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .hero-mask {
   position: absolute; inset: 0; z-index: 1;
-  background: rgba(20,20,32,0.62);
+  background: rgba(0,0,0,0.55);
 }
 .hero-title-wrap {
   position: absolute; inset: 0; z-index: 2;
@@ -322,11 +322,13 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   overflow: hidden;
 }
 .hero-title-line {
-  position: absolute; inset: 0;
+  position: absolute; left: 0; right: 0; top: 0; bottom: 0;
   display: flex; align-items: center; justify-content: center;
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  padding: 0 8px;
 }
 .hero-title-line.active {
   opacity: 1;
