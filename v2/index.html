@@ -1242,7 +1242,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .va-intro {
   font-size: 16px; line-height: 1.8; font-weight: 300; color: var(--mid);
-  max-width: 700px;
 }
 .va-section-label {
   font-size: 9px; font-weight: 700;
@@ -2718,6 +2717,14 @@ function show(id) {
     trClosePanel(false);
     if (trGlobalPanelOpen) trToggleGlobalPanel();
   }
+  // Re-trigger IntersectionObserver so elements in viewport fade in
+  var pageId = 'page-' + id;
+  if (_revealObservers[pageId]) {
+    var ro = _revealObservers[pageId];
+    setTimeout(function() {
+      ro.els.forEach(function(el) { ro.obs.unobserve(el); ro.obs.observe(el); });
+    }, 50);
+  }
 }
 
 // ── Header page-title reveal on scroll ──────────────────────
@@ -2953,6 +2960,7 @@ var sowData = {
 };
 
 // ── Scroll reveal animations (fade-in + fade-out) ───────────
+var _revealObservers = {};
 (function() {
   document.querySelectorAll('.page').forEach(function(page) {
     var els = page.querySelectorAll('.reveal, .reveal-stagger');
@@ -2982,6 +2990,7 @@ var sowData = {
     }, { root: page, threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
     els.forEach(function(el) { obs.observe(el); });
+    _revealObservers[page.id] = { obs: obs, els: els };
   });
 })();
 
