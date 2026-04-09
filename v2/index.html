@@ -328,8 +328,9 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   left: 0; right: 0; top: 0;
   text-align: center;
   opacity: 0;
-  transition: opacity 2s ease;
+  transition: opacity 1.6s ease;
   pointer-events: none;
+  white-space: nowrap;
 }
 .hero-title .hero-title-line.active {
   opacity: 1;
@@ -337,7 +338,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .hero-ctas {
   position: absolute;
-  bottom: 18vh;
+  bottom: 28vh;
   left: 0; right: 0;
   display: flex; gap: 16px; justify-content: center;
 }
@@ -2986,11 +2987,22 @@ var sowData = {
   var lines = document.querySelectorAll('#heroTitle .hero-title-line');
   if (lines.length < 2) return;
   var current = 0;
-  setInterval(function() {
+  var fadeDur = 1600; // matches CSS transition duration
+  var holdDur = 4000; // time text stays fully visible
+
+  function cycle() {
+    // fade out current
     lines[current].classList.remove('active');
-    current = (current + 1) % lines.length;
-    lines[current].classList.add('active');
-  }, 5000);
+    // after fade-out completes, fade in next
+    setTimeout(function() {
+      current = (current + 1) % lines.length;
+      lines[current].classList.add('active');
+      // hold, then cycle again
+      setTimeout(cycle, holdDur + fadeDur);
+    }, fadeDur);
+  }
+  // start first cycle after initial hold
+  setTimeout(cycle, holdDur);
 })();
 
 // ── Hero title floats with scroll ─────────────────────────────
