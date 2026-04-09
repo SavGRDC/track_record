@@ -572,6 +572,10 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .reveal.visible {
   opacity: 1; transform: translateY(0);
 }
+.reveal.fade-out {
+  opacity: 0; transform: translateY(-16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 /* Stagger children inside stat bands */
 .reveal-stagger .stat-col {
   opacity: 0; transform: translateY(20px);
@@ -580,6 +584,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .reveal-stagger.visible .stat-col:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
 .reveal-stagger.visible .stat-col:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.12s; }
 .reveal-stagger.visible .stat-col:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.24s; }
+.reveal-stagger.fade-out .stat-col { opacity: 0; transform: translateY(-12px); transition-delay: 0s; }
 /* Next page button */
 .ov-next-page {
   padding: 64px 0; text-align: center;
@@ -2530,19 +2535,35 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.body.classList.remove('menu-open');
 });
 
-// ── Scroll reveal animations ─────────────────────────────────
+// ── Scroll reveal animations (fade-in + fade-out) ───────────
 (function() {
   document.querySelectorAll('.page').forEach(function(page) {
     var els = page.querySelectorAll('.reveal, .reveal-stagger');
     if (!els.length) return;
+
+    /* Track which elements have been seen at least once */
+    var seen = new WeakSet();
+
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
+        var el = entry.target;
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
+          /* Entering viewport: fade in */
+          el.classList.remove('fade-out');
+          el.classList.add('visible');
+          seen.add(el);
+        } else if (seen.has(el)) {
+          /* Leaving viewport after being seen: only fade out if it left
+             through the TOP (scrolled past), not the bottom */
+          var rect = entry.boundingClientRect;
+          if (rect.bottom < 0) {
+            el.classList.remove('visible');
+            el.classList.add('fade-out');
+          }
         }
       });
-    }, { root: page, threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+    }, { root: page, threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
     els.forEach(function(el) { obs.observe(el); });
   });
 })();
