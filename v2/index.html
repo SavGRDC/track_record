@@ -317,26 +317,29 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   letter-spacing: -0.4px;
   max-width: 820px;
   text-align: center;
-  position: relative;
-  height: 2.4em; /* room for wrapping on smaller viewports */
-  overflow: hidden;
 }
-.hero-title-line {
-  position: absolute; left: 0; right: 0; top: 0; bottom: 0;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center;
+.hero-title .hero-title-line {
+  display: none;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  padding: 0 8px;
 }
-.hero-title-line.active {
+.hero-title .hero-title-line.active {
+  display: block;
   opacity: 1;
   transform: translateY(0);
+  animation: heroFadeIn 0.8s ease forwards;
 }
-.hero-title-line.exit {
-  opacity: 0;
-  transform: translateY(-20px);
+.hero-title .hero-title-line.exit {
+  display: block;
+  animation: heroFadeOut 0.8s ease forwards;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-20px); }
 }
 .hero-ctas {
   display: flex; gap: 16px; margin-top: 40px;
@@ -2983,20 +2986,23 @@ var sowData = {
 
 // ── Hero title cycling messages ──────────────────────────────
 (function() {
-  var lines = document.querySelectorAll('.hero-title-line');
+  var lines = document.querySelectorAll('#heroTitle .hero-title-line');
   if (lines.length < 2) return;
   var current = 0;
-  var interval = 4000; // 4 seconds per message
   setInterval(function() {
-    lines[current].classList.remove('active');
-    lines[current].classList.add('exit');
     var prev = current;
     current = (current + 1) % lines.length;
+    // Exit old line
+    lines[prev].classList.remove('active');
+    lines[prev].classList.add('exit');
+    // Enter new line
     lines[current].classList.remove('exit');
     lines[current].classList.add('active');
-    // Clean up exit class after transition
-    setTimeout(function() { lines[prev].classList.remove('exit'); }, 900);
-  }, interval);
+    // After animation, fully hide the old line
+    setTimeout(function() {
+      lines[prev].classList.remove('exit');
+    }, 850);
+  }, 4000);
 })();
 
 // ── Hero title floats with scroll ─────────────────────────────
