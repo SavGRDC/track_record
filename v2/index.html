@@ -1034,6 +1034,45 @@ body.menu-open .nav-overlay-item:nth-child(6) { transition-delay: 0.30s; transfo
 }
 
 /* ═══════════════════════════════════════════════
+   CLIENT TESTIMONIALS
+═══════════════════════════════════════════════ */
+.testimonials-band {
+  background: var(--off); padding: 80px 72px; margin-top: 48px;
+}
+.testimonials-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px; text-align: center;
+}
+.testimonials-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 400;
+  color: var(--ink); text-align: center; margin-bottom: 48px;
+}
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px; max-width: 1240px; margin: 0 auto;
+}
+.testimonial-card {
+  background: #fff; padding: 36px 32px; border-radius: 2px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  display: flex; flex-direction: column;
+}
+.testimonial-quote {
+  font-size: 14px; line-height: 1.85; color: var(--mid); font-weight: 300;
+  font-style: italic; flex: 1; margin-bottom: 20px;
+}
+.testimonial-quote::before {
+  content: '\201C'; font-family: var(--serif); font-size: 36px;
+  color: var(--gold); display: block; line-height: 1; margin-bottom: 4px;
+  font-style: normal;
+}
+.testimonial-author {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+}
+.testimonial-role {
+  font-size: 11px; color: var(--muted); margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════
    CASE STUDIES — Card Grid + Expand
 ═══════════════════════════════════════════════ */
 
@@ -2547,6 +2586,39 @@ body.menu-open .nav-overlay-item:nth-child(6) { transition-delay: 0.30s; transfo
     </div>
 
   </div><!-- /hidden case data -->
+
+  <!-- Client Testimonials -->
+  <div class="testimonials-band">
+    <div class="testimonials-eyebrow reveal">Client Testimonials</div>
+    <div class="testimonials-heading reveal">What our clients say</div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">Savills consultancy team continue to provide clear and informed market intelligence, both in respect of specific mandated project research and analysis, and in their overview of the branded residential sector. The team is well resourced with excellent experience and have always worked in a highly collaborative manner.</div>
+        <div class="testimonial-author">James Price</div>
+        <div class="testimonial-role">Senior Vice President, Four Seasons</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">The Savills GRD team helped us design a master plan, pricing and valuation model for a very large, multifaceted and trailblazing site in France. They were able to rely on years of proprietary data from other developments around the world to provide thorough and extremely thoughtful advice. I honestly don't think that any other firm would have had the experience to assist us with this mandate.</div>
+        <div class="testimonial-author">Driss Benkirane</div>
+        <div class="testimonial-role">Managing Partner &amp; Founder, Roundshield Capital</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">As Cond&eacute; Nast considered carefully its move into Branded Residences, Savills were able to provide critical industry insights and guidance. By providing upfront and honest advice around the challenges and opportunities of a non-property business entering this sector we were able to formulate a strategy that leverages yet also protects our iconic brands.</div>
+        <div class="testimonial-author">Mark Elphicke</div>
+        <div class="testimonial-role">Global Director, Branded Hospitality and Property, Cond&eacute; Nast</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">The International Development Consultancy team of Savills added great value in defining the optimal residential product and buyer profiles for the Hellinikon Project, and particularly the branded residential developments. Their advice, based on a wide range of data and thorough analysis, helped us diversify our offering and reduce our development risk.</div>
+        <div class="testimonial-author">Alexandros Moulas</div>
+        <div class="testimonial-role">Chief Commercial Officer, Residential at LAMDA Development</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">During these years of joint cooperation with Savills, they introduced themselves as professionals with a deep knowledge of the industry. Their role, commitment and experience brought our real estate to a higher level creating important value to our company. Savills team is dedicated, detailed, open-minded, result oriented and always on time.</div>
+        <div class="testimonial-author">Rashad Aliev</div>
+        <div class="testimonial-role">CEO, Azmont Investments (Portonovi)</div>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer reveal">
     <div class="footer-left">
