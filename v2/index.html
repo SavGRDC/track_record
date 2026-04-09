@@ -320,7 +320,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   position: relative;
   width: 100%;
   height: 1.2em;
-  margin-top: 38vh;
+  margin-top: calc(50vh - 0.6em);
 }
 .hero-title .hero-title-line {
   position: absolute;
@@ -338,9 +338,14 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 .hero-ctas {
   position: absolute;
-  bottom: 28vh;
+  bottom: 8vh;
   left: 0; right: 0;
   display: flex; gap: 16px; justify-content: center;
+  opacity: 0;
+  transition: opacity 1.2s ease-in;
+}
+.hero-ctas.visible {
+  opacity: 1;
 }
 .hero-cta {
   font-family: var(--sans);
@@ -2990,6 +2995,8 @@ var sowData = {
   var fadeOutDur = 2400; // slow fade out
   var fadeInDur  = 800;  // quick fade in
   var holdDur    = 4000; // time text stays fully visible
+  var ctas = document.querySelector('.hero-ctas');
+  var firstCycle = true;
 
   function cycle() {
     // slow fade out current
@@ -2998,6 +3005,11 @@ var sowData = {
     setTimeout(function() {
       current = (current + 1) % lines.length;
       lines[current].classList.add('active');
+      // show buttons after first full cycle (back to line 0)
+      if (firstCycle && current === 0 && ctas) {
+        ctas.classList.add('visible');
+        firstCycle = false;
+      }
       // hold, then cycle again
       setTimeout(cycle, holdDur + fadeInDur);
     }, fadeOutDur);
