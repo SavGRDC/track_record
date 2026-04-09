@@ -672,6 +672,73 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   padding: 16px 20px; border-radius: 6px; margin-top: 28px;
   line-height: 1.7;
 }
+.sow-contact { margin-top: 12px; text-align: center; }
+.sow-contact p {
+  font-family: var(--sans); font-size: 14px; font-weight: 300;
+  color: var(--mid); margin-bottom: 16px;
+}
+.sow-contact-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; font-family: var(--sans);
+  font-size: 13px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; text-decoration: none;
+  color: #fff; background: var(--gold); border-radius: 4px;
+  transition: opacity 0.2s;
+}
+.sow-contact-btn:hover { opacity: 0.85; }
+
+/* Scope tab switcher */
+.sow-tabs {
+  display: flex; gap: 0; margin-bottom: 28px;
+  border-bottom: 2px solid var(--rule);
+}
+.sow-tab {
+  flex: 1; padding: 12px 0; text-align: center;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--mid); background: none; border: none;
+  cursor: pointer; position: relative;
+  transition: color 0.25s;
+}
+.sow-tab::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform 0.25s ease;
+}
+.sow-tab.active { color: var(--ink); }
+.sow-tab.active::after { transform: scaleX(1); }
+.sow-tab-content { display: none; }
+.sow-tab-content.active { display: block; }
+
+/* 3-step process graphic */
+.sow-steps {
+  display: flex; align-items: flex-start; gap: 0;
+  margin-bottom: 32px; padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.sow-step {
+  flex: 1; text-align: center; position: relative;
+}
+.sow-step-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gold); color: #fff;
+  font-family: var(--sans); font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+}
+.sow-step-label {
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.5px; color: var(--ink); line-height: 1.4;
+}
+.sow-step-sub {
+  font-family: var(--sans); font-size: 11px; font-weight: 300;
+  color: var(--mid); margin-top: 4px; line-height: 1.4;
+}
+.sow-step-arrow {
+  position: absolute; top: 16px; right: -8px;
+  color: var(--gold); font-size: 14px;
+}
+.sow-step:last-child .sow-step-arrow { display: none; }
 
 /* ═══════════════════════════════════════════════
    SCROLL REVEAL ANIMATION
@@ -1702,7 +1769,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
       </a>
       <a class="svc-tl-step" href="#svc-equity-raise" onclick="smoothScrollSvc(event, 'svc-equity-raise')">
         <div class="svc-tl-num">4</div>
-        <div class="svc-tl-title">Equity Raise</div>
+        <div class="svc-tl-title">Capital Markets</div>
       </a>
       <a class="svc-tl-step" href="#svc-residential-sales" onclick="smoothScrollSvc(event, 'svc-residential-sales')">
         <div class="svc-tl-num">5</div>
@@ -1812,10 +1879,10 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 
       <div class="svc-split reveal" id="svc-equity-raise">
         <div class="svc-text-col">
-          <h2 class="svc-split-title">Equity Raising</h2>
+          <h2 class="svc-split-title">Capital Markets</h2>
           <p class="svc-split-sub">Securing capital to deliver the project</p>
           <p class="svc-split-body">Savills GRDC advises developers on equity raising strategies, supporting the structuring and placement of capital alongside Savills' global capital markets network. Our team assists with investment positioning, investor outreach and transaction support, helping developers secure partners aligned with the long term vision of the project.</p>
-          <a class="sow-trigger" href="mailto:jsharam@savills.com?subject=Equity%20Raising%20Enquiry" style="text-decoration:none;">Contact Us <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 6,2 10,6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 6 6)"/></svg></a>
+          <a class="sow-trigger" href="mailto:lkeighley@savills.com?subject=Capital%20Markets%20Enquiry" style="text-decoration:none;">Contact Us <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
         </div>
         <div class="svc-img-col">
           <img src="https://savgrdc.github.io/track_record/hero-images/Services/Services-Bently-residences-miami.jpg" alt="Bentley Residences, Miami">
@@ -2677,9 +2744,12 @@ function openSow(key) {
   var title   = document.getElementById('sowTitle');
   if (!overlay || !sowData[key]) return;
   title.textContent = sowData[key].title;
-  content.innerHTML = sowData[key].html;
+  content.innerHTML = sowData[key].html
+    + '<div class="sow-contact"><hr class="sow-divider"><p>For more information on this service line, please get in touch.</p><a class="sow-contact-btn" href="mailto:lkeighley@savills.com?subject=' + encodeURIComponent(sowData[key].title + ' Enquiry') + '">Contact Us</a></div>';
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Scroll panel to top
+  overlay.querySelector('.sow-panel').scrollTop = 0;
 }
 function closeSow() {
   var overlay = document.getElementById('sowOverlay');
@@ -2688,6 +2758,15 @@ function closeSow() {
 }
 function closeSowIfBg(e) {
   if (e.target === e.currentTarget) closeSow();
+}
+function switchSowTab(btn, idx) {
+  var panel = btn.closest('.sow-panel-body') || btn.closest('.sow-panel');
+  if (!panel) return;
+  panel.querySelectorAll('.sow-tab').forEach(function(t) { t.classList.remove('active'); });
+  panel.querySelectorAll('.sow-tab-content').forEach(function(c) { c.classList.remove('active'); });
+  btn.classList.add('active');
+  var tabs = panel.querySelectorAll('.sow-tab-content');
+  if (tabs[idx]) tabs[idx].classList.add('active');
 }
 var sowData = {
   'market-intelligence': {
@@ -2712,7 +2791,9 @@ var sowData = {
   },
   'dev-strategy': {
     title: 'Development Strategy & Feasibility',
-    html: '<p class="sow-summary">A comprehensive residential development consultancy report encompassing site analysis, market research, development recommendations and financial appraisal to establish gross development value and project viability.</p>'
+    html: '<p class="sow-summary">Comprehensive feasibility advisory for residential and hotel components, encompassing site analysis, market research, development recommendations and financial appraisal.</p>'
+      + '<div class="sow-tabs"><button class="sow-tab active" onclick="switchSowTab(this,0)">Residential</button><button class="sow-tab" onclick="switchSowTab(this,1)">Hotel</button></div>'
+      + '<div class="sow-tab-content active">'
       + '<h4 class="sow-section-title">Site Review & SWOT Analysis</h4>'
       + '<p>Assessment of the site\'s location, accessibility and position relative to other development sites and destinations, combined with a SWOT analysis to determine competitive position and suitability for branded residential development.</p>'
       + '<h4 class="sow-section-title">Local & Regional Market Research</h4>'
@@ -2743,10 +2824,33 @@ var sowData = {
       + '<li>Appraisal calculations covering investment budget, revenue by component and phase, and consolidated cash flow</li>'
       + '<li>Produced using ARGUS Developer software or bespoke Excel model</li></ul>'
       + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+      + '</div>'
+      + '<div class="sow-tab-content">'
+      + '<h4 class="sow-section-title">Market Background</h4>'
+      + '<p>Overview of the tourism sector within its macro-economic context including historical tourist arrivals, international passenger movements and hotel seasonality.</p>'
+      + '<h4 class="sow-section-title">Hotel Supply & Pipeline</h4>'
+      + '<ul><li>Hotel supply analysis by segment in the local and regional market</li>'
+      + '<li>Pipeline assessment across the projection period including competition impact on key performance indicators</li></ul>'
+      + '<h4 class="sow-section-title">Masterplan Evaluation</h4>'
+      + '<p>Confirmation of site suitability for the intended development use with SWOT analysis to determine the proposed development\'s competitive position relative to existing and planned future developments.</p>'
+      + '<h4 class="sow-section-title">Research & Recommendations</h4>'
+      + '<p>Based on comparable benchmarks and intended positioning, recommendations on programming including room inventory, food & beverage outlets and other operating amenities.</p>'
+      + '<h4 class="sow-section-title">Performance Models</h4>'
+      + '<ul><li>Room performance model forecasting occupancy and average daily rate based on comparable operating data</li>'
+      + '<li>Food & beverage performance model specific to the proposed programme</li></ul>'
+      + '<h4 class="sow-section-title">Project Operating Statement</h4>'
+      + '<p>Full hotel performance forecast including department revenues, department expenses and undistributed operating expenses based on comparable operating performance of similarly positioned properties.</p>'
+      + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
+      + '</div>'
   },
   'brand-search': {
     title: 'Brand Search & Negotiation',
-    html: '<p class="sow-summary">A structured brand selection and negotiation process, from initial identification and merit assessment through to evaluation matrix scoring, MOU and definitive agreement negotiation.</p>'
+    html: '<div class="sow-steps">'
+      + '<div class="sow-step"><div class="sow-step-num">1</div><div class="sow-step-label">Identify</div><div class="sow-step-sub">Brand assessment<br>&amp; shortlisting</div><div class="sow-step-arrow">&rsaquo;</div></div>'
+      + '<div class="sow-step"><div class="sow-step-num">2</div><div class="sow-step-label">Evaluate</div><div class="sow-step-sub">Scoring matrix<br>&amp; recommendation</div><div class="sow-step-arrow">&rsaquo;</div></div>'
+      + '<div class="sow-step"><div class="sow-step-num">3</div><div class="sow-step-label">Negotiate</div><div class="sow-step-sub">MOU &amp; definitive<br>agreements</div></div>'
+      + '</div>'
+      + '<p class="sow-summary">A structured brand selection and negotiation process, from initial identification and merit assessment through to evaluation matrix scoring, MOU and definitive agreement negotiation.</p>'
       + '<h4 class="sow-section-title">Brand Identification & Assessment</h4>'
       + '<p>Savills identifies brands suitable to the developer vision, evaluating each based on expected value derived from:</p>'
       + '<ul><li>Perceived strength and recognition of the brand</li>'
@@ -2773,7 +2877,7 @@ var sowData = {
   },
   'operator-advisory': {
     title: 'Operator Advisory',
-    html: '<p class="sow-summary">Operational advisory covering P&L structuring, rental programme integration, HOA budgeting and legal coordination, complemented by hotel feasibility analysis where a hotel component is present.</p>'
+    html: '<p class="sow-summary">Operational advisory covering P&L structuring, rental programme integration, HOA budgeting and legal coordination to ensure projects operate smoothly and protect all stakeholders.</p>'
       + '<h4 class="sow-section-title">Profit & Loss Statements</h4>'
       + '<p>Forecasting revenues and expenses using qualified market data, converting market intelligence into budgets for HOA service charges and rental programmes. Savills uses in-house financial models and service charge budgeting tools to:</p>'
       + '<ul><li>Benchmark service charges against existing prime residential homeowner associations</li>'
@@ -2786,16 +2890,6 @@ var sowData = {
       + '<li>Expense allocations and common area management</li>'
       + '<li>Support incorporating rental programmes into hotel revenue management and marketing</li>'
       + '<li>Coordination with qualified legal counsel for branded residential agreements</li></ul>'
-      + '<hr class="sow-divider">'
-      + '<h4 class="sow-section-title">Hotel Feasibility Study</h4>'
-      + '<p>Where a hotel component is present, Savills provides comprehensive feasibility analysis:</p>'
-      + '<ul><li>Market background covering tourism sector, historical arrivals, passenger movements and seasonality</li>'
-      + '<li>Hotel supply analysis by segment and pipeline assessment across projection period</li>'
-      + '<li>Masterplan evaluation including site SWOT analysis and competitive positioning</li>'
-      + '<li>Recommendations on room inventory, F&B outlets and operating amenities</li>'
-      + '<li>Room performance model forecasting occupancy and average daily rate</li>'
-      + '<li>F&B performance model based on comparable operating data</li>'
-      + '<li>Full project operating statement covering department revenues, expenses and undistributed costs</li></ul>'
       + '<div class="sow-deliverable"><strong>Deliverables:</strong> Detailed report in PDF format with supporting charts, graphs and tables.</div>'
   },
   'brand-premium': {
@@ -2963,7 +3057,7 @@ const serviceData = {
     ]
   },
   'equity-raising': {
-    num: '04', title: 'Equity Raising', tag: 'Developers & Investors',
+    num: '04', title: 'Capital Markets', tag: 'Developers & Investors',
     sub: 'Securing capital to deliver the project', panel: 'commercial',
     desc: [
       'Large scale branded residential developments often require significant development capital and strategic investment partners.',
