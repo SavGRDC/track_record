@@ -1259,15 +1259,30 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   display: flex; flex-direction: column;
 }
 .va-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.va-card--featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.va-card--featured .va-card-body { padding: 20px 24px 28px; }
+.va-card--featured .va-card-title {
+  font-size: 20px; margin-bottom: 10px;
+}
+.va-card--featured .va-card-desc {
+  font-size: 14px; line-height: 1.7;
+}
 .va-card-cover {
   aspect-ratio: 210 / 297;
   background: var(--navy); position: relative; overflow: hidden;
+  flex: 1;
+}
+.va-card--featured .va-card-cover {
+  aspect-ratio: auto;
 }
 .va-card-cover img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover;
 }
-.va-card-body { padding: 16px 16px 20px; flex: 1; display: flex; flex-direction: column; }
+.va-card-body { padding: 16px 16px 20px; display: flex; flex-direction: column; }
 .va-card-title {
   font-family: var(--serif); font-size: 14px; font-weight: 400;
   color: var(--ink); line-height: 1.3; margin-bottom: 6px;
@@ -2385,11 +2400,11 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     <div class="va-section-label reveal">Annual Reports</div>
     <div class="va-grid reveal">
 
-      <a class="va-card reveal" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/annual-report--branded-residences-2025-26.aspx" target="_blank">
+      <a class="va-card va-card--featured reveal" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/annual-report--branded-residences-2025-26.aspx" target="_blank">
         <div class="va-card-cover"><img src="https://savgrdc.github.io/track_record/v2/report-covers/Global-25-26.png" alt="Branded Residences 2025/26"></div>
         <div class="va-card-body">
           <div class="va-card-title">Branded Residences 2025/26</div>
-          <div class="va-card-desc">Our flagship annual report covering 910+ projects across 100+ markets worldwide.</div>
+          <div class="va-card-desc">Our flagship annual report tracks the global branded residences pipeline, pricing premiums, brand portfolio growth and emerging market opportunities. The 2025/26 edition covers 910+ projects across 100+ markets.</div>
           <div class="va-card-dl"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>View Report</div>
         </div>
       </a>
