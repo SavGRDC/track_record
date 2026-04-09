@@ -371,7 +371,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   display: grid; grid-template-columns: repeat(3, 1fr);
 }
 .stat-col {
-  padding: 56px 40px;
+  padding: 64px 40px;
   text-align: center;
 }
 .stat-num {
@@ -384,10 +384,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 .stat-num sup { font-size: 32px; letter-spacing: -1px; vertical-align: baseline; }
 .stat-num sub { font-size: 30px; letter-spacing: 0px; }
 .stat-icon {
-  display: flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; margin: 0 auto 20px;
-  border: 1.5px solid var(--gold); border-radius: 50%;
-  color: var(--gold);
+  display: none;
 }
 .stat-rule { width: 24px; height: 1px; background: var(--gold); margin: 0 auto 12px; }
 .stat-label {
@@ -525,7 +522,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 }
 /* Version A — full-width stacked sections */
 .ov-section {
-  padding: 100px 0;
+  padding: 120px 0;
   border-bottom: 1px solid var(--rule);
 }
 .ov-section.alt { background: var(--off); }
@@ -563,6 +560,46 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   border-bottom: 1px solid var(--rule);
   margin-bottom: 40px;
 }
+
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL ANIMATION
+═══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+/* Stagger children inside stat bands */
+.reveal-stagger .stat-col {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-stagger.visible .stat-col:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.reveal-stagger.visible .stat-col:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.12s; }
+.reveal-stagger.visible .stat-col:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.24s; }
+/* Next page button */
+.ov-next-page {
+  padding: 64px 0; text-align: center;
+  border-top: 1px solid var(--rule);
+}
+.ov-next-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  padding: 16px 40px;
+  border: 1px solid rgba(28,28,30,0.2);
+  cursor: pointer; background: none;
+  transition: all 0.25s ease;
+}
+.ov-next-btn:hover {
+  background: var(--navy); color: #fff; border-color: var(--navy);
+}
+.ov-next-btn svg { transition: transform 0.25s ease; }
+.ov-next-btn:hover svg { transform: translateX(4px); }
 
 /* ═══════════════════════════════════════════════
    PAGE INNER — shared
@@ -1389,7 +1426,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   </div>
 
   <!-- Stats -->
-  <div class="stats-band">
+  <div class="stats-band reveal-stagger">
     <div class="stats-inner">
       <div class="stat-col">
         <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
@@ -1415,8 +1452,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <!-- About -->
   <div class="ov-section">
     <div class="ov-inner">
-      <div class="ov-eyebrow">About Savills GRDC</div>
-      <div class="ov-heading">Savills are the global leaders in branded residential advisory</div>
+      <div class="ov-eyebrow reveal">About Savills GRDC</div>
+      <div class="ov-heading reveal">Savills are the global leaders in branded residential advisory</div>
       <div class="ov-rule"></div>
       <div class="ov-body">
         <p>Savills GRDC has been advising developers on branded residential projects since 2009. Now with over 250 projects and nearly £40 billion of expertise, our team specialises in development strategy, brand selection and the commercial positioning of luxury residential projects.</p>
@@ -1430,8 +1467,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <!-- Network -->
   <div class="ov-section alt" style="border-bottom:none; padding-bottom:48px;">
     <div class="ov-inner">
-      <div class="ov-eyebrow">Our Network</div>
-      <div class="ov-heading">Global reach, local insight and deep brand relationships</div>
+      <div class="ov-eyebrow reveal">Our Network</div>
+      <div class="ov-heading reveal">Global reach, local insight and deep brand relationships</div>
       <div class="ov-rule"></div>
       <div class="ov-body">
         <p>With more than 170 years of residential expertise and a network of over 700 offices worldwide, Savills gives clients access to unparalleled market intelligence, buyer insight and local execution capability across global residential markets.</p>
@@ -1444,8 +1481,8 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
 
   <!-- Logo band -->
   <div class="logos-band">
-    <div class="logos-heading">Our Trusted Brand Partners</div>
-    <div class="logos-grid">
+    <div class="logos-heading reveal">Our Trusted Brand Partners</div>
+    <div class="logos-grid reveal">
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Four-Seasons.png" alt="Four Seasons"></div>
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Rosewood.png" alt="Rosewood"></div>
       <div class="logo-cell"><img src="https://savgrdc.github.io/track_record/images/brand-logos/Mandarin-oriental.png" alt="Mandarin Oriental"></div>
@@ -1462,12 +1499,12 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   <!-- The Market -->
   <div class="ov-section">
     <div class="ov-inner">
-      <div class="ov-eyebrow">The Branded Residential Market</div>
-      <div class="ov-heading">The branded residential market is one of the fastest growing sectors in global real estate</div>
+      <div class="ov-eyebrow reveal">The Branded Residential Market</div>
+      <div class="ov-heading reveal">The branded residential market is one of the fastest growing sectors in global real estate</div>
       <div class="ov-rule"></div>
 
       <!-- Market stats band — matches Savills GRDC stats formatting -->
-      <div class="ov-market-stats">
+      <div class="ov-market-stats reveal-stagger">
         <div class="stat-col">
           <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
           <div class="stat-num">180%</div>
@@ -1495,6 +1532,14 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <p>Dubai, South Florida and New York remain the most established markets, while emerging cities and resort destinations continue to see strong development momentum.</p>
       </div>
     </div>
+  </div>
+
+  <!-- Next page -->
+  <div class="ov-next-page reveal">
+    <a class="ov-next-btn" onclick="show('what');return false;" href="#">
+      Explore Our Services
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
   </div>
 
   <!-- Footer -->
@@ -2484,6 +2529,21 @@ function smoothScrollSvc(e, targetId) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.body.classList.remove('menu-open');
 });
+
+// ── Scroll reveal animations ─────────────────────────────────
+(function() {
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if (!revealEls.length) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(function(el) { obs.observe(el); });
+})();
 
 // ── Hero title floats with scroll ─────────────────────────────
 (function() {
