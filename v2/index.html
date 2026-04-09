@@ -1905,22 +1905,6 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
   </div>
 
-  <!-- Scope of Work overlay -->
-  <div class="sow-overlay" id="sowOverlay" onclick="closeSowIfBg(event)">
-    <div class="sow-panel">
-      <div class="sow-panel-header">
-        <div>
-          <div class="sow-panel-eyebrow">Sample Scope of Work</div>
-          <div class="sow-panel-title" id="sowTitle"></div>
-        </div>
-        <button class="sow-close-btn" onclick="closeSow()" aria-label="Close">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="#1C1C1E" stroke-width="1.5"/><line x1="12" y1="2" x2="2" y2="12" stroke="#1C1C1E" stroke-width="1.5"/></svg>
-        </button>
-      </div>
-      <div class="sow-panel-body" id="sowContent"></div>
-    </div>
-  </div>
-
   <footer class="site-footer reveal">
     <div class="footer-left">
       <span class="footer-brand">Savills GRDC</span>
@@ -2514,6 +2498,22 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
     <div class="footer-copy">© 2026 Savills plc. All rights reserved.</div>
   </footer>
+</div>
+
+<!-- Scope of Work overlay (outside page containers for correct z-index stacking) -->
+<div class="sow-overlay" id="sowOverlay" onclick="closeSowIfBg(event)">
+  <div class="sow-panel">
+    <div class="sow-panel-header">
+      <div>
+        <div class="sow-panel-eyebrow">Sample Scope of Work</div>
+        <div class="sow-panel-title" id="sowTitle"></div>
+      </div>
+      <button class="sow-close-btn" onclick="closeSow()" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="#1C1C1E" stroke-width="1.5"/><line x1="12" y1="2" x2="2" y2="12" stroke="#1C1C1E" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+    <div class="sow-panel-body" id="sowContent"></div>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════
