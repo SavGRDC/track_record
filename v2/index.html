@@ -1249,12 +1249,30 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
   color: var(--muted); margin-bottom: 24px; padding-top: 8px;
 }
 /* Shelf layout */
+.va-shelf-wrap {
+  position: relative; margin-bottom: 56px;
+}
 .va-shelf {
   display: flex; gap: 20px;
-  margin-bottom: 56px; padding-bottom: 8px;
+  padding-bottom: 8px;
   overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
 .va-shelf::-webkit-scrollbar { display: none; }
+.va-shelf-arrow {
+  position: absolute; top: 50%; transform: translateY(-70%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.92); border: 1px solid var(--rule);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 2;
+  transition: opacity 0.25s, box-shadow 0.25s;
+  opacity: 0.8;
+}
+.va-shelf-arrow:hover { opacity: 1; box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
+.va-shelf-arrow--left { left: -16px; }
+.va-shelf-arrow--right { right: -16px; }
+.va-shelf-arrow svg { width: 14px; height: 14px; }
 .va-shelf-card {
   flex: 0 0 180px; text-decoration: none; color: inherit;
   transition: transform 0.3s;
@@ -2394,7 +2412,10 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
     </div>
 
     <div class="va-section-label reveal">Annual Reports</div>
-    <div class="va-shelf reveal">
+    <div class="va-shelf-wrap reveal">
+    <button class="va-shelf-arrow va-shelf-arrow--left" onclick="shelfScroll(this,-1)" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="va-shelf-arrow va-shelf-arrow--right" onclick="shelfScroll(this,1)" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    <div class="va-shelf" id="shelf-annual">
       <a class="va-shelf-card va-shelf-card--featured" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/annual-report--branded-residences-2025-26.aspx" target="_blank">
         <div class="va-shelf-cover"><div class="va-shelf-badge">Latest</div><img src="https://savgrdc.github.io/track_record/v2/report-covers/Global-25-26.png" alt="Branded Residences 2025/26"></div>
         <div class="va-shelf-title">Branded Residences 2025/26</div>
@@ -2431,11 +2452,15 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <div class="va-shelf-title">2018</div>
       </a>
     </div>
+    </div>
 
     <div class="va-divider"></div>
 
     <div class="va-section-label reveal">Regional &amp; Thematic</div>
-    <div class="va-shelf reveal">
+    <div class="va-shelf-wrap reveal">
+    <button class="va-shelf-arrow va-shelf-arrow--left" onclick="shelfScroll(this,-1)" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="va-shelf-arrow va-shelf-arrow--right" onclick="shelfScroll(this,1)" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+    <div class="va-shelf">
       <a class="va-shelf-card" href="https://www.savills.co.uk/services/consultancy/global-residential-development-consultancy/branded-residences--americas-report-2025.aspx" target="_blank">
         <div class="va-shelf-cover"><img src="https://savgrdc.github.io/track_record/v2/report-covers/Americas-25.png" alt="Americas 2025"></div>
         <div class="va-shelf-title">Americas 2025</div>
@@ -2480,6 +2505,7 @@ body.menu-open .nav-overlay-item:nth-child(5) { transition-delay: 0.25s; transfo
         <div class="va-shelf-cover"><img src="https://savgrdc.github.io/track_record/v2/report-covers/Branded-Residences-India-Snapshot-January-2025.png" alt="India Snapshot 2025"></div>
         <div class="va-shelf-title">India Snapshot 2025</div>
       </a>
+    </div>
     </div>
 
   </div>
@@ -2986,6 +3012,58 @@ var _revealObservers = {};
   }
   // start first cycle after initial hold
   setTimeout(cycle, holdDur);
+})();
+
+// ── Report shelf scroll arrows ────────────────────────────────
+function shelfScroll(btn, dir) {
+  var shelf = btn.parentElement.querySelector('.va-shelf');
+  if (shelf) shelf.scrollBy({ left: dir * 400, behavior: 'smooth' });
+}
+
+// Infinite-loop shelf: clone cards and snap back seamlessly
+(function() {
+  var shelf = document.getElementById('shelf-annual');
+  if (!shelf) return;
+  var cards = Array.from(shelf.children);
+  var gap = 20;
+
+  // Clone all cards to both ends for seamless looping
+  cards.forEach(function(c) { shelf.appendChild(c.cloneNode(true)); });
+  cards.forEach(function(c) { shelf.insertBefore(c.cloneNode(true), shelf.firstChild); });
+
+  var origCount = cards.length;
+
+  // Centre on the featured card in the original (middle) set
+  setTimeout(function() {
+    var allCards = shelf.children;
+    // The originals are at index origCount ... origCount*2-1
+    var featured = allCards[origCount]; // first card in original set (the latest)
+    shelf.scrollLeft = featured.offsetLeft - (shelf.offsetWidth / 2) + (featured.offsetWidth / 2);
+
+    // On scroll end, snap back to the middle set if we've drifted into clones
+    var scrollTimer;
+    shelf.addEventListener('scroll', function() {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function() {
+        // Measure the width of the original set
+        var firstOrig = allCards[origCount];
+        var lastOrig = allCards[origCount * 2 - 1];
+        var origLeft = firstOrig.offsetLeft;
+        var origRight = lastOrig.offsetLeft + lastOrig.offsetWidth;
+        var setWidth = origRight - origLeft + gap;
+
+        if (shelf.scrollLeft < origLeft - shelf.offsetWidth / 2) {
+          shelf.style.scrollBehavior = 'auto';
+          shelf.scrollLeft += setWidth;
+          shelf.style.scrollBehavior = 'smooth';
+        } else if (shelf.scrollLeft > origRight - shelf.offsetWidth / 2) {
+          shelf.style.scrollBehavior = 'auto';
+          shelf.scrollLeft -= setWidth;
+          shelf.style.scrollBehavior = 'smooth';
+        }
+      }, 120);
+    });
+  }, 150);
 })();
 
 // ── Hero title floats with scroll ─────────────────────────────
