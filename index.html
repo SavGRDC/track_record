@@ -85,6 +85,21 @@ body.on-map .hdr-wordmark-main { color: #fff; }
 body.on-map .hdr-logo img      { filter: none; }
 body.on-map .menu-trigger      { color: rgba(255,255,255,0.75); }
 body.on-map .menu-trigger:hover { color: #fff; }
+/* Contact page: navy header over navy hero */
+body.on-contact .site-header {
+  background: rgba(37,39,58,0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+body.on-contact .site-header:hover {
+  background: rgba(37,39,58,1);
+}
+body.on-contact .hdr-wordmark-main { color: #fff; }
+body.on-contact .hdr-logo img      { filter: none; }
+body.on-contact .menu-trigger      { color: rgba(255,255,255,0.75); }
+body.on-contact .menu-trigger:hover { color: #fff; }
+body.on-contact .hdr-page-title    { color: rgba(255,255,255,0.6); }
 .hdr-left {
   position: absolute; left: 40px; top: 50%;
   transform: translateY(-50%);
@@ -1296,7 +1311,7 @@ body.menu-open .nav-overlay-item:nth-child(6) { transition-delay: 0.30s; transfo
    CONTACT US PAGE
 ═══════════════════════════════════════════════ */
 .contact-hero {
-  background: var(--navy); padding: 100px 48px 72px; text-align: center;
+  background: var(--navy); padding: 160px 48px 72px; text-align: center;
 }
 .contact-eyebrow {
   font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
@@ -3020,6 +3035,7 @@ function show(id) {
   // header style: translucent on overview, white on all other pages
   document.body.classList.toggle('on-overview', id === 'overview');
   document.body.classList.toggle('on-map', id === 'map');
+  document.body.classList.toggle('on-contact', id === 'contact');
   // Update header page title
   var hdrPT = document.getElementById('hdrPageTitle');
   hdrPT.textContent = pageTitles[id] || '';
