@@ -219,10 +219,11 @@ body.menu-open .menu-trigger-icon span:nth-child(3) { width: 22px; transform: tr
 .nav-overlay {
   position: fixed; inset: 0;
   background: var(--navy);
-  z-index: 800;
+  z-index: 999;
   display: flex; flex-direction: column;
   justify-content: center;
-  padding: 0 80px;
+  padding: 110px 80px 40px;
+  overflow-y: auto;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
